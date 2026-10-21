@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1522">
+  <meta name="description" content="Portfolio de Hamza Mezzene, étudiant ingénieur en Génie Informatique & Cybersécurité à l'Université Internationale de Rabat. CTF, sécurité offensive, cryptographie, administration réseau Linux et développement web sécurisé.">
+  <meta name="author" content="Hamza Mezzene">
+
+  <!-- Aperçu lors du partage du lien (LinkedIn, WhatsApp, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hamza Mezzene | Portfolio Cybersécurité">
+  <meta property="og:description" content="Étudiant ingénieur en cybersécurité à l'UIR. Recherche un stage PFA en cybersécurité pour l'été 2027.">
+  <meta property="og:locale" content="fr_FR">
+
+  <title>Hamza Mezzene | Portfolio Cybersécurité</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1522'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%235cc8ee'%3EH%3C/text%3E%3Crect x='18' y='19' width='9' height='3' fill='%23f0b44c'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0d1522;
+      --surface: #131e30;
+      --surface-2: #1a2840;
+      --line: #26364f;
+      --text: #e4eaf3;
+      --muted: #93a3ba;
+      --signal: #5cc8ee;
+      --amber: #f0b44c;
+
+      --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+      --radius-sm: 6px;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 84px;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--signal);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -60px;
+      z-index: 200;
+      padding: 10px 14px;
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .container {
+      width: min(1080px, 100% - 32px);
+      margin-inline: auto;
+    }
+
+    /* ---------- En-tête ---------- */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 21, 34, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .university-logo {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: var(--radius-sm);
+      padding: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+      background: var(--surface);
+    }
+
+    .nav-links a[aria-current="true"] {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font: 500 0.9rem var(--sans);
+      cursor: pointer;
+    }
+
+    /* ---------- Accueil ---------- */
+
+    .hero {
+      padding: 88px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-role {
+      margin-top: 14px;
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .hero-text {
+      margin-top: 18px;
+      max-width: 60ch;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 10px 14px;
+      border: 1px solid rgba(240, 180, 76, 0.4);
+      border-radius: var(--radius-sm);
+      background: rgba(240, 180, 76, 0.08);
+      font-size: 0.93rem;
+    }
+
+    .availability::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .button:hover {
+      text-decoration: none;
+      border-color: var(--signal);
+    }
+
+    .button-primary {
+      background: var(--signal);
+      border-color: var(--signal);
+      color: var(--ink);
+    }
+
+    .button-primary:hover {
+      background: #7dd5f3;
+    }
+
+    /* Terminal */
+
+    .terminal {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #0a111c;
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .terminal-bar i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .terminal-bar span {
+      margin-left: 8px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .terminal-body {
+      min-height: 286px;
+      padding: 18px 18px 22px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .t-line {
+      display: block;
+    }
+
+    .t-prompt {
+      color: var(--signal);
+    }
+
+    .t-out {
+      color: var(--muted);
+    }
+
+    .t-accent {
+      color: var(--amber);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.6em;
+      height: 1.1em;
+      vertical-align: text-bottom;
+      background: var(--signal);
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* ---------- Sections ---------- */
+
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      margin-bottom: 36px;
+      max-width: 62ch;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+    }
+
+    .section-head p {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Profil */
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    .profile-grid p + p {
+      margin-top: 14px;
+    }
+
+    .facts {
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .facts li {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    .facts dt,
+    .facts .k {
+      color: var(--muted);
+    }
+
+    /* Expérience : lignes date | contenu */
+
+    .entry {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 32px;
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .entry:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .entry-meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .entry-meta strong {
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .entry p {
+      margin-top: 10px;
+      color: var(--muted);
+      max-width: 68ch;
+    }
+
+    .entry ul {
+      margin-top: 14px;
+      padding-left: 20px;
+      color: var(--muted);
+      max-width: 68ch;
+    }
+
+    .entry li + li {
+      margin-top: 6px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 18px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .tags li {
+      padding: 3px 9px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+
+    .entry ul.tags {
+      padding-left: 0;
+      margin-top: 18px;
+    }
+
+    .entry ul.tags li + li {
+      margin-top: 0;
+    }
+
+    /* Projets */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .filters button {
+      padding: 7px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font: 500 0.88rem var(--sans);
+      cursor: pointer;
+    }
+
+    .filters button:hover {
+      color: var(--text);
+      border-color: var(--muted);
+    }
+
+    .filters button[aria-pressed="true"] {
+      background: var(--text);
+      border-color: var(--text);
+      color: var(--ink);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .project[hidden] {
+      display: none;
+    }
+
+    .project-cat {
+      margin-bottom: 8px;
+      color: var(--signal);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .project p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .project .tags {
+      margin-top: auto;
+      padding-top: 18px;
+    }
+
+    .project-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Engagement */
+
+    .feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 40px;
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--amber);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .feature .entry-meta {
+      margin-bottom: 6px;
+    }
+
+    .feature p {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    .figures {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      list-style: none;
+    }
+
+    .figures li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .figures li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .figures strong {
+      min-width: 3.2ch;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 1.9rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .figures span {
+      color: var(--muted);
+    }
+
+    .roles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 40px;
+      margin-top: 32px;
+      list-style: none;
+    }
+
+    .roles li {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .roles p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Compétences */
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 40px;
+    }
+
+    .skills h3 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .skills .tags {
+      margin-top: 14px;
+    }
+
+    /* Certifications */
+
+    .certs {
+      list-style: none;
+    }
+
+    .certs > li {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 32px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .certs > li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .certs .issuer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding-top: 2px;
+    }
+
+    .certs .issuer strong {
+      display: block;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .certs p {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .certs .tags {
+      margin-top: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 8px;
+      border: 1px solid rgba(92, 200, 238, 0.45);
+      border-radius: 4px;
+      color: var(--signal);
+      font-size: 0.75rem;
+      font-weight: 500;
+      vertical-align: middle;
+    }
+
+    .verify {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+
+    /* Contact */
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+    }
+
+    .contact .actions {
+      margin-top: 0;
+      justify-content: flex-end;
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .profile-grid,
+      .feature,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 36px;
+      }
+
+      .contact .actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 2px;
+        padding: 10px 16px 16px;
+        background: var(--ink);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 10px 12px;
+        font-size: 1rem;
+      }
+
+      .hero {
+        padding: 56px 0;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .entry,
+      .certs > li {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .project-grid,
+      .roles,
+      .skills {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        padding: 24px 20px;
+      }
+
+      .facts li {
+        grid-template-columns: 100px 1fr;
+      }
+
+      .terminal {
+        font-size: 0.8rem;
+      }
+
+      .terminal-body {
+        min-height: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .cursor {
+        animation: none;
+      }
+    }
+
+    @media print {
+      header,
+      .terminal,
+      .filters,
+      .actions {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      section {
+        padding: 24px 0;
+      }
+
+      .project,
+      .feature {
+        background: none;
+        break-inside: avoid;
+      }
+
+      .project[hidden] {
+        display: flex !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header>
+    <nav class="container" aria-label="Navigation principale">
+      <a class="brand" href="#accueil">
+        <img
+          src="logo-uir.png"
+          alt="Université Internationale de Rabat"
+          class="university-logo"
+        >
+        <span>Hamza Mezzene</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+        Menu
+      </button>
+
+      <ul class="nav-links" id="menu">
+        <li><a href="#profil">Profil</a></li>
+        <li><a href="#experience">Expérience</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#engagement">Engagement</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ACCUEIL -->
+    <section class="hero" id="accueil" style="border-top: 0;">
+      <div class="container hero-grid">
+        <div>
+          <h1>Hamza Mezzene</h1>
+
+          <p class="hero-role">
+            Étudiant ingénieur en Génie Informatique &amp; Cybersécurité
+          </p>
+
+          <p class="hero-text">
+            En 4e année à l'ESIN, Université Internationale de Rabat.
+            Je pratique la cybersécurité par les CTF, les laboratoires de
+            sécurité offensive et l'administration de réseaux Linux, et je
+            suis Vice-Président du club CYBERGLITCHERS.
+          </p>
+
+          <p class="availability">
+            <span>
+              Disponible pour un stage PFA en cybersécurité du
+              <strong>1er juin au 3 août 2027</strong>, en France ou au Maroc.
+            </span>
+          </p>
+
+          <div class="actions">
+            <a
+              class="button button-primary"
+              href="CV_Hamza_Mezzene.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Voir mon CV
+            </a>
+
+            <a
+              class="button"
+              href="https://github.com/hamza-mzn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+
+            <!-- À COMPLÉTER : URL de votre profil LinkedIn -->
+            <a
+              class="button"
+              href="https://www.linkedin.com/in/VOTRE-PROFIL/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal-bar">
+            <i></i><i></i><i></i>
+            <span>hamza@uir:~</span>
+          </div>
+          <div class="terminal-body" id="terminal"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFIL -->
+    <section id="profil">
+      <div class="container profile-grid">
+        <div>
+          <div class="section-head">
+            <h2>Profil</h2>
+          </div>
+
+          <p class="muted">
+            Mon parcours en Génie Informatique &amp; Cybersécurité m'a permis
+            de combiner sécurité offensive, cryptographie appliquée,
+            administration des réseaux et développement web sécurisé.
+          </p>
+          <p class="muted">
+            J'apprends avant tout par la pratique : travaux de laboratoire,
+            challenges CTF, projets menés en stage ou en mission freelance.
+            Pour l'été 2027, je souhaite rejoindre une équipe sécurité afin
+            de mettre ces compétences au service de cas réels.
+          </p>
+        </div>
+
+        <ul class="facts">
+          <li><span class="k">Formation</span><span>Cycle ingénieur, 4e année — ESIN, UIR</span></li>
+          <li><span class="k">Diplôme</span><span>Prévu en 2028</span></li>
+          <li><span class="k">Ville</span><span>Rabat, Maroc</span></li>
+          <li><span class="k">Intérêts</span><span>CTF, pentest, forensics, stéganographie, cryptographie, réseaux</span></li>
+          <li><span class="k">Langue</span><span>Français</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <h2>Expérience professionnelle</h2>
+        </div>
+
+        <article class="entry">
+          <div class="entry-meta">
+            <strong>Juin – juillet 2026</strong>
+            Polyclinique Wifak, Témara
+          </div>
+
+          <div>
+            <h3>Stage — application web de gestion de stock</h3>
+            <p>
+              Conception, développement et déploiement en production d'une
+              application de gestion de stock pour la clinique, du cahier
+              des charges jusqu'à la mise en service sur l'infrastructure
+              interne.
+            </p>
+            <ul>
+              <li>Rédaction du cahier des charges et du rapport de stage documentant l'ensemble de la solution.</li>
+              <li>Application PHP 8 / MySQL en architecture MVC : contrôle d'accès par rôles (RBAC), requêtes préparées PDO, mots de passe hachés avec bcrypt.</li>
+              <li>Déploiement sur Windows Server 2016 avec IIS et configuration de MySQL 8.</li>
+              <li>Migration des données entre versions de schéma ; résolution d'incidents de permissions IIS, de compatibilité PHP et de sessions.</li>
+              <li>Consolidation de fichiers RH en Python (openpyxl) : fusion et dédoublonnage de deux listes d'employés avec rapprochement approximatif des noms.</li>
+            </ul>
+            <ul class="tags">
+              <li>PHP 8</li>
+              <li>MySQL 8</li>
+              <li>MVC</li>
+              <li>RBAC</li>
+              <li>Windows Server / IIS</li>
+              <li>Python</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-meta">
+            <strong>Mission freelance</strong>
+            Client au Maroc
+          </div>
+
+          <div>
+            <h3>Site vitrine pour une entreprise du BTP (BuildiTrav)</h3>
+            <p>
+              Prise en charge complète d'un projet client : rapport
+              d'analyse, cahier des charges du site, développement d'un site
+              vitrine one-page et mise en ligne (hébergement et nom de domaine
+              pour la première année).
+            </p>
+            <ul class="tags">
+              <li>Analyse du besoin</li>
+              <li>Cahier des charges</li>
+              <li>Développement web</li>
+              <li>Hébergement</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projets">
+      <div class="container">
+        <div class="section-head">
+          <h2>Projets et travaux pratiques</h2>
+          <p>
+            Travaux réalisés dans le cadre de ma formation et de mes
+            activités CTF. La plupart sont publiés sur
+            <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">mon GitHub</a>.
+          </p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filtrer les projets">
+          <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
+          <button type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
+          <button type="button" data-filter="reseaux" aria-pressed="false">Réseaux et systèmes</button>
+          <button type="button" data-filter="dev" aria-pressed="false">Développement</button>
+          <button type="button" data-filter="donnees" aria-pressed="false">Données</button>
+        </div>
+
+        <div class="project-grid">
+          <article class="project" data-cat="securite">
+            <div class="project-cat">Sécurité offensive</div>
+            <h3>Ethical hacking</h3>
+            <p>
+              Reconnaissance et exploitation en laboratoire : scans réseau
+              avec Nmap, scripts NSE et exploitation avec Metasploit.
+            </p>
+            <ul class="tags">
+              <li>Nmap</li><li>NSE</li><li>Metasploit</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="securite">
+            <div class="project-cat">CTF</div>
+            <h3>Challenges et write-ups</h3>
+            <p>
+              Résolution de challenges en stéganographie, forensics et
+              cryptographie, avec la rédaction d'un write-up pour le
+              challenge de stéganographie CGLITCHERS1.
+            </p>
+            <ul class="tags">
+              <li>Stéganographie</li><li>Forensics</li><li>Cryptographie</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="securite">
+            <div class="project-cat">Cryptographie</div>
+            <h3>Cryptographie appliquée</h3>
+            <p>
+              SEED Labs et étude des chiffrements classiques et modernes :
+              CBC, réseaux de Feistel, Vigenère, cryptographie asymétrique,
+              analyse d'une session TLS avec Wireshark.
+            </p>
+            <ul class="tags">
+              <li>SEED Labs</li><li>TLS</li><li>Wireshark</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="reseaux securite">
+            <div class="project-cat">Administration réseau</div>
+            <h3>Services réseau sous Linux</h3>
+            <p>
+              Mise en place de services dans des network namespaces : DNS
+              avec BIND9, DHCP avec dnsmasq, NAT et filtrage avec iptables,
+              Apache2 en HTTPS et SFTP avec OpenSSH.
+            </p>
+            <ul class="tags">
+              <li>BIND9</li><li>iptables</li><li>dnsmasq</li><li>netns</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="dev securite">
+            <div class="project-cat">Développement web sécurisé</div>
+            <h3>Stocky — gestion de stock et de ventes</h3>
+            <p>
+              Application MVC codée sans framework pour le module Web Dev I,
+              avec quatre rôles (administrateur, vendeur, fournisseur, client),
+              authentification par session, hachage bcrypt et recherche
+              produit en AJAX.
+            </p>
+            <ul class="tags">
+              <li>PHP 8</li><li>MySQL / PDO</li><li>bcrypt</li><li>AJAX</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="securite donnees">
+            <div class="project-cat">Recherche</div>
+            <h3>Contrôle d'accès A&amp;RBAC</h3>
+            <p>
+              Contribution au cadre de simulation Monte Carlo d'un article
+              de recherche : jeux de données synthétiques de 50 000 requêtes
+              répartis en six familles de scénarios.
+            </p>
+            <ul class="tags">
+              <li>Contrôle d'accès</li><li>Monte Carlo</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="reseaux">
+            <div class="project-cat">Infrastructure</div>
+            <h3>SDN, cloud et calcul parallèle</h3>
+            <p>
+              Réseaux définis par logiciel avec Mininet, déploiements cloud
+              avec Azure et Docker, programmation parallèle avec MPI et CUDA
+              (projets LCS et RSA).
+            </p>
+            <ul class="tags">
+              <li>Mininet</li><li>Azure</li><li>Docker</li><li>MPI</li><li>CUDA</li>
+            </ul>
+          </article>
+
+          <article class="project" data-cat="donnees">
+            <div class="project-cat">Business Intelligence</div>
+            <h3>Entrepôts de données et ETL</h3>
+            <p>
+              Processus ETL en T-SQL et avec Talend Open Studio, data marts,
+              requêtes MDX et suite SQL Server (SSIS, SSAS, SSRS) sur
+              AdventureWorks.
+            </p>
+            <ul class="tags">
+              <li>T-SQL</li><li>Talend</li><li>SSIS</li><li>SSAS</li><li>SSRS</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENGAGEMENT -->
+    <section id="engagement">
+      <div class="container">
+        <div class="section-head">
+          <h2>Engagement associatif</h2>
+          <p>Organisation d'événements et représentation étudiante à l'UIR.</p>
+        </div>
+
+        <article class="feature">
+          <div>
+            <div class="entry-meta">Coordinateur général · 1re édition</div>
+            <h3>CYBrAIn Fest UIR — l'IA au service de la cybersécurité</h3>
+            <p>
+              Co-organisation d'un événement de deux jours (CTF, conférences,
+              workshops) porté par CYBERGLITCHERS avec THE BRIDGE CLUB et AiDi.
+              J'ai assuré la coordination générale : planning, logistique,
+              gestion des intervenants et communication entre les équipes.
+            </p>
+          </div>
+
+          <ul class="figures">
+            <li><strong>120+</strong><span>participants</span></li>
+            <li><strong>28</strong><span>équipes au CTF</span></li>
+            <li><strong>2</strong><span>jours de programme</span></li>
+          </ul>
+        </article>
+
+        <ul class="roles">
+          <li>
+            <h3>Vice-Président, CYBERGLITCHERS UIR</h3>
+            <p>Pilotage du club de cybersécurité et organisation de ses activités.</p>
+          </li>
+          <li>
+            <h3>Responsable Sponsoring, BDE UIR</h3>
+            <p>Recherche et suivi des partenaires du Bureau des Étudiants.</p>
+          </li>
+          <li>
+            <h3>Chef de protocole, Pôle des ingénieurs EMJL</h3>
+            <p>Protocole des événements et visites institutionnelles, dont une visite au Parlement.</p>
+          </li>
+          <li>
+            <h3>Ambassadeur, College of Engineering &amp; Architecture</h3>
+            <p>Représentation du collège auprès des étudiants et des visiteurs.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- COMPETENCES -->
+    <section id="competences">
+      <div class="container">
+        <div class="section-head">
+          <h2>Compétences techniques</h2>
+        </div>
+
+        <div class="skills">
+          <div>
+            <h3>Cybersécurité</h3>
+            <ul class="tags">
+              <li>Nmap / NSE</li>
+              <li>Metasploit</li>
+              <li>Wireshark</li>
+              <li>iptables</li>
+              <li>Stéganographie</li>
+              <li>Forensics</li>
+              <li>Cryptographie</li>
+              <li>TLS</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Systèmes et réseaux</h3>
+            <ul class="tags">
+              <li>TCP/IP</li>
+              <li>Linux</li>
+              <li>BIND9</li>
+              <li>dnsmasq</li>
+              <li>Network namespaces</li>
+              <li>OpenSSH</li>
+              <li>Apache2</li>
+              <li>Mininet</li>
+              <li>EVE-NG</li>
+              <li>Windows Server / IIS</li>
+              <li>Docker</li>
+              <li>Azure</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Développement</h3>
+            <ul class="tags">
+              <li>PHP 8 (MVC, PDO)</li>
+              <li>RBAC</li>
+              <li>bcrypt</li>
+              <li>JavaScript / AJAX</li>
+              <li>Bootstrap 5</li>
+              <li>Python</li>
+              <li>Java / JavaFX</li>
+              <li>Android</li>
+              <li>MPI</li>
+              <li>CUDA</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Données</h3>
+            <ul class="tags">
+              <li>MySQL</li>
+              <li>SQL Server / T-SQL</li>
+              <li>Talend</li>
+              <li>SSIS</li>
+              <li>SSAS / MDX</li>
+              <li>SSRS</li>
+              <li>PySpark</li>
+              <li>BigQuery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications">
+      <div class="container">
+        <div class="section-head">
+          <h2>Certifications</h2>
+        </div>
+
+        <!--
+          Pour ajouter un lien de vérification (badge Credly, certificat Coursera),
+          placez sous le <p> de la certification concernée :
+          <a class="verify" href="URL-DE-VERIFICATION" target="_blank" rel="noopener noreferrer">Vérifier le certificat</a>
+        -->
+        <ul class="certs">
+          <li>
+            <div class="issuer">
+              <strong>Sept. 2025</strong>
+              Cisco Networking Academy
+            </div>
+            <div>
+              <h3>Cyber Threat Management <span class="badge">Badge vérifié</span></h3>
+              <p>
+                Cours « Cybermenace : contenu et déroulement » : gestion des
+                menaces, évaluation des vulnérabilités et gestion des risques
+                de sécurité.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="issuer">
+              <strong>Août 2025</strong>
+              Cisco Networking Academy
+            </div>
+            <div>
+              <h3>Introduction to Cybersecurity <span class="badge">Badge vérifié</span></h3>
+              <p>
+                Cours « Introduction à la cybersécurité » : concepts
+                fondamentaux, panorama des menaces et principes de protection.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="issuer">
+              <strong>Août 2025</strong>
+              Cisco Networking Academy
+            </div>
+            <div>
+              <h3>Cinq modules validés</h3>
+              <ul class="tags">
+                <li>Spécialiste des ressources</li>
+                <li>Défense du réseau</li>
+                <li>Sauvegardes du système</li>
+                <li>Analyse des menaces</li>
+                <li>Administration de la cybersécurité</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="issuer">
+              <strong>Avril 2025</strong>
+              Coursera
+            </div>
+            <div>
+              <h3>Data Analysis Using PySpark</h3>
+              <p>Analyse de données à grande échelle avec Apache Spark en Python.</p>
+            </div>
+          </li>
+          <li>
+            <div class="issuer">
+              <strong>Avril 2025</strong>
+              Coursera
+            </div>
+            <div>
+              <h3>Working with BigQuery</h3>
+              <p>Requêtes et analyse de données avec l'entrepôt BigQuery de Google Cloud.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container contact">
+        <div class="section-head" style="margin-bottom: 0;">
+          <h2>Contact</h2>
+          <p>
+            Pour une proposition de stage ou un échange autour de la
+            cybersécurité, écrivez-moi par email ou sur LinkedIn.
+          </p>
+        </div>
+
+        <div class="actions">
+          <!-- À COMPLÉTER : votre adresse email (2 endroits sur cette ligne) -->
+          <a class="button button-primary" href="mailto:VOTRE.EMAIL@uir.ac.ma">
+            M'écrire un email
+          </a>
+          <a
+            class="button"
+            href="https://www.linkedin.com/in/VOTRE-PROFIL/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a
+            class="button"
+            href="CV_Hamza_Mezzene.pdf"
+            download
+          >
+            Télécharger mon CV
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Hamza Mezzene — Rabat, Maroc
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      /* ---------- Menu mobile ---------- */
+      var toggle = document.querySelector(".menu-toggle");
+      var menu = document.getElementById("menu");
+
+      toggle.addEventListener("click", function () {
+        var open = menu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.textContent = open ? "Fermer" : "Menu";
+      });
+
+      menu.addEventListener("click", function (e) {
+        if (e.target.tagName === "A" && menu.classList.contains("open")) {
+          menu.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.textContent = "Menu";
+        }
+      });
+
+      /* ---------- Section active dans la navigation ---------- */
+      var links = Array.prototype.slice.call(menu.querySelectorAll("a"));
+      var sections = links
+        .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            links.forEach(function (a) {
+              if (a.getAttribute("href") === "#" + entry.target.id) {
+                a.setAttribute("aria-current", "true");
+              } else {
+                a.removeAttribute("aria-current");
+              }
+            });
+          });
+        }, { rootMargin: "-40% 0px -55% 0px" });
+
+        sections.forEach(function (s) { observer.observe(s); });
+      }
+
+      /* ---------- Filtre des projets ---------- */
+      var buttons = document.querySelectorAll(".filters button");
+      var projects = document.querySelectorAll(".project");
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var filter = btn.getAttribute("data-filter");
+
+          buttons.forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b === btn));
+          });
+
+          projects.forEach(function (p) {
+            var cats = p.getAttribute("data-cat").split(" ");
+            p.hidden = filter !== "tous" && cats.indexOf(filter) === -1;
+          });
+        });
+      });
+
+      /* ---------- Terminal ---------- */
+      var term = document.getElementById("terminal");
+
+      var script = [
+        { cmd: "whoami" },
+        { out: "Hamza Mezzene — étudiant ingénieur, Génie Informatique & Cybersécurité (UIR)" },
+        { cmd: "cat objectif.txt" },
+        { out: "Stage PFA en cybersécurité, du 1er juin au 3 août 2027", accent: true },
+        { out: "Lieu : France ou Maroc" },
+        { cmd: "ls interets/" },
+        { out: "ctf/  pentest/  forensics/  crypto/  reseaux-linux/" },
+        { cmd: "cat club.txt" },
+        { out: "Vice-Président de CYBERGLITCHERS UIR" }
+      ];
+
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function line(cls) {
+        var el = document.createElement("span");
+        el.className = "t-line " + cls;
+        term.appendChild(el);
+        return el;
+      }
+
+      function prompt(el) {
+        var p = document.createElement("span");
+        p.className = "t-prompt";
+        p.textContent = "$ ";
+        el.appendChild(p);
+      }
+
+      function cursor() {
+        var c = document.createElement("span");
+        c.className = "cursor";
+        return c;
+      }
+
+      if (reduce) {
+        script.forEach(function (step) {
+          var el = line(step.cmd ? "" : (step.accent ? "t-accent" : "t-out"));
+          if (step.cmd) { prompt(el); el.appendChild(document.createTextNode(step.cmd)); }
+          else { el.textContent = step.out; }
+        });
+        var end = line("");
+        prompt(end);
+        return;
+      }
+
+      var i = 0;
+      var caret = cursor();
+
+      function next() {
+        if (i >= script.length) {
+          var end = line("");
+          prompt(end);
+          end.appendChild(caret);
+          return;
+        }
+
+        var step = script[i++];
+
+        if (step.out) {
+          var o = line(step.accent ? "t-accent" : "t-out");
+          o.textContent = step.out;
+          setTimeout(next, 120);
+          return;
+        }
+
+        var el = line("");
+        prompt(el);
+        var text = document.createTextNode("");
+        el.appendChild(text);
+        el.appendChild(caret);
+
+        var k = 0;
+        (function type() {
+          if (k < step.cmd.length) {
+            text.textContent += step.cmd.charAt(k++);
+            setTimeout(type, 55);
+          } else {
+            el.removeChild(caret);
+            setTimeout(next, 280);
+          }
+        })();
+      }
+
+      setTimeout(next, 400);
+    })();
+  </script>
+
+</body>
+</html>
