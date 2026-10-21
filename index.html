@@ -24,24 +24,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Design system : tokens partagés (couleurs, typo, espacement, rayons) -->
+  <link rel="stylesheet" href="design-system/tokens.css">
+
   <style>
-    :root {
-      --ink: #0d1522;
-      --surface: #131e30;
-      --surface-2: #1a2840;
-      --line: #26364f;
-      --text: #e4eaf3;
-      --muted: #93a3ba;
-      --signal: #5cc8ee;
-      --amber: #f0b44c;
-
-      --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-      --radius-sm: 6px;
-      --radius: 10px;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -273,7 +259,7 @@
     }
 
     .button-primary:hover {
-      background: #7dd5f3;
+      background: var(--signal-strong);
     }
 
     /* Terminal */
@@ -281,7 +267,7 @@
     .terminal {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #0a111c;
+      background: var(--terminal);
       overflow: hidden;
       font-family: var(--mono);
       font-size: 0.88rem;
