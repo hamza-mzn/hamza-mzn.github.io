@@ -364,6 +364,129 @@
       border-color: var(--signal);
     }
 
+    /* ---------- Améliorations visuelles ---------- */
+
+    /* Transitions douces sur les éléments interactifs */
+    a,
+    .button,
+    .nav-links a,
+    .filters button,
+    .project,
+    .feature,
+    .tags li,
+    .portrait,
+    .menu-toggle {
+      transition: color .18s ease, background-color .18s ease,
+        border-color .18s ease, transform .18s ease, box-shadow .25s ease;
+    }
+
+    /* Grille technique discrète derrière le hero */
+    .hero {
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.18;
+      -webkit-mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Boutons : léger relèvement, halo cyan sur le primaire */
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 6px 20px -8px var(--signal);
+    }
+
+    /* Cartes projet : relèvement et bord signal au survol */
+    .project:hover {
+      transform: translateY(-3px);
+      border-color: var(--signal);
+      box-shadow: 0 14px 30px -20px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Tags : bord cyan au survol */
+    .tags li:hover {
+      border-color: var(--signal);
+    }
+
+    /* Accent cyan sous les titres de section */
+    .section-head h2 {
+      position: relative;
+      padding-bottom: 14px;
+    }
+
+    .section-head h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 44px;
+      height: 3px;
+      border-radius: var(--radius-pill);
+      background: var(--signal);
+    }
+
+    /* Liens de contenu : soulignement animé */
+    .hero-text a,
+    .section-head a,
+    .project a {
+      text-decoration: none;
+      background-image: linear-gradient(var(--signal), var(--signal));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0% 2px;
+      transition: background-size .2s ease;
+    }
+
+    .hero-text a:hover,
+    .section-head a:hover,
+    .project a:hover {
+      background-size: 100% 2px;
+    }
+
+    /* Portrait : halo cyan subtil au survol */
+    .portrait:hover {
+      box-shadow: 0 0 0 6px var(--surface), 0 0 28px -4px var(--signal);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      a,
+      .button,
+      .nav-links a,
+      .filters button,
+      .project,
+      .feature,
+      .tags li,
+      .portrait,
+      .menu-toggle,
+      .hero-text a,
+      .section-head a,
+      .project a {
+        transition: none;
+      }
+
+      .button:hover,
+      .project:hover {
+        transform: none;
+      }
+    }
+
     /* ---------- Sections ---------- */
 
     section {
