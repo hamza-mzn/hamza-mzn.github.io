@@ -364,381 +364,127 @@
       border-color: var(--signal);
     }
 
-    /* ---------- Sections ---------- */
+    /* ---------- Améliorations visuelles ---------- */
 
-    section {
-      padding: 80px 0;
-      border-top: 1px solid var(--line);
+    /* Transitions douces sur les éléments interactifs */
+    a,
+    .button,
+    .nav-links a,
+    .filters button,
+    .project,
+    .feature,
+    .tags li,
+    .portrait,
+    .menu-toggle {
+      transition: color .18s ease, background-color .18s ease,
+        border-color .18s ease, transform .18s ease, box-shadow .25s ease;
     }
 
-    .section-head {
-      margin-bottom: 36px;
-      max-width: 62ch;
+    /* Grille technique discrète derrière le hero */
+    .hero {
+      position: relative;
     }
 
-    h2 {
-      font-size: clamp(1.7rem, 3.4vw, 2.2rem);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.015em;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.18;
+      -webkit-mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .section-head p {
-      margin-top: 10px;
-      color: var(--muted);
+    /* Boutons : léger relèvement, halo cyan sur le primaire */
+    .button:hover {
+      transform: translateY(-1px);
     }
 
-    h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      line-height: 1.4;
+    .button:active {
+      transform: translateY(0);
     }
 
-    .muted {
-      color: var(--muted);
+    .button-primary:hover {
+      box-shadow: 0 6px 20px -8px var(--signal);
     }
 
-    /* Profil */
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 48px;
+    /* Cartes projet : relèvement et bord signal au survol */
+    .project:hover {
+      transform: translateY(-3px);
+      border-color: var(--signal);
+      box-shadow: 0 14px 30px -20px rgba(0, 0, 0, 0.85);
     }
 
-    .profile-grid p + p {
-      margin-top: 14px;
+    /* Tags : bord cyan au survol */
+    .tags li:hover {
+      border-color: var(--signal);
     }
 
-    .facts {
-      list-style: none;
-      border-top: 1px solid var(--line);
-    }
-
-    .facts li {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.95rem;
-    }
-
-    .facts dt,
-    .facts .k {
-      color: var(--muted);
-    }
-
-    /* Expérience : lignes date | contenu */
-
-    .entry {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 32px;
-      padding: 32px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .entry:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .entry-meta {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .entry-meta strong {
-      display: block;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .entry p {
-      margin-top: 10px;
-      color: var(--muted);
-      max-width: 68ch;
-    }
-
-    .entry ul {
-      margin-top: 14px;
-      padding-left: 20px;
-      color: var(--muted);
-      max-width: 68ch;
-    }
-
-    .entry li + li {
-      margin-top: 6px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 18px;
-      list-style: none;
-      padding: 0;
-    }
-
-    .tags li {
-      padding: 3px 9px;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: var(--surface);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-    }
-
-    .entry ul.tags {
-      padding-left: 0;
-      margin-top: 18px;
-    }
-
-    .entry ul.tags li + li {
-      margin-top: 0;
-    }
-
-    /* Projets */
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .filters button {
-      padding: 7px 13px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      font: 500 0.88rem var(--sans);
-      cursor: pointer;
-    }
-
-    .filters button:hover {
-      color: var(--text);
-      border-color: var(--muted);
-    }
-
-    .filters button[aria-pressed="true"] {
-      background: var(--text);
-      border-color: var(--text);
-      color: var(--ink);
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .project {
-      display: flex;
-      flex-direction: column;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-    }
-
-    .project[hidden] {
-      display: none;
-    }
-
-    .project-cat {
-      margin-bottom: 8px;
-      color: var(--signal);
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .project p {
-      margin-top: 8px;
-      color: var(--muted);
-    }
-
-    .project .tags {
-      margin-top: auto;
-      padding-top: 18px;
-    }
-
-    .project-note {
-      margin-top: 20px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* Engagement */
-
-    .feature {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-      gap: 40px;
-      padding: 32px;
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--amber);
-      border-radius: var(--radius);
-      background: var(--surface);
-    }
-
-    .feature .entry-meta {
-      margin-bottom: 6px;
-    }
-
-    .feature p {
-      margin-top: 12px;
-      color: var(--muted);
-    }
-
-    .figures {
-      display: grid;
-      align-content: center;
-      gap: 18px;
-      list-style: none;
-    }
-
-    .figures li {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
+    /* Accent cyan sous les titres de section */
+    .section-head h2 {
+      position: relative;
       padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
     }
 
-    .figures li:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
+    .section-head h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 44px;
+      height: 3px;
+      border-radius: var(--radius-pill);
+      background: var(--signal);
     }
 
-    .figures strong {
-      min-width: 3.2ch;
-      color: var(--amber);
-      font-family: var(--mono);
-      font-size: 1.9rem;
-      font-weight: 500;
-      line-height: 1;
+    /* Liens de contenu : soulignement animé */
+    .hero-text a,
+    .section-head a,
+    .project a {
+      text-decoration: none;
+      background-image: linear-gradient(var(--signal), var(--signal));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0% 2px;
+      transition: background-size .2s ease;
     }
 
-    .figures span {
-      color: var(--muted);
+    .hero-text a:hover,
+    .section-head a:hover,
+    .project a:hover {
+      background-size: 100% 2px;
     }
 
-    .roles {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 40px;
-      margin-top: 32px;
-      list-style: none;
+    /* Portrait : halo cyan subtil au survol */
+    .portrait:hover {
+      box-shadow: 0 0 0 6px var(--surface), 0 0 28px -4px var(--signal);
     }
 
-    .roles li {
-      padding: 18px 0;
-      border-top: 1px solid var(--line);
-    }
+    @media (prefers-reduced-motion: reduce) {
+      a,
+      .button,
+      .nav-links a,
+      .filters button,
+      .project,
+      .feature,
+      .tags li,
+      .portrait,
+      .menu-toggle,
+      .hero-text a,
+      .section-head a,
+      .project a {
+        transition: none;
+      }
 
-    .roles p {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* Compétences */
-
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 32px 40px;
-    }
-
-    .skills h3 {
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .skills .tags {
-      margin-top: 14px;
-    }
-
-    /* Certifications */
-
-    .certs {
-      list-style: none;
-    }
-
-    .certs > li {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 32px;
-      padding: 18px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .certs > li:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .certs .issuer {
-      color: var(--muted);
-      font-size: 0.9rem;
-      padding-top: 2px;
-    }
-
-    .certs .issuer strong {
-      display: block;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .certs p {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .certs .tags {
-      margin-top: 10px;
-    }
-
-    .badge {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 1px 8px;
-      border: 1px solid rgba(92, 200, 238, 0.45);
-      border-radius: 4px;
-      color: var(--signal);
-      font-size: 0.75rem;
-      font-weight: 500;
-      vertical-align: middle;
-    }
-
-    .verify {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 0.9rem;
-    }
-
-    /* Contact */
-
-    .contact {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 32px;
-      align-items: end;
-    }
-
-    .contact .actions {
-      margin-top: 0;
-      justify-content: flex-end;
-    }
-
-    footer {
-      padding: 28px 0;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.85rem;
+      .button:hover,
+      .project:hover {
+        transform: none;
+      }
     }
 
     /* ---------- Responsive ---------- */
