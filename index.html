@@ -332,6 +332,38 @@
       50% { opacity: 0; }
     }
 
+    /* Invite interactive */
+
+    .t-cmdline {
+      display: flex;
+      align-items: baseline;
+    }
+
+    .t-input {
+      flex: 1 1 auto;
+      min-width: 2ch;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      caret-color: var(--signal);
+      outline: none;
+    }
+
+    .terminal.is-interactive {
+      cursor: text;
+    }
+
+    .terminal.is-interactive .terminal-body {
+      overflow-y: auto;
+      max-height: 320px;
+    }
+
+    .terminal:focus-within {
+      border-color: var(--signal);
+    }
+
     /* ---------- Sections ---------- */
 
     section {
@@ -933,7 +965,7 @@
           </div>
         </div>
 
-        <div class="terminal" aria-hidden="true">
+        <div class="terminal" role="group" aria-label="Terminal interactif">
           <div class="terminal-bar">
             <i></i><i></i><i></i>
             <span>hamza@uir:~</span>
@@ -1473,6 +1505,8 @@
 
       /* ---------- Terminal ---------- */
       var term = document.getElementById("terminal");
+      var termWindow = term.closest(".terminal");
+      var canHover = window.matchMedia("(hover: hover)").matches;
 
       var script = [
         { cmd: "whoami" },
@@ -1508,14 +1542,172 @@
         return c;
       }
 
+      function out(text, cls) {
+        var o = line(cls || "t-out");
+        o.textContent = text;
+        return o;
+      }
+
+      function scrollDown() {
+        term.scrollTop = term.scrollHeight;
+      }
+
+      /* ----- Shell interactif (prend le relais après l'intro) ----- */
+
+      var FILES = {
+        "objectif.txt": "Stage PFA en cybersécurité, du 1er juin au 3 août 2027\nLieu : France ou Maroc",
+        "club.txt": "Vice-Président de CYBERGLITCHERS UIR"
+      };
+
+      var COMMANDS = {
+        help: function () {
+          return "Commandes disponibles :\n"
+            + "  help              cette aide\n"
+            + "  whoami            qui suis-je\n"
+            + "  ls [interets/]    lister les fichiers\n"
+            + "  cat <fichier>     afficher un fichier (objectif.txt, club.txt)\n"
+            + "  skills            compétences techniques\n"
+            + "  projects          projets publiés\n"
+            + "  contact           email et LinkedIn\n"
+            + "  cv                mon CV\n"
+            + "  clear             nettoyer l'écran";
+        },
+        whoami: function () {
+          return "Hamza Mezzene — étudiant ingénieur, Génie Informatique & Cybersécurité (UIR)";
+        },
+        ls: function (arg) {
+          if (arg === "interets" || arg === "interets/") {
+            return "ctf/  pentest/  forensics/  crypto/  reseaux-linux/";
+          }
+          return "objectif.txt  club.txt  interets/";
+        },
+        cat: function (arg) {
+          if (!arg) return "cat : fichier manquant (essayez : cat objectif.txt)";
+          if (FILES[arg]) return FILES[arg];
+          return "cat : " + arg + " : fichier introuvable";
+        },
+        skills: function () {
+          return "Cybersécurité · Systèmes & réseaux · Développement · Données\n"
+            + "(détails complets dans la section « Compétences »)";
+        },
+        projects: function () {
+          return "ethical-hacking  ctf  crypto  services-reseau  stocky  sdn-cloud  bi-etl\n"
+            + "(détails dans la section « Projets »)";
+        },
+        contact: function () {
+          return "email    : hamza.mezzene@uir.ac.ma\n"
+            + "linkedin : linkedin.com/in/hamza-mezzene";
+        },
+        cv: function () {
+          return "CV : CV_Hamza_Mezzene_ING4_Cyber_2027.pdf — bouton « Voir mon CV » en haut de page.";
+        }
+      };
+
+      // alias français
+      COMMANDS.aide = COMMANDS.help;
+      COMMANDS.competences = COMMANDS.skills;
+      COMMANDS.projets = COMMANDS.projects;
+
+      var history = [];
+      var histIdx = 0;
+      var activeInput = null;
+
+      function focusInput(input) {
+        try { input.focus({ preventScroll: true }); }
+        catch (err) { input.focus(); }
+      }
+
+      function runCommand(raw) {
+        var cmd = raw.trim();
+        if (!cmd) return;
+        history.push(cmd);
+        histIdx = history.length;
+
+        var parts = cmd.split(/\s+/);
+        var name = parts[0].toLowerCase();
+        var arg = parts.slice(1).join(" ");
+
+        if (name === "clear" || name === "cls") {
+          term.innerHTML = "";
+          return;
+        }
+        if (name === "sudo") {
+          out("Hamza n'est pas dans le fichier sudoers. Cet incident sera signalé.", "t-accent");
+          return;
+        }
+        var fn = COMMANDS[name];
+        if (!fn) {
+          out("commande introuvable : " + name + " — tapez « help »");
+          return;
+        }
+        String(fn(arg)).split("\n").forEach(function (ln) { out(ln); });
+      }
+
+      function newPromptLine(autofocus) {
+        var el = document.createElement("span");
+        el.className = "t-line t-cmdline";
+        prompt(el);
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.className = "t-input";
+        input.setAttribute("aria-label", "Entrée du terminal");
+        input.setAttribute("autocomplete", "off");
+        input.setAttribute("autocapitalize", "off");
+        input.spellcheck = false;
+        el.appendChild(input);
+        term.appendChild(el);
+
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            var val = input.value;
+            input.remove();
+            el.appendChild(document.createTextNode(val));
+            activeInput = null;
+            runCommand(val);
+            newPromptLine(true);
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (history.length) {
+              histIdx = Math.max(0, histIdx - 1);
+              input.value = history[histIdx] || "";
+            }
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (history.length) {
+              histIdx = Math.min(history.length, histIdx + 1);
+              input.value = history[histIdx] || "";
+            }
+          }
+        });
+
+        activeInput = input;
+        if (autofocus) focusInput(input);
+        scrollDown();
+      }
+
+      function enableInteractive() {
+        termWindow.classList.add("is-interactive");
+        term.setAttribute("aria-live", "polite");
+        out("");
+        out("Terminal interactif — tapez « help » puis Entrée.");
+        newPromptLine(canHover);
+      }
+
+      // Clic dans la fenêtre : redonner le focus à l'invite (sauf si on sélectionne du texte)
+      termWindow.addEventListener("click", function () {
+        var sel = window.getSelection ? window.getSelection().toString() : "";
+        if (activeInput && sel === "") focusInput(activeInput);
+      });
+
       if (reduce) {
         script.forEach(function (step) {
           var el = line(step.cmd ? "" : (step.accent ? "t-accent" : "t-out"));
           if (step.cmd) { prompt(el); el.appendChild(document.createTextNode(step.cmd)); }
           else { el.textContent = step.out; }
         });
-        var end = line("");
-        prompt(end);
+        enableInteractive();
         return;
       }
 
@@ -1524,9 +1716,8 @@
 
       function next() {
         if (i >= script.length) {
-          var end = line("");
-          prompt(end);
-          end.appendChild(caret);
+          caret.remove();
+          enableInteractive();
           return;
         }
 
