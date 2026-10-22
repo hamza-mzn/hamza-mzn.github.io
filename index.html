@@ -498,18 +498,11 @@
       cursor: text;
     }
 
+    /* Pas de zone de défilement : le terminal grandit avec son contenu,
+       aucune barre ne peut donc apparaître (tous navigateurs / OS). */
     .terminal.is-interactive .terminal-body {
-      overflow-y: auto;
-      max-height: 320px;
-      /* Défilement conservé, barre masquée */
-      scrollbar-width: none;        /* Firefox */
-      -ms-overflow-style: none;     /* anciens Edge */
-    }
-
-    .terminal-body::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      display: none;                /* Chrome, Safari */
+      overflow: visible;
+      max-height: none;
     }
 
     .terminal:focus-within {
