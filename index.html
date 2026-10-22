@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0d1522">
+  <meta name="theme-color" content="#0b111d">
   <meta name="description" content="Portfolio de Hamza Mezzene, étudiant ingénieur en Génie Informatique & Cybersécurité à l'Université Internationale de Rabat. CTF, sécurité offensive, cryptographie, administration réseau Linux et développement web sécurisé.">
   <meta name="author" content="Hamza Mezzene">
+  <meta name="keywords" content="Hamza Mezzene, cybersécurité, pentest, CTF, réseaux, Linux, UIR, ESIN, stage PFA, sécurité offensive">
+  <link rel="canonical" href="https://hamza-mzn.github.io/">
 
   <!-- Aperçu lors du partage du lien (LinkedIn, WhatsApp, etc.) -->
   <meta property="og:type" content="website">
@@ -15,17 +17,40 @@
   <meta property="og:url" content="https://hamza-mzn.github.io/">
   <meta property="og:image" content="https://hamza-mzn.github.io/photo-hamza.jpg">
   <meta property="og:image:alt" content="Portrait de Hamza Mezzene">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hamza Mezzene | Portfolio Cybersécurité">
+  <meta name="twitter:description" content="Étudiant ingénieur en cybersécurité à l'UIR. Recherche un stage PFA en cybersécurité pour l'été 2027.">
+  <meta name="twitter:image" content="https://hamza-mzn.github.io/photo-hamza.jpg">
 
   <title>Hamza Mezzene | Portfolio Cybersécurité</title>
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1522'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%235cc8ee'%3EH%3C/text%3E%3Crect x='18' y='19' width='9' height='3' fill='%23f0b44c'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b111d'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%235cc8ee'%3EH%3C/text%3E%3Crect x='18' y='19' width='9' height='3' fill='%23f0b44c'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Design system : tokens partagés (couleurs, typo, espacement, rayons) -->
   <link rel="stylesheet" href="design-system/tokens.css">
+
+  <!-- Données structurées (SEO / aperçus recruteurs) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hamza Mezzene",
+    "url": "https://hamza-mzn.github.io/",
+    "jobTitle": "Étudiant ingénieur — Génie Informatique & Cybersécurité",
+    "email": "mailto:hamza.mezzene@uir.ac.ma",
+    "address": { "@type": "PostalAddress", "addressLocality": "Rabat", "addressCountry": "MA" },
+    "affiliation": { "@type": "CollegeOrUniversity", "name": "Université Internationale de Rabat (UIR)" },
+    "sameAs": [
+      "https://github.com/hamza-mzn",
+      "https://www.linkedin.com/in/hamza-mezzene/"
+    ],
+    "knowsAbout": ["Cybersécurité", "Sécurité offensive", "CTF", "Cryptographie", "Réseaux", "Linux", "Développement web sécurisé"]
+  }
+  </script>
 
   <style>
     * {
@@ -40,12 +65,26 @@
     }
 
     body {
+      position: relative;
       background: var(--ink);
       color: var(--text);
       font-family: var(--sans);
       font-size: 1rem;
-      line-height: 1.65;
+      line-height: var(--leading-body);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Ambiance : halos cyan/indigo très diffus fixés en fond de page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(60% 50% at 85% -5%, rgba(92, 200, 238, 0.10), transparent 60%),
+        radial-gradient(55% 45% at 0% 20%, rgba(107, 140, 255, 0.08), transparent 55%);
+      pointer-events: none;
     }
 
     a {
@@ -81,8 +120,30 @@
     }
 
     .container {
-      width: min(1080px, 100% - 32px);
+      width: min(var(--container), 100% - 40px);
       margin-inline: auto;
+    }
+
+    /* ---------- Eyebrow / libellés de section ---------- */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--signal);
+      font-family: var(--mono);
+      font-size: var(--font-eyebrow);
+      font-weight: 500;
+      letter-spacing: var(--tracking-eyebrow);
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--signal), transparent);
     }
 
     /* ---------- En-tête ---------- */
@@ -91,9 +152,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13, 21, 34, 0.94);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
+      background: rgba(11, 17, 29, 0.72);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      transition: border-color .3s ease, background-color .3s ease, box-shadow .3s ease;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--line);
+      box-shadow: var(--shadow-sm);
     }
 
     nav {
@@ -125,13 +193,14 @@
 
     .nav-links {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       list-style: none;
     }
 
     .nav-links a {
+      position: relative;
       display: block;
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: var(--radius-sm);
       color: var(--muted);
       font-size: 0.9rem;
@@ -159,72 +228,7 @@
       cursor: pointer;
     }
 
-    /* ---------- Accueil ---------- */
-
-    .hero {
-      padding: 88px 0 80px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      gap: 48px;
-      align-items: center;
-    }
-
-    .portrait {
-      display: block;
-      width: 132px;
-      height: 132px;
-      margin-bottom: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--line);
-      box-shadow: 0 0 0 6px var(--surface);
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-    }
-
-    .hero-role {
-      margin-top: 14px;
-      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .hero-text {
-      margin-top: 18px;
-      max-width: 60ch;
-      color: var(--muted);
-      font-size: 1.04rem;
-    }
-
-    .availability {
-      display: inline-flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-top: 24px;
-      padding: 10px 14px;
-      border: 1px solid rgba(240, 180, 76, 0.4);
-      border-radius: var(--radius-sm);
-      background: rgba(240, 180, 76, 0.08);
-      font-size: 0.93rem;
-    }
-
-    .availability::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      margin-top: 8px;
-      border-radius: 50%;
-      background: var(--amber);
-      flex-shrink: 0;
-    }
+    /* ---------- Boutons ---------- */
 
     .actions {
       display: flex;
@@ -238,28 +242,160 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 16px;
+      padding: 12px 18px;
       border: 1px solid var(--line);
       border-radius: var(--radius-sm);
       background: var(--surface);
+      background-image: var(--grad-surface);
       color: var(--text);
       font-weight: 600;
       font-size: 0.95rem;
     }
 
+    .button svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
     .button:hover {
       text-decoration: none;
       border-color: var(--signal);
+      transform: translateY(-2px);
+    }
+
+    .button:active {
+      transform: translateY(0);
     }
 
     .button-primary {
-      background: var(--signal);
-      border-color: var(--signal);
-      color: var(--ink);
+      background: var(--grad-accent);
+      border-color: transparent;
+      color: #06121b;
     }
 
     .button-primary:hover {
-      background: var(--signal-strong);
+      border-color: transparent;
+      box-shadow: var(--glow-signal);
+    }
+
+    /* ---------- Accueil ---------- */
+
+    .hero {
+      position: relative;
+      padding: 96px 0 84px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.16;
+      -webkit-mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 52px;
+      align-items: center;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      width: 132px;
+      margin-bottom: 30px;
+    }
+
+    .portrait {
+      display: block;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--line);
+      box-shadow: var(--ring-surface);
+    }
+
+    .portrait-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      padding: 4px;
+      background: var(--grad-accent);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    h1 {
+      font-size: var(--font-display-xl);
+      font-weight: 700;
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-xl);
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-role {
+      margin-top: 16px;
+      font-size: var(--font-lead);
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .hero-role b {
+      color: var(--signal);
+      font-weight: 600;
+    }
+
+    .hero-text {
+      margin-top: 18px;
+      max-width: 60ch;
+      color: var(--muted);
+      font-size: var(--font-body-lg);
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 11px 15px;
+      border: 1px solid rgba(240, 180, 76, 0.35);
+      border-radius: var(--radius-sm);
+      background: rgba(240, 180, 76, 0.07);
+      font-size: 0.93rem;
+    }
+
+    .availability::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 0 0 rgba(240, 180, 76, 0.5);
+      flex-shrink: 0;
+      animation: pulse 2.4s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(240, 180, 76, 0.45); }
+      70% { box-shadow: 0 0 0 8px rgba(240, 180, 76, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(240, 180, 76, 0); }
     }
 
     /* Terminal */
@@ -270,25 +406,30 @@
       background: var(--terminal);
       overflow: hidden;
       font-family: var(--mono);
-      font-size: 0.88rem;
-      line-height: 1.7;
+      font-size: var(--font-mono-body);
+      line-height: var(--leading-mono);
+      box-shadow: var(--shadow-md);
     }
 
     .terminal-bar {
       display: flex;
       align-items: center;
       gap: 7px;
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-bottom: 1px solid var(--line);
       background: var(--surface);
     }
 
     .terminal-bar i {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: var(--line);
     }
+
+    .terminal-bar i:nth-child(1) { background: #e06c6c; }
+    .terminal-bar i:nth-child(2) { background: #e0b24c; }
+    .terminal-bar i:nth-child(3) { background: #5bb871; }
 
     .terminal-bar span {
       margin-left: 8px;
@@ -332,8 +473,6 @@
       50% { opacity: 0; }
     }
 
-    /* Invite interactive */
-
     .t-cmdline {
       display: flex;
       align-items: baseline;
@@ -362,159 +501,40 @@
 
     .terminal:focus-within {
       border-color: var(--signal);
-    }
-
-    /* ---------- Améliorations visuelles ---------- */
-
-    /* Transitions douces sur les éléments interactifs */
-    a,
-    .button,
-    .nav-links a,
-    .filters button,
-    .project,
-    .feature,
-    .tags li,
-    .portrait,
-    .menu-toggle {
-      transition: color .18s ease, background-color .18s ease,
-        border-color .18s ease, transform .18s ease, box-shadow .25s ease;
-    }
-
-    /* Grille technique discrète derrière le hero */
-    .hero {
-      position: relative;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 32px 32px;
-      opacity: 0.18;
-      -webkit-mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
-      mask-image: radial-gradient(120% 85% at 72% 0%, #000 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Boutons : léger relèvement, halo cyan sur le primaire */
-    .button:hover {
-      transform: translateY(-1px);
-    }
-
-    .button:active {
-      transform: translateY(0);
-    }
-
-    .button-primary:hover {
-      box-shadow: 0 6px 20px -8px var(--signal);
-    }
-
-    /* Cartes projet : relèvement et bord signal au survol */
-    .project:hover {
-      transform: translateY(-3px);
-      border-color: var(--signal);
-      box-shadow: 0 14px 30px -20px rgba(0, 0, 0, 0.85);
-    }
-
-    /* Tags : bord cyan au survol */
-    .tags li:hover {
-      border-color: var(--signal);
-    }
-
-    /* Accent cyan sous les titres de section */
-    .section-head h2 {
-      position: relative;
-      padding-bottom: 14px;
-    }
-
-    .section-head h2::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 44px;
-      height: 3px;
-      border-radius: var(--radius-pill);
-      background: var(--signal);
-    }
-
-    /* Liens de contenu : soulignement animé */
-    .hero-text a,
-    .section-head a,
-    .project a {
-      text-decoration: none;
-      background-image: linear-gradient(var(--signal), var(--signal));
-      background-repeat: no-repeat;
-      background-position: 0 100%;
-      background-size: 0% 2px;
-      transition: background-size .2s ease;
-    }
-
-    .hero-text a:hover,
-    .section-head a:hover,
-    .project a:hover {
-      background-size: 100% 2px;
-    }
-
-    /* Portrait : halo cyan subtil au survol */
-    .portrait:hover {
-      box-shadow: 0 0 0 6px var(--surface), 0 0 28px -4px var(--signal);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      a,
-      .button,
-      .nav-links a,
-      .filters button,
-      .project,
-      .feature,
-      .tags li,
-      .portrait,
-      .menu-toggle,
-      .hero-text a,
-      .section-head a,
-      .project a {
-        transition: none;
-      }
-
-      .button:hover,
-      .project:hover {
-        transform: none;
-      }
+      box-shadow: var(--shadow-md), var(--glow-signal);
     }
 
     /* ---------- Sections ---------- */
 
     section {
-      padding: 80px 0;
-      border-top: 1px solid var(--line);
+      position: relative;
+      padding: 88px 0;
+      border-top: 1px solid var(--line-soft);
     }
 
     .section-head {
-      margin-bottom: 36px;
-      max-width: 62ch;
+      margin-bottom: 40px;
+      max-width: 64ch;
     }
 
     h2 {
-      font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+      font-size: var(--font-display-lg);
       font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.015em;
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-lg);
+      color: var(--text-strong);
     }
 
     .section-head p {
-      margin-top: 10px;
+      margin-top: 12px;
       color: var(--muted);
     }
 
     h3 {
-      font-size: 1.1rem;
+      font-size: var(--font-heading);
       font-weight: 600;
       line-height: 1.4;
+      color: var(--text);
     }
 
     .muted {
@@ -535,36 +555,44 @@
 
     .facts {
       list-style: none;
-      border-top: 1px solid var(--line);
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      background-image: var(--grad-surface);
     }
 
     .facts li {
       display: grid;
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: 110px 1fr;
       gap: 12px;
       padding: 12px 0;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--line-soft);
       font-size: 0.95rem;
     }
 
-    .facts dt,
+    .facts li:first-child { padding-top: 0; }
+    .facts li:last-child { padding-bottom: 0; border-bottom: 0; }
+
     .facts .k {
       color: var(--muted);
     }
 
-    /* Expérience : lignes date | contenu */
+    /* Expérience : timeline */
+
+    .timeline {
+      position: relative;
+    }
 
     .entry {
+      position: relative;
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 32px;
-      padding: 32px 0;
-      border-top: 1px solid var(--line);
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 36px;
+      padding: 8px 0 36px 0;
     }
 
-    .entry:last-child {
-      border-bottom: 1px solid var(--line);
-    }
+    .entry:last-child { padding-bottom: 0; }
 
     .entry-meta {
       color: var(--muted);
@@ -577,20 +605,63 @@
       font-weight: 600;
     }
 
-    .entry p {
+    .entry-meta .when {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      color: var(--signal);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+    }
+
+    .entry-body {
+      position: relative;
+      padding-left: 30px;
+      padding-bottom: 4px;
+    }
+
+    /* Ligne verticale + point de la timeline (côté contenu) */
+    .entry-body::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      bottom: -36px;
+      width: 2px;
+      background: linear-gradient(var(--line), transparent);
+    }
+
+    .entry:last-child .entry-body::before { bottom: 0; }
+
+    .entry-body::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--signal);
+      box-shadow: 0 0 0 4px rgba(92, 200, 238, 0.14);
+    }
+
+    .entry-body p {
       margin-top: 10px;
       color: var(--muted);
       max-width: 68ch;
     }
 
-    .entry ul {
+    .entry-body ul:not(.tags) {
       margin-top: 14px;
       padding-left: 20px;
       color: var(--muted);
       max-width: 68ch;
     }
 
-    .entry li + li {
+    .entry-body li + li {
       margin-top: 6px;
     }
 
@@ -604,23 +675,18 @@
     }
 
     .tags li {
-      padding: 3px 9px;
+      padding: 3px 10px;
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: var(--radius-tag);
       background: var(--surface);
       color: var(--text);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: var(--font-mono-tag);
     }
 
-    .entry ul.tags {
-      padding-left: 0;
-      margin-top: 18px;
-    }
+    .tags li:hover { border-color: var(--signal); }
 
-    .entry ul.tags li + li {
-      margin-top: 0;
-    }
+    .entry-body ul.tags li + li { margin-top: 0; }
 
     /* Projets */
 
@@ -628,13 +694,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
 
     .filters button {
-      padding: 7px 13px;
+      padding: 7px 14px;
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: transparent;
       color: var(--muted);
       font: 500 0.88rem var(--sans);
@@ -647,55 +713,86 @@
     }
 
     .filters button[aria-pressed="true"] {
-      background: var(--text);
-      border-color: var(--text);
-      color: var(--ink);
+      background: var(--grad-accent);
+      border-color: transparent;
+      color: #06121b;
+      font-weight: 600;
     }
 
     .project-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 18px;
     }
 
     .project {
+      position: relative;
       display: flex;
       flex-direction: column;
-      padding: 24px;
+      padding: 26px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
+      background-image: var(--grad-surface);
+      overflow: hidden;
     }
+
+    /* Liseré accent qui s'illumine au survol */
+    .project::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      background: var(--grad-accent);
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+
+    .project:hover::before { opacity: 1; }
 
     .project[hidden] {
       display: none;
     }
 
     .project-cat {
-      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
       color: var(--signal);
-      font-size: 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
       font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .project-cat::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--signal);
     }
 
     .project p {
       margin-top: 8px;
       color: var(--muted);
+      font-size: 0.97rem;
     }
 
     .project .tags {
       margin-top: auto;
-      padding-top: 18px;
-    }
-
-    .project-note {
-      margin-top: 20px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      padding-top: 20px;
     }
 
     .project-link {
-      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
       align-self: flex-start;
       color: var(--signal);
       font-family: var(--mono);
@@ -703,21 +800,30 @@
       font-weight: 500;
     }
 
+    .project-link:hover { text-decoration: none; gap: 10px; }
+
     /* Engagement */
 
     .feature {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
       gap: 40px;
-      padding: 32px;
+      padding: 34px;
       border: 1px solid var(--line);
       border-left: 3px solid var(--amber);
       border-radius: var(--radius);
       background: var(--surface);
+      background-image: var(--grad-surface);
+      box-shadow: var(--shadow-md);
     }
 
     .feature .entry-meta {
       margin-bottom: 6px;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .feature p {
@@ -737,7 +843,7 @@
       align-items: baseline;
       gap: 12px;
       padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--line-soft);
     }
 
     .figures li:last-child {
@@ -746,11 +852,11 @@
     }
 
     .figures strong {
-      min-width: 3.2ch;
+      min-width: 3.4ch;
       color: var(--amber);
       font-family: var(--mono);
-      font-size: 1.9rem;
-      font-weight: 500;
+      font-size: var(--font-figure);
+      font-weight: 600;
       line-height: 1;
     }
 
@@ -761,67 +867,108 @@
     .roles {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 40px;
-      margin-top: 32px;
+      gap: 16px;
+      margin-top: 28px;
       list-style: none;
     }
 
     .roles li {
-      padding: 18px 0;
-      border-top: 1px solid var(--line);
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      background-image: var(--grad-surface);
     }
 
+    .roles li:hover { border-color: var(--line); transform: translateY(-2px); }
+
     .roles p {
-      margin-top: 4px;
+      margin-top: 6px;
       color: var(--muted);
       font-size: 0.95rem;
     }
 
-    /* Compétences */
+    /* Compétences : cartes à icône */
 
     .skills {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 32px 40px;
+      gap: 18px;
     }
 
-    .skills h3 {
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
+    .skill-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      background-image: var(--grad-surface);
     }
 
-    .skills .tags {
-      margin-top: 14px;
+    .skill-card:hover { border-color: var(--signal); }
+
+    .skill-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid var(--line-soft);
     }
+
+    .skill-icon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-3);
+      color: var(--signal);
+    }
+
+    .skill-icon svg { width: 20px; height: 20px; }
+
+    .skills .tags { margin-top: 16px; }
 
     /* Certifications */
 
     .certs {
       list-style: none;
+      display: grid;
+      gap: 14px;
     }
 
     .certs > li {
       display: grid;
       grid-template-columns: 200px minmax(0, 1fr);
       gap: 32px;
-      padding: 18px 0;
-      border-top: 1px solid var(--line);
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      background-image: var(--grad-surface);
     }
 
-    .certs > li:last-child {
-      border-bottom: 1px solid var(--line);
-    }
+    .certs > li:hover { border-color: var(--line); }
 
     .certs .issuer {
       color: var(--muted);
       font-size: 0.9rem;
-      padding-top: 2px;
     }
 
     .certs .issuer strong {
       display: block;
       color: var(--text);
       font-weight: 600;
+    }
+
+    .certs .issuer .date {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--signal);
+      font-family: var(--mono);
+      font-size: 0.78rem;
     }
 
     .certs p {
@@ -831,20 +978,25 @@
     }
 
     .certs .tags {
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       margin-left: 8px;
-      padding: 1px 8px;
-      border: 1px solid rgba(92, 200, 238, 0.45);
-      border-radius: 4px;
+      padding: 2px 9px;
+      border: 1px solid rgba(92, 200, 238, 0.4);
+      border-radius: var(--radius-pill);
+      background: rgba(92, 200, 238, 0.08);
       color: var(--signal);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 500;
       vertical-align: middle;
     }
+
+    .badge svg { width: 12px; height: 12px; }
 
     .verify {
       display: inline-block;
@@ -854,45 +1006,122 @@
 
     /* Contact */
 
-    .contact {
+    .contact-panel {
+      position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 32px;
-      align-items: end;
+      align-items: center;
+      padding: 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background:
+        var(--grad-accent-soft),
+        var(--surface);
+      overflow: hidden;
     }
 
-    .contact .actions {
+    .contact-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.12;
+      -webkit-mask-image: radial-gradient(90% 120% at 100% 0%, #000, transparent 70%);
+      mask-image: radial-gradient(90% 120% at 100% 0%, #000, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-panel > * { position: relative; z-index: 1; }
+
+    .contact-panel h2 { margin-bottom: 0; }
+
+    .contact-panel p {
+      margin-top: 12px;
+      color: var(--muted);
+      max-width: 48ch;
+    }
+
+    .contact-panel .actions {
       margin-top: 0;
       justify-content: flex-end;
     }
 
     footer {
-      padding: 28px 0;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
+      padding: 32px 0;
+      border-top: 1px solid var(--line-soft);
+      color: var(--muted-dim);
       font-size: 0.85rem;
+    }
+
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer a { color: var(--muted); }
+
+    /* ---------- Reveal au scroll ---------- */
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s ease, transform .6s ease;
+      will-change: opacity, transform;
+    }
+
+    [data-reveal].in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ---------- Transitions douces ---------- */
+
+    a, .button, .nav-links a, .filters button, .project,
+    .feature, .roles li, .skill-card, .certs > li, .tags li,
+    .portrait, .menu-toggle, .project-link {
+      transition: color .18s ease, background-color .18s ease,
+        border-color .18s ease, transform .2s ease, box-shadow .25s ease, gap .18s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      border-color: var(--signal);
+      box-shadow: var(--shadow-md);
+    }
+
+    .section-head h2 {
+      position: relative;
+    }
+
+    .portrait:hover {
+      box-shadow: var(--ring-surface), var(--glow-signal);
     }
 
     /* ---------- Responsive ---------- */
 
-    @media (max-width: 900px) {
+    @media (max-width: 920px) {
       .hero-grid,
       .profile-grid,
       .feature,
-      .contact {
+      .contact-panel {
         grid-template-columns: 1fr;
       }
 
-      .hero-grid {
-        gap: 36px;
-      }
-
-      .contact .actions {
-        justify-content: flex-start;
-      }
+      .hero-grid { gap: 40px; }
+      .contact-panel { padding: 32px; }
+      .contact-panel .actions { justify-content: flex-start; }
     }
 
-    @media (max-width: 760px) {
+    /* Nav : bascule vers le menu déroulant dès que les liens ne tiennent plus */
+    @media (max-width: 860px) {
       .menu-toggle {
         display: inline-block;
       }
@@ -906,7 +1135,7 @@
         flex-direction: column;
         gap: 2px;
         padding: 10px 16px 16px;
-        background: var(--ink);
+        background: var(--ink-2);
         border-bottom: 1px solid var(--line);
       }
 
@@ -915,42 +1144,53 @@
       }
 
       .nav-links a {
-        padding: 10px 12px;
+        padding: 11px 12px;
         font-size: 1rem;
       }
+    }
 
+    @media (max-width: 760px) {
       .hero {
-        padding: 48px 0 56px;
+        padding: 56px 0 60px;
       }
 
+      .portrait-wrap,
       .portrait {
         width: 104px;
-        height: 104px;
-        margin-bottom: 22px;
       }
+
+      .portrait { height: 104px; }
 
       section {
-        padding: 60px 0;
+        padding: 64px 0;
       }
 
-      .entry,
-      .certs > li {
+      .entry {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 14px;
       }
+
+      .entry-body {
+        padding-left: 24px;
+      }
+
+      .entry-body::before { bottom: -24px; }
 
       .project-grid,
       .roles,
-      .skills {
+      .skills,
+      .certs > li {
         grid-template-columns: 1fr;
       }
+
+      .certs > li { gap: 10px; }
 
       .feature {
         padding: 24px 20px;
       }
 
       .facts li {
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: 96px 1fr;
       }
 
       .terminal {
@@ -963,41 +1203,35 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
       }
 
-      .cursor {
-        animation: none;
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
       }
+
+      .button:hover,
+      .project:hover,
+      .roles li:hover { transform: none; }
+
+      .cursor { animation: none; }
     }
 
     @media print {
-      header,
-      .terminal,
-      .filters,
-      .actions {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-        color: #000;
-      }
-
-      section {
-        padding: 24px 0;
-      }
-
-      .project,
-      .feature {
-        background: none;
-        break-inside: avoid;
-      }
-
-      .project[hidden] {
-        display: flex !important;
-      }
+      header, .terminal, .filters, .actions, .contact-panel::before { display: none !important; }
+      body { background: #fff; color: #000; }
+      body::before { display: none; }
+      section { padding: 24px 0; }
+      h1 { -webkit-text-fill-color: #000; color: #000; }
+      .project, .feature { background: none; box-shadow: none; break-inside: avoid; }
+      .project[hidden] { display: flex !important; }
+      [data-reveal] { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -1038,19 +1272,21 @@
     <!-- ACCUEIL -->
     <section class="hero" id="accueil" style="border-top: 0;">
       <div class="container hero-grid">
-        <div>
-          <img
-            src="photo-hamza.jpg"
-            alt="Portrait de Hamza Mezzene"
-            class="portrait"
-            width="132"
-            height="132"
-          >
+        <div data-reveal>
+          <div class="portrait-wrap">
+            <img
+              src="photo-hamza.jpg"
+              alt="Portrait de Hamza Mezzene"
+              class="portrait"
+              width="132"
+              height="132"
+            >
+          </div>
 
           <h1>Hamza Mezzene</h1>
 
           <p class="hero-role">
-            Étudiant ingénieur en Génie Informatique &amp; Cybersécurité
+            Étudiant ingénieur en <b>Génie Informatique &amp; Cybersécurité</b>
           </p>
 
           <p class="hero-text">
@@ -1076,6 +1312,7 @@
               target="_blank"
               rel="noopener noreferrer"
               >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
               Voir mon CV
             </a>
 
@@ -1085,6 +1322,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.57.1.78-.25.78-.55v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.26.73-1.55-2.56-.3-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.48.1-3.08 0 0 .98-.31 3.2 1.18a11 11 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.6.23 2.78.11 3.08.75.81 1.2 1.84 1.2 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
               GitHub
             </a>
 
@@ -1094,12 +1332,13 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
               LinkedIn
             </a>
           </div>
         </div>
 
-        <div class="terminal" role="group" aria-label="Terminal interactif">
+        <div class="terminal" role="group" aria-label="Terminal interactif" data-reveal>
           <div class="terminal-bar">
             <i></i><i></i><i></i>
             <span>hamza@uir:~</span>
@@ -1112,8 +1351,9 @@
     <!-- PROFIL -->
     <section id="profil">
       <div class="container profile-grid">
-        <div>
+        <div data-reveal>
           <div class="section-head">
+            <span class="eyebrow">01 — À propos</span>
             <h2>Profil</h2>
           </div>
 
@@ -1131,7 +1371,7 @@
           </p>
         </div>
 
-        <ul class="facts">
+        <ul class="facts" data-reveal>
           <li><span class="k">Formation</span><span>Cycle ingénieur, 4e année — ESIN, UIR</span></li>
           <li><span class="k">Diplôme</span><span>Prévu en 2028</span></li>
           <li><span class="k">Ville</span><span>Rabat, Maroc</span></li>
@@ -1144,71 +1384,77 @@
     <!-- EXPERIENCE -->
     <section id="experience">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">02 — Parcours</span>
           <h2>Expérience professionnelle</h2>
         </div>
 
-        <article class="entry">
-          <div class="entry-meta">
-            <strong>Juin – juillet 2026</strong>
-            Polyclinique Wifak, Témara
-          </div>
+        <div class="timeline">
+          <article class="entry" data-reveal>
+            <div class="entry-meta">
+              <span class="when">Juin – juillet 2026</span>
+              <strong>Polyclinique Wifak</strong>
+              Témara, Maroc
+            </div>
 
-          <div>
-            <h3>Stage — application web de gestion de stock</h3>
-            <p>
-              Conception, développement et déploiement en production d'une
-              application de gestion de stock pour la clinique, du cahier
-              des charges jusqu'à la mise en service sur l'infrastructure
-              interne.
-            </p>
-            <ul>
-              <li>Rédaction du cahier des charges et du rapport de stage couvrant l'ensemble de la solution.</li>
-              <li>Développement d'une application PHP 8 / MySQL en architecture MVC : contrôle d'accès par rôles (RBAC), requêtes préparées PDO et mots de passe hachés avec bcrypt.</li>
-              <li>Déploiement en production sur Windows Server 2016 (IIS) avec configuration de MySQL 8.</li>
-              <li>Migration des données entre versions de schéma et résolution d'incidents de permissions IIS, de compatibilité PHP et de gestion des sessions.</li>
-              <li>Automatisation RH en Python (openpyxl) : fusion et dédoublonnage de deux listes d'employés avec rapprochement approximatif des noms (fuzzy matching).</li>
-            </ul>
-            <ul class="tags">
-              <li>PHP 8</li>
-              <li>MySQL 8</li>
-              <li>MVC</li>
-              <li>RBAC</li>
-              <li>Windows Server / IIS</li>
-              <li>Python</li>
-            </ul>
-          </div>
-        </article>
+            <div class="entry-body">
+              <h3>Stage — application web de gestion de stock</h3>
+              <p>
+                Conception, développement et déploiement en production d'une
+                application de gestion de stock pour la clinique, du cahier
+                des charges jusqu'à la mise en service sur l'infrastructure
+                interne.
+              </p>
+              <ul>
+                <li>Rédaction du cahier des charges et du rapport de stage couvrant l'ensemble de la solution.</li>
+                <li>Développement d'une application PHP 8 / MySQL en architecture MVC : contrôle d'accès par rôles (RBAC), requêtes préparées PDO et mots de passe hachés avec bcrypt.</li>
+                <li>Déploiement en production sur Windows Server 2016 (IIS) avec configuration de MySQL 8.</li>
+                <li>Migration des données entre versions de schéma et résolution d'incidents de permissions IIS, de compatibilité PHP et de gestion des sessions.</li>
+                <li>Automatisation RH en Python (openpyxl) : fusion et dédoublonnage de deux listes d'employés avec rapprochement approximatif des noms (fuzzy matching).</li>
+              </ul>
+              <ul class="tags">
+                <li>PHP 8</li>
+                <li>MySQL 8</li>
+                <li>MVC</li>
+                <li>RBAC</li>
+                <li>Windows Server / IIS</li>
+                <li>Python</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="entry">
-          <div class="entry-meta">
-            <strong>Mission freelance</strong>
-            Client au Maroc
-          </div>
+          <article class="entry" data-reveal>
+            <div class="entry-meta">
+              <span class="when">Mission freelance</span>
+              <strong>BuildiTrav</strong>
+              Client au Maroc
+            </div>
 
-          <div>
-            <h3>Site vitrine pour une entreprise du BTP (BuildiTrav)</h3>
-            <p>
-              Prise en charge complète d'un projet client : rapport
-              d'analyse, cahier des charges du site, développement d'un site
-              vitrine one-page et mise en ligne (hébergement et nom de domaine
-              pour la première année).
-            </p>
-            <ul class="tags">
-              <li>Analyse du besoin</li>
-              <li>Cahier des charges</li>
-              <li>Développement web</li>
-              <li>Hébergement</li>
-            </ul>
-          </div>
-        </article>
+            <div class="entry-body">
+              <h3>Site vitrine pour une entreprise du BTP</h3>
+              <p>
+                Prise en charge complète d'un projet client : rapport
+                d'analyse, cahier des charges du site, développement d'un site
+                vitrine one-page et mise en ligne (hébergement et nom de domaine
+                pour la première année).
+              </p>
+              <ul class="tags">
+                <li>Analyse du besoin</li>
+                <li>Cahier des charges</li>
+                <li>Développement web</li>
+                <li>Hébergement</li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- PROJETS -->
     <section id="projets">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">03 — Réalisations</span>
           <h2>Projets et travaux pratiques</h2>
           <p>
             Travaux réalisés dans le cadre de ma formation et de mes
@@ -1217,7 +1463,7 @@
           </p>
         </div>
 
-        <div class="filters" role="group" aria-label="Filtrer les projets">
+        <div class="filters" role="group" aria-label="Filtrer les projets" data-reveal>
           <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
           <button type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
           <button type="button" data-filter="reseaux" aria-pressed="false">Réseaux et systèmes</button>
@@ -1226,7 +1472,7 @@
         </div>
 
         <div class="project-grid">
-          <article class="project" data-cat="securite">
+          <article class="project" data-cat="securite" data-reveal>
             <div class="project-cat">Sécurité offensive</div>
             <h3>Ethical hacking</h3>
             <p>
@@ -1239,7 +1485,7 @@
             <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
           </article>
 
-          <article class="project" data-cat="securite">
+          <article class="project" data-cat="securite" data-reveal>
             <div class="project-cat">CTF</div>
             <h3>Challenges et write-ups</h3>
             <p>
@@ -1252,7 +1498,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="securite">
+          <article class="project" data-cat="securite" data-reveal>
             <div class="project-cat">Cryptographie</div>
             <h3>Cryptographie appliquée</h3>
             <p>
@@ -1266,7 +1512,7 @@
             <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
           </article>
 
-          <article class="project" data-cat="reseaux securite">
+          <article class="project" data-cat="reseaux securite" data-reveal>
             <div class="project-cat">Administration réseau</div>
             <h3>Services réseau sous Linux</h3>
             <p>
@@ -1280,7 +1526,7 @@
             <a class="project-link" href="https://github.com/hamza-mzn/linux-namespaces-nat-iptables" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
           </article>
 
-          <article class="project" data-cat="dev securite">
+          <article class="project" data-cat="dev securite" data-reveal>
             <div class="project-cat">Développement web sécurisé</div>
             <h3>Stocky — gestion de stock et de ventes</h3>
             <p>
@@ -1294,7 +1540,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="securite donnees">
+          <article class="project" data-cat="securite donnees" data-reveal>
             <div class="project-cat">Recherche</div>
             <h3>Contrôle d'accès A&amp;RBAC</h3>
             <p>
@@ -1307,7 +1553,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="reseaux">
+          <article class="project" data-cat="reseaux" data-reveal>
             <div class="project-cat">Infrastructure</div>
             <h3>SDN, cloud et calcul parallèle</h3>
             <p>
@@ -1320,7 +1566,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="donnees">
+          <article class="project" data-cat="donnees" data-reveal>
             <div class="project-cat">Business Intelligence</div>
             <h3>Entrepôts de données et ETL</h3>
             <p>
@@ -1339,12 +1585,13 @@
     <!-- ENGAGEMENT -->
     <section id="engagement">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">04 — Leadership</span>
           <h2>Engagement associatif</h2>
           <p>Organisation d'événements et représentation étudiante à l'UIR.</p>
         </div>
 
-        <article class="feature">
+        <article class="feature" data-reveal>
           <div>
             <div class="entry-meta">Coordinateur général · 1re édition</div>
             <h3>CYBrAIn Fest UIR — l'IA au service de la cybersécurité</h3>
@@ -1364,19 +1611,19 @@
         </article>
 
         <ul class="roles">
-          <li>
+          <li data-reveal>
             <h3>Vice-Président, CYBERGLITCHERS UIR</h3>
             <p>Pilotage du club de cybersécurité et organisation de ses activités.</p>
           </li>
-          <li>
+          <li data-reveal>
             <h3>Responsable Sponsoring, BDE UIR</h3>
             <p>Recherche et suivi des partenaires du Bureau des Étudiants.</p>
           </li>
-          <li>
+          <li data-reveal>
             <h3>Chef de protocole, Pôle des ingénieurs EMJL</h3>
             <p>Protocole des événements et visites institutionnelles, dont une visite au Parlement.</p>
           </li>
-          <li>
+          <li data-reveal>
             <h3>Ambassadeur, College of Engineering &amp; Architecture</h3>
             <p>Représentation du collège auprès des étudiants et des visiteurs.</p>
           </li>
@@ -1387,13 +1634,19 @@
     <!-- COMPETENCES -->
     <section id="competences">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">05 — Stack</span>
           <h2>Compétences techniques</h2>
         </div>
 
         <div class="skills">
-          <div>
-            <h3>Cybersécurité</h3>
+          <div class="skill-card" data-reveal>
+            <div class="skill-head">
+              <span class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              <h3>Cybersécurité</h3>
+            </div>
             <ul class="tags">
               <li>Nmap / NSE</li>
               <li>Metasploit</li>
@@ -1406,8 +1659,13 @@
             </ul>
           </div>
 
-          <div>
-            <h3>Systèmes et réseaux</h3>
+          <div class="skill-card" data-reveal>
+            <div class="skill-head">
+              <span class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/><path d="M10 6h4M6 10v4M18 10v4M10 18h4"/></svg>
+              </span>
+              <h3>Systèmes et réseaux</h3>
+            </div>
             <ul class="tags">
               <li>TCP/IP</li>
               <li>Linux</li>
@@ -1424,8 +1682,13 @@
             </ul>
           </div>
 
-          <div>
-            <h3>Développement</h3>
+          <div class="skill-card" data-reveal>
+            <div class="skill-head">
+              <span class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </span>
+              <h3>Développement</h3>
+            </div>
             <ul class="tags">
               <li>PHP 8 (MVC, PDO)</li>
               <li>RBAC</li>
@@ -1440,8 +1703,13 @@
             </ul>
           </div>
 
-          <div>
-            <h3>Données</h3>
+          <div class="skill-card" data-reveal>
+            <div class="skill-head">
+              <span class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+              </span>
+              <h3>Données</h3>
+            </div>
             <ul class="tags">
               <li>MySQL</li>
               <li>SQL Server / T-SQL</li>
@@ -1460,7 +1728,8 @@
     <!-- CERTIFICATIONS -->
     <section id="certifications">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">06 — Formation continue</span>
           <h2>Certifications</h2>
         </div>
 
@@ -1470,13 +1739,18 @@
           <a class="verify" href="URL-DE-VERIFICATION" target="_blank" rel="noopener noreferrer">Vérifier le certificat</a>
         -->
         <ul class="certs">
-          <li>
+          <li data-reveal>
             <div class="issuer">
-              <strong>Sept. 2025</strong>
-              Cisco Networking Academy
+              <span class="date">Sept. 2025</span>
+              <strong>Cisco Networking Academy</strong>
             </div>
             <div>
-              <h3>Cyber Threat Management <span class="badge">Badge vérifié</span></h3>
+              <h3>Cyber Threat Management
+                <span class="badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Badge vérifié
+                </span>
+              </h3>
               <p>
                 Cours « Cybermenace : contenu et déroulement » : gestion des
                 menaces, évaluation des vulnérabilités et gestion des risques
@@ -1484,23 +1758,28 @@
               </p>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="issuer">
-              <strong>Août 2025</strong>
-              Cisco Networking Academy
+              <span class="date">Août 2025</span>
+              <strong>Cisco Networking Academy</strong>
             </div>
             <div>
-              <h3>Introduction to Cybersecurity <span class="badge">Badge vérifié</span></h3>
+              <h3>Introduction to Cybersecurity
+                <span class="badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Badge vérifié
+                </span>
+              </h3>
               <p>
                 Cours « Introduction à la cybersécurité » : concepts
                 fondamentaux, panorama des menaces et principes de protection.
               </p>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="issuer">
-              <strong>Août 2025</strong>
-              Cisco Networking Academy
+              <span class="date">Août 2025</span>
+              <strong>Cisco Networking Academy</strong>
             </div>
             <div>
               <h3>Cinq modules validés</h3>
@@ -1513,20 +1792,20 @@
               </ul>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="issuer">
-              <strong>Avril 2025</strong>
-              Coursera
+              <span class="date">Avril 2025</span>
+              <strong>Coursera</strong>
             </div>
             <div>
               <h3>Data Analysis Using PySpark</h3>
               <p>Analyse de données à grande échelle avec Apache Spark en Python.</p>
             </div>
           </li>
-          <li>
+          <li data-reveal>
             <div class="issuer">
-              <strong>Avril 2025</strong>
-              Coursera
+              <span class="date">Avril 2025</span>
+              <strong>Coursera</strong>
             </div>
             <div>
               <h3>Working with BigQuery</h3>
@@ -1539,34 +1818,40 @@
 
     <!-- CONTACT -->
     <section id="contact">
-      <div class="container contact">
-        <div class="section-head" style="margin-bottom: 0;">
-          <h2>Contact</h2>
-          <p>
-            Pour une proposition de stage ou un échange autour de la
-            cybersécurité, écrivez-moi par email ou sur LinkedIn.
-          </p>
-        </div>
+      <div class="container">
+        <div class="contact-panel" data-reveal>
+          <div class="section-head" style="margin-bottom: 0;">
+            <span class="eyebrow">07 — Échangeons</span>
+            <h2>Contact</h2>
+            <p>
+              Pour une proposition de stage ou un échange autour de la
+              cybersécurité, écrivez-moi par email ou sur LinkedIn.
+            </p>
+          </div>
 
-        <div class="actions">
-          <a class="button button-primary" href="mailto:hamza.mezzene@uir.ac.ma">
-            M'écrire un email
-          </a>
-          <a
-            class="button"
-            href="https://www.linkedin.com/in/hamza-mezzene/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a
-            class="button"
-            href="CV_Hamza_Mezzene_ING4_Cyber.pdf"
-            download
-          >
-            Télécharger mon CV
-          </a>
+          <div class="actions">
+            <a class="button button-primary" href="mailto:hamza.mezzene@uir.ac.ma">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+              M'écrire un email
+            </a>
+            <a
+              class="button"
+              href="https://www.linkedin.com/in/hamza-mezzene/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+              LinkedIn
+            </a>
+            <a
+              class="button"
+              href="CV_Hamza_Mezzene_ING4_Cyber_2027.pdf"
+              download
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Télécharger mon CV
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1575,12 +1860,25 @@
 
   <footer>
     <div class="container">
-      © 2026 Hamza Mezzene — Rabat, Maroc
+      <span>© 2026 Hamza Mezzene — Rabat, Maroc</span>
+      <span>
+        <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">GitHub</a>
+        ·
+        <a href="https://www.linkedin.com/in/hamza-mezzene/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </span>
     </div>
   </footer>
 
   <script>
     (function () {
+      /* ---------- En-tête : ombre au défilement ---------- */
+      var head = document.querySelector("header");
+      var onScroll = function () {
+        head.classList.toggle("scrolled", window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
       /* ---------- Menu mobile ---------- */
       var toggle = document.querySelector(".menu-toggle");
       var menu = document.getElementById("menu");
@@ -1620,6 +1918,25 @@
         }, { rootMargin: "-40% 0px -55% 0px" });
 
         sections.forEach(function (s) { observer.observe(s); });
+      }
+
+      /* ---------- Reveal au scroll ---------- */
+      var revealEls = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        revealEls.forEach(function (el) { el.classList.add("in"); });
+      } else {
+        var revObserver = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+        revealEls.forEach(function (el) { revObserver.observe(el); });
       }
 
       /* ---------- Filtre des projets ---------- */
