@@ -34,6 +34,7 @@
 
   /* ---- Gradients ---- */
   --grad-accent: linear-gradient(135deg, #5cc8ee 0%, #6b8cff 100%);
+  --grad-button: linear-gradient(135deg, #7dd5f3 0%, #5cc8ee 52%, #5fb4f2 100%); /* cyan-dominant, keeps dark text legible across the whole fill */
   --grad-accent-soft: linear-gradient(135deg, rgba(92, 200, 238, 0.16), rgba(107, 140, 255, 0.10));
   --grad-text: linear-gradient(120deg, #e8eef7 0%, #9fd8f3 55%, #8aa6ff 100%);
   --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0));

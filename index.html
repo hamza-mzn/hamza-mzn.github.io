@@ -269,10 +269,14 @@
     }
 
     .button-primary {
-      background: var(--grad-accent);
+      background-color: var(--signal);           /* fond de secours solide, toujours lisible */
+      background-image: var(--grad-button);
       border-color: transparent;
       color: #06121b;
+      font-weight: 700;
     }
+
+    .button-primary svg { opacity: 0.9; }
 
     .button-primary:hover {
       border-color: transparent;
@@ -494,9 +498,11 @@
       cursor: text;
     }
 
+    /* Pas de zone de défilement : le terminal grandit avec son contenu,
+       aucune barre ne peut donc apparaître (tous navigateurs / OS). */
     .terminal.is-interactive .terminal-body {
-      overflow-y: auto;
-      max-height: 320px;
+      overflow: visible;
+      max-height: none;
     }
 
     .terminal:focus-within {
@@ -713,7 +719,8 @@
     }
 
     .filters button[aria-pressed="true"] {
-      background: var(--grad-accent);
+      background-color: var(--signal);
+      background-image: var(--grad-button);
       border-color: transparent;
       color: #06121b;
       font-weight: 600;
