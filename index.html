@@ -269,10 +269,14 @@
     }
 
     .button-primary {
-      background: var(--grad-accent);
+      background-color: var(--signal);           /* fond de secours solide, toujours lisible */
+      background-image: var(--grad-button);
       border-color: transparent;
       color: #06121b;
+      font-weight: 700;
     }
+
+    .button-primary svg { opacity: 0.9; }
 
     .button-primary:hover {
       border-color: transparent;
@@ -497,6 +501,15 @@
     .terminal.is-interactive .terminal-body {
       overflow-y: auto;
       max-height: 320px;
+      /* Défilement conservé, barre masquée */
+      scrollbar-width: none;        /* Firefox */
+      -ms-overflow-style: none;     /* anciens Edge */
+    }
+
+    .terminal-body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;                /* Chrome, Safari */
     }
 
     .terminal:focus-within {
@@ -713,7 +726,8 @@
     }
 
     .filters button[aria-pressed="true"] {
-      background: var(--grad-accent);
+      background-color: var(--signal);
+      background-image: var(--grad-button);
       border-color: transparent;
       color: #06121b;
       font-weight: 600;
