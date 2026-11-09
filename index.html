@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b111d">
   <meta name="description" content="Portfolio de Hamza Mezzene, étudiant ingénieur en Génie Informatique & Cybersécurité à l'Université Internationale de Rabat. CTF, sécurité offensive, cryptographie, administration réseau Linux et développement web sécurisé.">
   <meta name="author" content="Hamza Mezzene">
-  <meta name="keywords" content="Hamza Mezzene, cybersécurité, pentest, CTF, réseaux, Linux, UIR, ESIN, stage PFA, sécurité offensive">
+  <meta name="keywords" content="Hamza Mezzene, cybersécurité, cybersecurity, pentest, CTF, réseaux, Linux, UIR, ESIN, stage PFA, internship, sécurité offensive">
   <link rel="canonical" href="https://hamza-mzn.github.io/">
 
   <!-- Aperçu lors du partage du lien (LinkedIn, WhatsApp, etc.) -->
@@ -14,6 +14,7 @@
   <meta property="og:title" content="Hamza Mezzene | Portfolio Cybersécurité">
   <meta property="og:description" content="Étudiant ingénieur en cybersécurité à l'UIR. Recherche un stage PFA en cybersécurité pour l'été 2027.">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:url" content="https://hamza-mzn.github.io/">
   <meta property="og:image" content="https://hamza-mzn.github.io/photo-hamza.jpg">
   <meta property="og:image:alt" content="Portrait de Hamza Mezzene">
@@ -90,6 +91,12 @@
       outline-offset: 3px;
       border-radius: 3px;
     }
+
+    /* ---------- Bascule de langue (afficher FR ou EN) ---------- */
+
+    .l-en { display: none; }
+    html[lang="en"] .l-fr { display: none; }
+    html[lang="en"] .l-en { display: inline; }
 
     .skip-link {
       position: absolute;
@@ -179,6 +186,12 @@
       border-radius: var(--radius-sm);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -205,10 +218,6 @@
       background: var(--surface-2);
     }
 
-    .nav-links .nav-cv {
-      margin-left: 8px;
-    }
-
     .nav-links .nav-cv a {
       border: 1px solid var(--signal);
       color: var(--signal);
@@ -216,6 +225,36 @@
     }
 
     .nav-links .nav-cv a:hover {
+      background: var(--signal);
+      color: #06121b;
+    }
+
+    /* Sélecteur de langue : contrôle segmenté FR / EN */
+    .lang-switch {
+      display: inline-flex;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .lang-switch button {
+      padding: 6px 10px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: 600 0.8rem var(--mono);
+      cursor: pointer;
+      transition: background-color .18s ease, color .18s ease;
+    }
+
+    .lang-switch button + button {
+      border-left: 1px solid var(--line);
+    }
+
+    .lang-switch button:hover { color: var(--text); }
+
+    .lang-switch button[aria-pressed="true"] {
       background: var(--signal);
       color: #06121b;
     }
@@ -995,7 +1034,7 @@
 
     /* ---------- Responsive ---------- */
 
-    @media (max-width: 1040px) {
+    @media (max-width: 1060px) {
       .nav-links a { padding: 7px 8px; }
     }
 
@@ -1012,8 +1051,9 @@
       .contact-panel .actions { justify-content: flex-start; }
     }
 
-    /* Nav : bascule vers le menu déroulant dès que les liens ne tiennent plus */
-    @media (max-width: 940px) {
+    /* Nav : bascule vers le menu déroulant dès que les liens ne tiennent plus.
+       Le sélecteur de langue reste toujours visible, hors du menu. */
+    @media (max-width: 960px) {
       .menu-toggle { display: inline-block; }
 
       .nav-links {
@@ -1037,7 +1077,7 @@
         font-size: 1rem;
       }
 
-      .nav-links .nav-cv { margin: 8px 0 0; }
+      .nav-links .nav-cv { margin-top: 8px; }
       .nav-links .nav-cv a { text-align: center; }
     }
 
@@ -1115,7 +1155,7 @@
 
 <body>
 
-  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <a class="skip-link" href="#contenu"><span class="l-fr">Aller au contenu</span><span class="l-en">Skip to content</span></a>
 
   <header>
     <nav class="container" aria-label="Navigation principale">
@@ -1128,22 +1168,29 @@
         <span>Hamza Mezzene</span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
-        Menu
-      </button>
+      <div class="nav-right">
+        <div class="lang-switch" role="group" aria-label="Language / Langue">
+          <button type="button" data-lang="fr" aria-pressed="true" title="Français">FR</button>
+          <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+        </div>
 
-      <ul class="nav-links" id="menu">
-        <li><a href="#profil">Profil</a></li>
-        <li><a href="#experience">Expérience</a></li>
-        <li><a href="#projets">Projets</a></li>
-        <li><a href="#engagement">Engagement</a></li>
-        <li><a href="#competences">Compétences</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li class="nav-cv">
-          <a href="CV_Hamza_Mezzene_ING4_Cyber_2027.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
-        </li>
-      </ul>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+          Menu
+        </button>
+
+        <ul class="nav-links" id="menu">
+          <li><a href="#profil"><span class="l-fr">Profil</span><span class="l-en">Profile</span></a></li>
+          <li><a href="#experience"><span class="l-fr">Expérience</span><span class="l-en">Experience</span></a></li>
+          <li><a href="#projets"><span class="l-fr">Projets</span><span class="l-en">Projects</span></a></li>
+          <li><a href="#engagement"><span class="l-fr">Engagement</span><span class="l-en">Community</span></a></li>
+          <li><a href="#competences"><span class="l-fr">Compétences</span><span class="l-en">Skills</span></a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li class="nav-cv">
+            <a href="CV_Hamza_Mezzene_ING4_Cyber_2027.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+          </li>
+        </ul>
+      </div>
     </nav>
   </header>
 
@@ -1163,22 +1210,38 @@
             >
             <div>
               <h1>Hamza Mezzene</h1>
-              <p class="hero-role">Étudiant ingénieur en cybersécurité, 4e année à l'ESIN (UIR)</p>
+              <p class="hero-role">
+                <span class="l-fr">Étudiant ingénieur en cybersécurité, 4e année à l'ESIN (UIR)</span>
+                <span class="l-en">Cybersecurity engineering student, 4th year at ESIN (UIR)</span>
+              </p>
             </div>
           </div>
 
           <p class="hero-text">
-            Je pratique la sécurité en laboratoire, notamment
-            l'administration de réseaux sous Linux, et je m'initie aux CTF.
-            Vice-Président du club de cybersécurité CYBERGLITCHERS, chef de
-            protocole au Pôle des ingénieurs EMJL et ambassadeur du College
-            of Engineering &amp; Architecture de l'UIR.
+            <span class="l-fr">
+              Je pratique la sécurité en laboratoire, notamment
+              l'administration de réseaux sous Linux, et je m'initie aux CTF.
+              Vice-Président du club de cybersécurité CYBERGLITCHERS, chef de
+              protocole au Pôle des ingénieurs EMJL et ambassadeur du College
+              of Engineering &amp; Architecture de l'UIR.
+            </span>
+            <span class="l-en">
+              I practise security in the lab — notably Linux network
+              administration — and I'm getting into CTFs. Vice-President of the
+              CYBERGLITCHERS cybersecurity club, head of protocol at the EMJL
+              engineers' division and ambassador for the UIR College of
+              Engineering &amp; Architecture.
+            </span>
           </p>
 
           <p class="availability">
-            <span>
+            <span class="l-fr">
               Disponible pour un stage PFA en cybersécurité à partir du
               <strong>1er juin 2027</strong>.
+            </span>
+            <span class="l-en">
+              Available for an end-of-studies (PFA) cybersecurity internship from
+              <strong>1 June 2027</strong>.
             </span>
           </p>
 
@@ -1190,7 +1253,7 @@
               rel="noopener noreferrer"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              Voir mon CV
+              <span class="l-fr">Voir mon CV</span><span class="l-en">View my CV</span>
             </a>
 
             <a
@@ -1221,9 +1284,9 @@
             <span>hamza@uir:~</span>
           </div>
           <!-- Contenu statique : affiché tel quel si JavaScript est désactivé -->
-          <div class="terminal-body" id="terminal"><span class="t-line"><span class="t-prompt">$ </span>whoami</span><span class="t-line t-out">Hamza Mezzene — élève ingénieur, Cybersécurité UIR</span><span class="t-line"><span class="t-prompt">$ </span>cat objectif.txt</span><span class="t-line t-accent">Stage PFA en cybersécurité, à partir du 1er juin 2027</span><span class="t-line t-out"></div>
+          <div class="terminal-body" id="terminal"><span class="t-line"><span class="t-prompt">$ </span>whoami</span><span class="t-line t-out"><span class="l-fr">Hamza Mezzene — élève ingénieur, Cybersécurité UIR</span><span class="l-en">Hamza Mezzene — engineering student, Cybersecurity UIR</span></span><span class="t-line"><span class="t-prompt">$ </span><span class="l-fr">cat objectif.txt</span><span class="l-en">cat objective.txt</span></span><span class="t-line t-accent"><span class="l-fr">Stage PFA en cybersécurité, à partir du 1er juin 2027</span><span class="l-en">End-of-studies cybersecurity internship, from 1 June 2027</span></span></div>
           <div class="terminal-hints" aria-label="Commandes rapides">
-            <span>Essayez :</span>
+            <span><span class="l-fr">Essayez :</span><span class="l-en">Try:</span></span>
             <button type="button" data-cmd="help">help</button>
             <button type="button" data-cmd="nmap lab">nmap lab</button>
             <button type="button" data-cmd="ls projets/">ls projets/</button>
@@ -1238,30 +1301,61 @@
       <div class="container profile-grid">
         <div>
           <div class="section-head">
-            <span class="path">profil</span>
-            <h2>Profil</h2>
+            <span class="path"><span class="l-fr">profil</span><span class="l-en">profile</span></span>
+            <h2><span class="l-fr">Profil</span><span class="l-en">Profile</span></h2>
           </div>
 
           <p class="muted">
-            Mon cursus en Génie Informatique &amp; Cybersécurité m'amène à
-            articuler sécurité offensive, cryptographie appliquée,
-            administration réseau et développement web sécurisé — une vision
-            de bout en bout de la posture attaquant / défenseur.
+            <span class="l-fr">
+              Mon cursus en Génie Informatique &amp; Cybersécurité m'amène à
+              articuler sécurité offensive, cryptographie appliquée,
+              administration réseau et développement web sécurisé — une vision
+              de bout en bout de la posture attaquant / défenseur.
+            </span>
+            <span class="l-en">
+              My Computer &amp; Cybersecurity Engineering degree leads me to
+              combine offensive security, applied cryptography, network
+              administration and secure web development — an end-to-end view of
+              the attacker / defender posture.
+            </span>
           </p>
           <p class="muted">
-            J'apprends surtout par la pratique : travaux de laboratoire,
-            initiation aux challenges CTF et projets menés en stage ou en mission freelance.
-            Pour l'été 2027, je cherche une équipe sécurité où mettre ces
-            compétences au service de cas concrets.
+            <span class="l-fr">
+              J'apprends surtout par la pratique : travaux de laboratoire,
+              initiation aux challenges CTF et projets menés en stage ou en mission freelance.
+              Pour l'été 2027, je cherche une équipe sécurité où mettre ces
+              compétences au service de cas concrets.
+            </span>
+            <span class="l-en">
+              I learn mostly by doing: lab work, first steps in CTF challenges
+              and projects carried out during internships or freelance
+              assignments. For summer 2027, I'm looking for a security team
+              where I can put these skills to work on real cases.
+            </span>
           </p>
         </div>
 
         <ul class="facts">
-          <li><span class="k">formation</span><span>Cycle ingénieur, 4e année — ESIN, UIR</span></li>
-          <li><span class="k">diplôme</span><span>Prévu en 2028</span></li>
-          <li><span class="k">ville</span><span>Rabat, Maroc</span></li>
-          <li><span class="k">intérêts</span><span>CTF, pentest, forensics, stéganographie, cryptographie, réseaux</span></li>
-          <li><span class="k">langues</span><span>Français, Anglais, Arabe</span></li>
+          <li>
+            <span class="k"><span class="l-fr">formation</span><span class="l-en">education</span></span>
+            <span><span class="l-fr">Cycle ingénieur, 4e année — ESIN, UIR</span><span class="l-en">Engineering programme, 4th year — ESIN, UIR</span></span>
+          </li>
+          <li>
+            <span class="k"><span class="l-fr">diplôme</span><span class="l-en">degree</span></span>
+            <span><span class="l-fr">Prévu en 2028</span><span class="l-en">Expected in 2028</span></span>
+          </li>
+          <li>
+            <span class="k"><span class="l-fr">ville</span><span class="l-en">city</span></span>
+            <span><span class="l-fr">Rabat, Maroc</span><span class="l-en">Rabat, Morocco</span></span>
+          </li>
+          <li>
+            <span class="k"><span class="l-fr">intérêts</span><span class="l-en">interests</span></span>
+            <span><span class="l-fr">CTF, pentest, forensics, stéganographie, cryptographie, réseaux</span><span class="l-en">CTF, pentesting, forensics, steganography, cryptography, networks</span></span>
+          </li>
+          <li>
+            <span class="k"><span class="l-fr">langues</span><span class="l-en">languages</span></span>
+            <span><span class="l-fr">Français, Anglais, Arabe</span><span class="l-en">French, English, Arabic</span></span>
+          </li>
         </ul>
       </div>
     </section>
@@ -1271,10 +1365,10 @@
       <div class="container">
         <div class="section-head">
           <span class="path">experience</span>
-          <h2>Expériences professionnelles</h2>
+          <h2><span class="l-fr">Expériences professionnelles</span><span class="l-en">Professional experience</span></h2>
           <p>
-            Expériences en développement d'applications, sécurisation des accès,
-            administration de solutions web et automatisation du traitement des données.
+            <span class="l-fr">Expériences en développement d'applications, sécurisation des accès, administration de solutions web et automatisation du traitement des données.</span>
+            <span class="l-en">Experience in application development, access security, web solution administration and data-processing automation.</span>
           </p>
         </div>
 
@@ -1283,57 +1377,48 @@
           <!-- STAGE EN INFORMATIQUE -->
           <article class="entry">
             <div class="entry-meta">
-              <span class="when">Juin – Juillet 2026</span>
+              <span class="when"><span class="l-fr">Juin – Juillet 2026</span><span class="l-en">June – July 2026</span></span>
               <strong>Polyclinique Wifak</strong>
-              <span>Témara, Maroc</span>
-              <p>Stage en développement informatique</p>
+              <span><span class="l-fr">Témara, Maroc</span><span class="l-en">Témara, Morocco</span></span>
+              <p><span class="l-fr">Stage en développement informatique</span><span class="l-en">Software development internship</span></p>
             </div>
 
             <div class="entry-body">
-              <h3>Développement et déploiement d'une application de gestion de stock</h3>
+              <h3><span class="l-fr">Développement et déploiement d'une application de gestion de stock</span><span class="l-en">Development and deployment of an inventory management application</span></h3>
 
               <p>
-                Conception et mise en production d'une application web destinée
-                à la gestion des stocks de la clinique, depuis l'analyse des besoins
-                jusqu'au déploiement sur son infrastructure interne.
+                <span class="l-fr">Conception et mise en production d'une application web destinée à la gestion des stocks de la clinique, depuis l'analyse des besoins jusqu'au déploiement sur son infrastructure interne.</span>
+                <span class="l-en">Design and production rollout of a web application for managing the clinic's inventory, from requirements analysis to deployment on its internal infrastructure.</span>
               </p>
 
               <ul>
                 <li>
-                  <strong>Analyse et conception :</strong>
-                  formalisation des besoins, rédaction du cahier des charges
-                  et documentation de la solution.
+                  <span class="l-fr"><strong>Analyse et conception :</strong> formalisation des besoins, rédaction du cahier des charges et documentation de la solution.</span>
+                  <span class="l-en"><strong>Analysis and design:</strong> capturing requirements, writing the specification and documenting the solution.</span>
                 </li>
                 <li>
-                  <strong>Développement :</strong>
-                  réalisation d'une application PHP 8 / MySQL selon une
-                  architecture MVC, avec gestion des rôles et des permissions (RBAC).
+                  <span class="l-fr"><strong>Développement :</strong> réalisation d'une application PHP 8 / MySQL selon une architecture MVC, avec gestion des rôles et des permissions (RBAC).</span>
+                  <span class="l-en"><strong>Development:</strong> building a PHP 8 / MySQL application on an MVC architecture, with role and permission management (RBAC).</span>
                 </li>
                 <li>
-                  <strong>Sécurité applicative :</strong>
-                  utilisation de requêtes préparées avec PDO et hachage des
-                  mots de passe avec bcrypt.
+                  <span class="l-fr"><strong>Sécurité applicative :</strong> utilisation de requêtes préparées avec PDO et hachage des mots de passe avec bcrypt.</span>
+                  <span class="l-en"><strong>Application security:</strong> prepared statements with PDO and password hashing with bcrypt.</span>
                 </li>
                 <li>
-                  <strong>Déploiement et administration :</strong>
-                  mise en production sur Windows Server 2016 avec IIS
-                  et configuration de MySQL 8.
+                  <span class="l-fr"><strong>Déploiement et administration :</strong> mise en production sur Windows Server 2016 avec IIS et configuration de MySQL 8.</span>
+                  <span class="l-en"><strong>Deployment and administration:</strong> production rollout on Windows Server 2016 with IIS and MySQL 8 configuration.</span>
                 </li>
                 <li>
-                  <strong>Maintenance technique :</strong>
-                  résolution de problèmes de permissions IIS, de compatibilité
-                  PHP et de gestion des sessions, ainsi que migration du schéma
-                  de base de données.
+                  <span class="l-fr"><strong>Maintenance technique :</strong> résolution de problèmes de permissions IIS, de compatibilité PHP et de gestion des sessions, ainsi que migration du schéma de base de données.</span>
+                  <span class="l-en"><strong>Technical maintenance:</strong> resolving IIS permission, PHP compatibility and session-handling issues, plus a database schema migration.</span>
                 </li>
                 <li>
-                  <strong>Automatisation :</strong>
-                  développement de scripts Python avec openpyxl pour fusionner,
-                  dédoublonner et rapprocher des listes d'employés dans le cadre
-                  du traitement de données RH.
+                  <span class="l-fr"><strong>Automatisation :</strong> développement de scripts Python avec openpyxl pour fusionner, dédoublonner et rapprocher des listes d'employés dans le cadre du traitement de données RH.</span>
+                  <span class="l-en"><strong>Automation:</strong> Python scripts with openpyxl to merge, de-duplicate and reconcile employee lists as part of HR data processing.</span>
                 </li>
               </ul>
 
-              <ul class="tags" aria-label="Technologies utilisées">
+              <ul class="tags" aria-label="Technologies">
                 <li>PHP 8</li>
                 <li>MySQL 8</li>
                 <li>MVC</li>
@@ -1351,51 +1436,46 @@
           <!-- MISSION FREELANCE -->
           <article class="entry">
             <div class="entry-meta">
-              <!-- À compléter : remplacez par la période réelle, ex. « Mars 2026 » -->
-              <span class="when">Mission freelance</span>
-              <strong>Société de BTP</strong>
-              <span>Client au Maroc — secteur BTP</span>
-              <p>Développement web</p>
+              <!-- À compléter : remplacez par la période réelle, ex. « Mars 2026 » / "March 2026" -->
+              <span class="when"><span class="l-fr">Mission freelance</span><span class="l-en">Freelance assignment</span></span>
+              <strong><span class="l-fr">Société de BTP</span><span class="l-en">Construction company</span></strong>
+              <span><span class="l-fr">Client au Maroc — secteur BTP</span><span class="l-en">Client in Morocco — construction sector</span></span>
+              <p><span class="l-fr">Développement web</span><span class="l-en">Web development</span></p>
             </div>
 
             <div class="entry-body">
-              <h3>Conception et réalisation d'un site vitrine professionnel</h3>
+              <h3><span class="l-fr">Conception et réalisation d'un site vitrine professionnel</span><span class="l-en">Design and build of a professional showcase website</span></h3>
 
               <p>
-                Prise en charge d'un projet web pour une entreprise du secteur
-                du bâtiment et des travaux publics (BTP), de l'analyse du besoin
-                à la mise en ligne du site.
+                <span class="l-fr">Prise en charge d'un projet web pour une entreprise du secteur du bâtiment et des travaux publics (BTP), de l'analyse du besoin à la mise en ligne du site.</span>
+                <span class="l-en">Handled a web project for a building-and-public-works (construction) company, from requirements analysis to going live.</span>
               </p>
 
               <ul>
                 <li>
-                  <strong>Recueil des besoins :</strong>
-                  analyse de la demande du client et rédaction d'un rapport
-                  d'analyse.
+                  <span class="l-fr"><strong>Recueil des besoins :</strong> analyse de la demande du client et rédaction d'un rapport d'analyse.</span>
+                  <span class="l-en"><strong>Requirements gathering:</strong> analysing the client's request and writing an analysis report.</span>
                 </li>
                 <li>
-                  <strong>Spécifications :</strong>
-                  préparation du cahier des charges et définition du périmètre
-                  du site vitrine.
+                  <span class="l-fr"><strong>Spécifications :</strong> préparation du cahier des charges et définition du périmètre du site vitrine.</span>
+                  <span class="l-en"><strong>Specification:</strong> preparing the specification and defining the scope of the showcase site.</span>
                 </li>
                 <li>
-                  <strong>Réalisation :</strong>
-                  développement d'un site web monopage présentant l'entreprise
-                  et ses activités.
+                  <span class="l-fr"><strong>Réalisation :</strong> développement d'un site web monopage présentant l'entreprise et ses activités.</span>
+                  <span class="l-en"><strong>Build:</strong> developing a single-page website presenting the company and its activities.</span>
                 </li>
                 <li>
-                  <strong>Mise en ligne :</strong>
-                  prise en charge de l'hébergement et du nom de domaine
-                  pour la première année.
+                  <span class="l-fr"><strong>Mise en ligne :</strong> prise en charge de l'hébergement et du nom de domaine pour la première année.</span>
+                  <span class="l-en"><strong>Go-live:</strong> handling hosting and the domain name for the first year.</span>
                 </li>
               </ul>
 
-              <ul class="tags" aria-label="Domaines d'intervention">
-                <li>Analyse des besoins</li>
-                <li>Cahier des charges</li>
-                <li>Développement web</li>
-                <li>Site vitrine</li>
-                <li>Hébergement web</li>
+              <ul class="tags">
+                <li><span class="l-fr">Analyse des besoins</span><span class="l-en">Requirements analysis</span></li>
+                <li><span class="l-fr">Cahier des charges</span><span class="l-en">Specification</span></li>
+                <li><span class="l-fr">Développement web</span><span class="l-en">Web development</span></li>
+                <li><span class="l-fr">Site vitrine</span><span class="l-en">Showcase site</span></li>
+                <li><span class="l-fr">Hébergement web</span><span class="l-en">Web hosting</span></li>
               </ul>
             </div>
           </article>
@@ -1408,97 +1488,92 @@
     <section id="projets">
       <div class="container">
         <div class="section-head">
-          <span class="path">projets</span>
-          <h2>Projets et travaux pratiques</h2>
+          <span class="path"><span class="l-fr">projets</span><span class="l-en">projects</span></span>
+          <h2><span class="l-fr">Projets et travaux pratiques</span><span class="l-en">Projects and lab work</span></h2>
           <p>
-            Travaux réalisés dans le cadre de ma formation et de mon
-            initiation aux CTF. La plupart sont publiés sur
-            <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">mon GitHub</a>.
+            <span class="l-fr">Travaux réalisés dans le cadre de ma formation et de mon initiation aux CTF. La plupart sont publiés sur <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">mon GitHub</a>.</span>
+            <span class="l-en">Work done as part of my studies and my first steps in CTFs. Most of it is published on <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">my GitHub</a>.</span>
           </p>
         </div>
 
         <div class="filter-row">
           <div class="filters" role="group" aria-label="Filtrer les projets">
-            <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
-            <button type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
-            <button type="button" data-filter="reseaux" aria-pressed="false">Réseaux et systèmes</button>
-            <button type="button" data-filter="dev" aria-pressed="false">Développement</button>
-            <button type="button" data-filter="donnees" aria-pressed="false">Données</button>
+            <button type="button" data-filter="tous" aria-pressed="true"><span class="l-fr">Tous</span><span class="l-en">All</span></button>
+            <button type="button" data-filter="securite" aria-pressed="false"><span class="l-fr">Sécurité</span><span class="l-en">Security</span></button>
+            <button type="button" data-filter="reseaux" aria-pressed="false"><span class="l-fr">Réseaux et systèmes</span><span class="l-en">Networks &amp; systems</span></button>
+            <button type="button" data-filter="dev" aria-pressed="false"><span class="l-fr">Développement</span><span class="l-en">Development</span></button>
+            <button type="button" data-filter="donnees" aria-pressed="false"><span class="l-fr">Données</span><span class="l-en">Data</span></button>
           </div>
-          <p class="filter-count" id="filter-count" aria-live="polite">7 projets</p>
+          <p class="filter-count" id="filter-count" aria-live="polite"></p>
         </div>
 
         <div class="project-grid">
           <article class="project" data-cat="securite">
-            <div class="project-cat">Sécurité offensive</div>
+            <div class="project-cat"><span class="l-fr">Sécurité offensive</span><span class="l-en">Offensive security</span></div>
             <h3>Ethical hacking</h3>
             <p>
-              Reconnaissance et exploitation en laboratoire : scans réseau
-              avec Nmap, scripts NSE et exploitation avec Metasploit.
+              <span class="l-fr">Reconnaissance et exploitation en laboratoire : scans réseau avec Nmap, scripts NSE et exploitation avec Metasploit.</span>
+              <span class="l-en">Lab reconnaissance and exploitation: network scans with Nmap, NSE scripts and exploitation with Metasploit.</span>
             </p>
             <ul class="tags">
               <li>Nmap</li><li>NSE</li><li>Metasploit</li>
             </ul>
             <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Voir le code sur GitHub
+              <span class="l-fr">Voir le code sur GitHub</span><span class="l-en">View the code on GitHub</span>
             </a>
           </article>
 
           <article class="project" data-cat="securite">
             <div class="project-cat">CTF</div>
-            <h3>Challenges et write-ups</h3>
+            <h3><span class="l-fr">Challenges et write-ups</span><span class="l-en">Challenges and write-ups</span></h3>
             <p>
-              Premiers pas sur des challenges de stéganographie, forensics et
-              cryptographie, en cours d'apprentissage.
+              <span class="l-fr">Premiers pas sur des challenges de stéganographie, forensics et cryptographie, en cours d'apprentissage.</span>
+              <span class="l-en">First steps on steganography, forensics and cryptography challenges — a work in progress.</span>
             </p>
             <ul class="tags">
-              <li>Stéganographie</li><li>Forensics</li><li>Cryptographie</li>
+              <li><span class="l-fr">Stéganographie</span><span class="l-en">Steganography</span></li><li>Forensics</li><li><span class="l-fr">Cryptographie</span><span class="l-en">Cryptography</span></li>
             </ul>
           </article>
 
           <article class="project" data-cat="securite">
-            <div class="project-cat">Cryptographie</div>
-            <h3>Cryptographie appliquée</h3>
+            <div class="project-cat"><span class="l-fr">Cryptographie</span><span class="l-en">Cryptography</span></div>
+            <h3><span class="l-fr">Cryptographie appliquée</span><span class="l-en">Applied cryptography</span></h3>
             <p>
-              SEED Labs et étude des chiffrements classiques et modernes :
-              CBC, réseaux de Feistel, Vigenère, cryptographie asymétrique,
-              analyse d'une session TLS avec Wireshark.
+              <span class="l-fr">SEED Labs et étude des chiffrements classiques et modernes : CBC, réseaux de Feistel, Vigenère, cryptographie asymétrique, analyse d'une session TLS avec Wireshark.</span>
+              <span class="l-en">SEED Labs and study of classic and modern ciphers: CBC, Feistel networks, Vigenère, asymmetric cryptography, and analysing a TLS session with Wireshark.</span>
             </p>
             <ul class="tags">
               <li>SEED Labs</li><li>TLS</li><li>Wireshark</li>
             </ul>
             <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Voir le code sur GitHub
+              <span class="l-fr">Voir le code sur GitHub</span><span class="l-en">View the code on GitHub</span>
             </a>
           </article>
 
           <article class="project" data-cat="reseaux securite">
-            <div class="project-cat">Administration réseau</div>
-            <h3>Services réseau sous Linux</h3>
+            <div class="project-cat"><span class="l-fr">Administration réseau</span><span class="l-en">Network administration</span></div>
+            <h3><span class="l-fr">Services réseau sous Linux</span><span class="l-en">Network services on Linux</span></h3>
             <p>
-              Mise en place de services dans des network namespaces : DNS
-              avec BIND9, DHCP avec dnsmasq, NAT et filtrage avec iptables,
-              Apache2 en HTTPS et SFTP avec OpenSSH.
+              <span class="l-fr">Mise en place de services dans des network namespaces : DNS avec BIND9, DHCP avec dnsmasq, NAT et filtrage avec iptables, Apache2 en HTTPS et SFTP avec OpenSSH.</span>
+              <span class="l-en">Setting up services inside network namespaces: DNS with BIND9, DHCP with dnsmasq, NAT and filtering with iptables, Apache2 over HTTPS and SFTP with OpenSSH.</span>
             </p>
             <ul class="tags">
               <li>BIND9</li><li>iptables</li><li>dnsmasq</li><li>netns</li>
             </ul>
             <a class="project-link" href="https://github.com/hamza-mzn/linux-namespaces-nat-iptables" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              Voir le code sur GitHub
+              <span class="l-fr">Voir le code sur GitHub</span><span class="l-en">View the code on GitHub</span>
             </a>
           </article>
 
           <article class="project" data-cat="dev securite">
-            <div class="project-cat">Développement web sécurisé</div>
-            <h3>Stocky — gestion de stock et de ventes</h3>
+            <div class="project-cat"><span class="l-fr">Développement web sécurisé</span><span class="l-en">Secure web development</span></div>
+            <h3><span class="l-fr">Stocky — gestion de stock et de ventes</span><span class="l-en">Stocky — stock and sales management</span></h3>
             <p>
-              Application MVC codée sans framework pour le module Web Dev I,
-              avec quatre rôles (administrateur, vendeur, fournisseur, client),
-              authentification par session, hachage bcrypt et recherche
-              produit en AJAX.
+              <span class="l-fr">Application MVC codée sans framework pour le module Web Dev I, avec quatre rôles (administrateur, vendeur, fournisseur, client), authentification par session, hachage bcrypt et recherche produit en AJAX.</span>
+              <span class="l-en">A framework-free MVC application for the Web Dev I module, with four roles (admin, seller, supplier, customer), session authentication, bcrypt hashing and AJAX product search.</span>
             </p>
             <ul class="tags">
               <li>PHP 8</li><li>MySQL / PDO</li><li>bcrypt</li><li>AJAX</li>
@@ -1507,11 +1582,10 @@
 
           <article class="project" data-cat="reseaux">
             <div class="project-cat">Infrastructure</div>
-            <h3>SDN, cloud et calcul parallèle</h3>
+            <h3><span class="l-fr">SDN, cloud et calcul parallèle</span><span class="l-en">SDN, cloud and parallel computing</span></h3>
             <p>
-              Réseaux définis par logiciel avec Mininet, déploiements cloud
-              avec Azure et Docker, programmation parallèle avec MPI et CUDA
-              (projets LCS et RSA).
+              <span class="l-fr">Réseaux définis par logiciel avec Mininet, déploiements cloud avec Azure et Docker, programmation parallèle avec MPI et CUDA (projets LCS et RSA).</span>
+              <span class="l-en">Software-defined networking with Mininet, cloud deployments with Azure and Docker, parallel programming with MPI and CUDA (LCS and RSA projects).</span>
             </p>
             <ul class="tags">
               <li>Mininet</li><li>Azure</li><li>Docker</li><li>MPI</li><li>CUDA</li>
@@ -1520,11 +1594,10 @@
 
           <article class="project" data-cat="donnees">
             <div class="project-cat">Business Intelligence</div>
-            <h3>Entrepôts de données et ETL</h3>
+            <h3><span class="l-fr">Entrepôts de données et ETL</span><span class="l-en">Data warehouses and ETL</span></h3>
             <p>
-              Processus ETL en T-SQL et avec Talend Open Studio, data marts,
-              requêtes MDX et suite SQL Server (SSIS, SSAS, SSRS) sur
-              AdventureWorks.
+              <span class="l-fr">Processus ETL en T-SQL et avec Talend Open Studio, data marts, requêtes MDX et suite SQL Server (SSIS, SSAS, SSRS) sur AdventureWorks.</span>
+              <span class="l-en">ETL processes in T-SQL and Talend Open Studio, data marts, MDX queries and the SQL Server suite (SSIS, SSAS, SSRS) on AdventureWorks.</span>
             </p>
             <ul class="tags">
               <li>T-SQL</li><li>Talend</li><li>SSIS</li><li>SSAS</li><li>SSRS</li>
@@ -1538,50 +1611,48 @@
     <section id="engagement">
       <div class="container">
         <div class="section-head">
-          <span class="path">engagement</span>
-          <h2>Engagement associatif</h2>
-          <p>Organisation d'événements et représentation étudiante à l'UIR.</p>
+          <span class="path"><span class="l-fr">engagement</span><span class="l-en">community</span></span>
+          <h2><span class="l-fr">Engagement associatif</span><span class="l-en">Community involvement</span></h2>
+          <p><span class="l-fr">Organisation d'événements et représentation étudiante à l'UIR.</span><span class="l-en">Event organisation and student representation at UIR.</span></p>
         </div>
 
         <article class="feature">
           <div>
-            <div class="entry-meta">Coordinateur général, 1re édition</div>
-            <h3>CYBrAIn Fest UIR — l'IA au service de la cybersécurité</h3>
+            <div class="entry-meta"><span class="l-fr">Coordinateur général, 1re édition</span><span class="l-en">General coordinator, 1st edition</span></div>
+            <h3><span class="l-fr">CYBrAIn Fest UIR — l'IA au service de la cybersécurité</span><span class="l-en">CYBrAIn Fest UIR — AI for cybersecurity</span></h3>
             <p>
-              Co-organisation d'un événement de deux jours (CTF, conférences,
-              workshops) porté par CYBERGLITCHERS avec THE BRIDGE CLUB et AiDi.
-              J'ai assuré la coordination générale : planning, logistique,
-              gestion des intervenants et communication entre les équipes.
+              <span class="l-fr">Co-organisation d'un événement de deux jours (CTF, conférences, workshops) porté par CYBERGLITCHERS avec THE BRIDGE CLUB et AiDi. J'ai assuré la coordination générale : planning, logistique, gestion des intervenants et communication entre les équipes.</span>
+              <span class="l-en">Co-organised a two-day event (CTF, talks, workshops) run by CYBERGLITCHERS with THE BRIDGE CLUB and AiDi. I handled general coordination: scheduling, logistics, speaker management and communication between teams.</span>
             </p>
           </div>
 
           <ul class="figures">
             <li><strong>40+</strong><span>participants</span></li>
-            <li><strong>28</strong><span>équipes au CTF</span></li>
-            <li><strong>2</strong><span>jours de programme</span></li>
+            <li><strong>28</strong><span><span class="l-fr">équipes au CTF</span><span class="l-en">teams in the CTF</span></span></li>
+            <li><strong>2</strong><span><span class="l-fr">jours de programme</span><span class="l-en">days of programme</span></span></li>
           </ul>
         </article>
 
         <ul class="roles">
           <li>
-            <span class="when">2024 – aujourd'hui</span>
+            <span class="when"><span class="l-fr">2024 – aujourd'hui</span><span class="l-en">2024 – present</span></span>
             <div>
               <h3>Vice-Président, CYBERGLITCHERS UIR</h3>
-              <p>Pilotage du club de cybersécurité et organisation de ses activités.</p>
+              <p><span class="l-fr">Pilotage du club de cybersécurité et organisation de ses activités.</span><span class="l-en">Running the cybersecurity club and organising its activities.</span></p>
             </div>
           </li>
           <li>
-            <span class="when">Depuis mai 2026</span>
+            <span class="when"><span class="l-fr">Depuis mai 2026</span><span class="l-en">Since May 2026</span></span>
             <div>
-              <h3>Chef de protocole, Pôle des ingénieurs EMJL</h3>
-              <p>Protocole des événements et visites institutionnelles, dont une visite au Parlement.</p>
+              <h3><span class="l-fr">Chef de protocole, Pôle des ingénieurs EMJL</span><span class="l-en">Head of protocol, EMJL engineers' division</span></h3>
+              <p><span class="l-fr">Protocole des événements et visites institutionnelles, dont une visite au Parlement.</span><span class="l-en">Protocol for events and institutional visits, including a visit to Parliament.</span></p>
             </div>
           </li>
           <li>
-            <span class="when">2024 – aujourd'hui</span>
+            <span class="when"><span class="l-fr">2024 – aujourd'hui</span><span class="l-en">2024 – present</span></span>
             <div>
               <h3>Ambassadeur, College of Engineering &amp; Architecture</h3>
-              <p>Représentation du collège auprès des étudiants et des visiteurs.</p>
+              <p><span class="l-fr">Représentation du collège auprès des étudiants et des visiteurs.</span><span class="l-en">Representing the college to students and visitors.</span></p>
             </div>
           </li>
         </ul>
@@ -1592,8 +1663,8 @@
     <section id="competences">
       <div class="container">
         <div class="section-head">
-          <span class="path">competences</span>
-          <h2>Compétences techniques</h2>
+          <span class="path"><span class="l-fr">competences</span><span class="l-en">skills</span></span>
+          <h2><span class="l-fr">Compétences techniques</span><span class="l-en">Technical skills</span></h2>
         </div>
 
         <div class="skills">
@@ -1602,16 +1673,16 @@
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </span>
-              <h3>Cybersécurité</h3>
+              <h3><span class="l-fr">Cybersécurité</span><span class="l-en">Cybersecurity</span></h3>
             </div>
             <ul class="tags">
               <li>Nmap / NSE</li>
               <li>Metasploit</li>
               <li>Wireshark</li>
               <li>iptables</li>
-              <li>Stéganographie</li>
+              <li><span class="l-fr">Stéganographie</span><span class="l-en">Steganography</span></li>
               <li>Forensics</li>
-              <li>Cryptographie</li>
+              <li><span class="l-fr">Cryptographie</span><span class="l-en">Cryptography</span></li>
               <li>TLS</li>
             </ul>
           </div>
@@ -1621,7 +1692,7 @@
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/><path d="M10 6h4M6 10v4M18 10v4M10 18h4"/></svg>
               </span>
-              <h3>Systèmes et réseaux</h3>
+              <h3><span class="l-fr">Systèmes et réseaux</span><span class="l-en">Systems &amp; networks</span></h3>
             </div>
             <ul class="tags">
               <li>TCP/IP</li>
@@ -1644,7 +1715,7 @@
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </span>
-              <h3>Développement</h3>
+              <h3><span class="l-fr">Développement</span><span class="l-en">Development</span></h3>
             </div>
             <ul class="tags">
               <li>PHP 8 (MVC, PDO)</li>
@@ -1665,7 +1736,7 @@
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
               </span>
-              <h3>Données</h3>
+              <h3><span class="l-fr">Données</span><span class="l-en">Data</span></h3>
             </div>
             <ul class="tags">
               <li>MySQL</li>
@@ -1693,7 +1764,7 @@
         <!--
           Pour ajouter un lien de vérification (badge Credly, certificat Coursera),
           placez sous le <p> de la certification concernée :
-          <a class="verify" href="URL-DE-VERIFICATION" target="_blank" rel="noopener noreferrer">Vérifier le certificat</a>
+          <a class="verify" href="URL-DE-VERIFICATION" target="_blank" rel="noopener noreferrer"><span class="l-fr">Vérifier le certificat</span><span class="l-en">Verify certificate</span></a>
         -->
         <ul class="certs">
           <li>
@@ -1705,13 +1776,12 @@
               <h3>Cyber Threat Management
                 <span class="badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Badge vérifié
+                  <span class="l-fr">Badge vérifié</span><span class="l-en">Verified badge</span>
                 </span>
               </h3>
               <p>
-                Cours « Cybermenace : contenu et déroulement » : gestion des
-                menaces, évaluation des vulnérabilités et gestion des risques
-                de sécurité.
+                <span class="l-fr">Cours « Cybermenace : contenu et déroulement » : gestion des menaces, évaluation des vulnérabilités et gestion des risques de sécurité.</span>
+                <span class="l-en">Course covering threat management, vulnerability assessment and security risk management.</span>
               </p>
             </div>
           </li>
@@ -1724,12 +1794,12 @@
               <h3>Introduction to Cybersecurity
                 <span class="badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Badge vérifié
+                  <span class="l-fr">Badge vérifié</span><span class="l-en">Verified badge</span>
                 </span>
               </h3>
               <p>
-                Cours « Introduction à la cybersécurité » : concepts
-                fondamentaux, panorama des menaces et principes de protection.
+                <span class="l-fr">Cours « Introduction à la cybersécurité » : concepts fondamentaux, panorama des menaces et principes de protection.</span>
+                <span class="l-en">Introductory course: core concepts, threat landscape and protection principles.</span>
               </p>
             </div>
           </li>
@@ -1739,13 +1809,13 @@
               <strong>Cisco Networking Academy</strong>
             </div>
             <div>
-              <h3>Cinq modules validés</h3>
+              <h3><span class="l-fr">Cinq modules validés</span><span class="l-en">Five modules completed</span></h3>
               <ul class="tags">
-                <li>Spécialiste des ressources</li>
-                <li>Défense du réseau</li>
-                <li>Sauvegardes du système</li>
-                <li>Analyse des menaces</li>
-                <li>Administration de la cybersécurité</li>
+                <li><span class="l-fr">Spécialiste des ressources</span><span class="l-en">Resource specialist</span></li>
+                <li><span class="l-fr">Défense du réseau</span><span class="l-en">Network defence</span></li>
+                <li><span class="l-fr">Sauvegardes du système</span><span class="l-en">System backups</span></li>
+                <li><span class="l-fr">Analyse des menaces</span><span class="l-en">Threat analysis</span></li>
+                <li><span class="l-fr">Administration de la cybersécurité</span><span class="l-en">Cybersecurity administration</span></li>
               </ul>
             </div>
           </li>
@@ -1756,7 +1826,7 @@
             </div>
             <div>
               <h3>Data Analysis Using PySpark</h3>
-              <p>Analyse de données à grande échelle avec Apache Spark en Python.</p>
+              <p><span class="l-fr">Analyse de données à grande échelle avec Apache Spark en Python.</span><span class="l-en">Large-scale data analysis with Apache Spark in Python.</span></p>
             </div>
           </li>
           <li>
@@ -1766,7 +1836,7 @@
             </div>
             <div>
               <h3>Working with BigQuery</h3>
-              <p>Requêtes et analyse de données avec l'entrepôt BigQuery de Google Cloud.</p>
+              <p><span class="l-fr">Requêtes et analyse de données avec l'entrepôt BigQuery de Google Cloud.</span><span class="l-en">Querying and analysing data with Google Cloud's BigQuery warehouse.</span></p>
             </div>
           </li>
         </ul>
@@ -1781,8 +1851,8 @@
             <span class="path">contact</span>
             <h2>Contact</h2>
             <p>
-              Pour une proposition de stage ou un échange autour de la
-              cybersécurité, écrivez-moi par email ou sur LinkedIn.
+              <span class="l-fr">Pour une proposition de stage ou un échange autour de la cybersécurité, écrivez-moi par email ou sur LinkedIn.</span>
+              <span class="l-en">For an internship offer or a chat about cybersecurity, reach me by email or on LinkedIn.</span>
             </p>
             <a class="contact-mail" href="mailto:mezzenehamza@gmail.com">mezzenehamza@gmail.com</a>
           </div>
@@ -1790,7 +1860,7 @@
           <div class="actions">
             <a class="button button-primary" href="mailto:mezzenehamza@gmail.com">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-              M'écrire un email
+              <span class="l-fr">M'écrire un email</span><span class="l-en">Email me</span>
             </a>
             <a
               class="button"
@@ -1807,7 +1877,7 @@
               download
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Télécharger mon CV
+              <span class="l-fr">Télécharger mon CV</span><span class="l-en">Download my CV</span>
             </a>
           </div>
         </div>
@@ -1818,7 +1888,7 @@
 
   <footer>
     <div class="container">
-      <span>© 2026 Hamza Mezzene — Rabat, Maroc</span>
+      <span>© 2026 Hamza Mezzene — <span class="l-fr">Rabat, Maroc</span><span class="l-en">Rabat, Morocco</span></span>
       <span>
         <a href="https://github.com/hamza-mzn" target="_blank" rel="noopener noreferrer">GitHub</a>
         ·
@@ -1829,6 +1899,53 @@
 
   <script>
     (function () {
+      var docEl = document.documentElement;
+
+      /* ---------- Bascule de langue ---------- */
+      var LANG_KEY = "lang-pref";
+      var langButtons = document.querySelectorAll(".lang-switch button");
+
+      var TITLES = {
+        fr: "Hamza Mezzene | Portfolio Cybersécurité",
+        en: "Hamza Mezzene | Cybersecurity Portfolio"
+      };
+
+      function currentLang() {
+        return docEl.lang === "en" ? "en" : "fr";
+      }
+
+      function projectWord(n, l) {
+        if (l === "en") return n + (n > 1 ? " projects" : " project");
+        return n + (n > 1 ? " projets" : " projet");
+      }
+
+      function refreshCount() {
+        if (!counter) return;
+        var shown = 0;
+        projects.forEach(function (p) { if (!p.hidden) shown++; });
+        counter.textContent = projectWord(shown, currentLang());
+      }
+
+      function setLang(l, persist) {
+        l = (l === "en") ? "en" : "fr";
+        docEl.lang = l;
+        docEl.setAttribute("data-lang", l);
+        document.title = TITLES[l];
+        langButtons.forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l));
+        });
+        refreshCount();
+        if (persist) {
+          try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+        }
+      }
+
+      langButtons.forEach(function (b) {
+        b.addEventListener("click", function () {
+          setLang(b.getAttribute("data-lang"), true);
+        });
+      });
+
       /* ---------- En-tête : ombre au défilement ---------- */
       var head = document.querySelector("header");
       var onScroll = function () {
@@ -1850,11 +1967,11 @@
       toggle.addEventListener("click", function () {
         var open = menu.classList.toggle("open");
         toggle.setAttribute("aria-expanded", String(open));
-        toggle.textContent = open ? "Fermer" : "Menu";
+        toggle.textContent = open ? (currentLang() === "en" ? "Close" : "Fermer") : "Menu";
       });
 
       menu.addEventListener("click", function (e) {
-        if (e.target.tagName === "A" && menu.classList.contains("open")) closeMenu();
+        if (e.target.closest("a") && menu.classList.contains("open")) closeMenu();
       });
 
       document.addEventListener("keydown", function (e) {
@@ -1895,7 +2012,6 @@
       buttons.forEach(function (btn) {
         btn.addEventListener("click", function () {
           var filter = btn.getAttribute("data-filter");
-          var shown = 0;
 
           buttons.forEach(function (b) {
             b.setAttribute("aria-pressed", String(b === btn));
@@ -1904,10 +2020,9 @@
           projects.forEach(function (p) {
             var cats = p.getAttribute("data-cat").split(" ");
             p.hidden = filter !== "tous" && cats.indexOf(filter) === -1;
-            if (!p.hidden) shown++;
           });
 
-          counter.textContent = shown + (shown > 1 ? " projets" : " projet");
+          refreshCount();
         });
       });
 
@@ -1920,16 +2035,29 @@
       // Le contenu statique (repli sans JavaScript) laisse place à l'animation
       term.textContent = "";
 
-      var script = [
-        { cmd: "whoami" },
-        { out: "Hamza Mezzene — élève ingénieur, Cybersécurité UIR" },
-        { cmd: "cat objectif.txt" },
-        { out: "Stage PFA en cybersécurité, à partir du 1er juin 2027", accent: true },
-        { cmd: "ls interets/" },
-        { out: "ctf/  pentest/  forensics/  crypto/  reseaux-linux/" },
-        { cmd: "cat club.txt" },
-        { out: "Vice-Président de CYBERGLITCHERS UIR" }
-      ];
+      // Intro jouée au chargement, dans la langue active à ce moment
+      var INTRO = {
+        fr: [
+          { cmd: "whoami" },
+          { out: "Hamza Mezzene — élève ingénieur, Cybersécurité UIR" },
+          { cmd: "cat objectif.txt" },
+          { out: "Stage PFA en cybersécurité, à partir du 1er juin 2027", accent: true },
+          { cmd: "ls interets/" },
+          { out: "ctf/  pentest/  forensics/  crypto/  reseaux-linux/" },
+          { cmd: "cat club.txt" },
+          { out: "Vice-Président de CYBERGLITCHERS UIR" }
+        ],
+        en: [
+          { cmd: "whoami" },
+          { out: "Hamza Mezzene — engineering student, Cybersecurity UIR" },
+          { cmd: "cat objective.txt" },
+          { out: "End-of-studies cybersecurity internship, from 1 June 2027", accent: true },
+          { cmd: "ls interests/" },
+          { out: "ctf/  pentest/  forensics/  crypto/  linux-networking/" },
+          { cmd: "cat club.txt" },
+          { out: "Vice-President of CYBERGLITCHERS UIR" }
+        ]
+      };
 
       function line(cls) {
         var el = document.createElement("span");
@@ -1960,16 +2088,24 @@
       /* ----- Shell interactif (prend le relais après l'intro) ----- */
 
       var FILES = {
-        "objectif.txt": "Stage PFA en cybersécurité, à partir du 1er juin 2027\n",
-        "club.txt": "Vice-Président de CYBERGLITCHERS UIR"
+        fr: {
+          "objectif.txt": "Stage PFA en cybersécurité, à partir du 1er juin 2027",
+          "club.txt": "Vice-Président de CYBERGLITCHERS UIR"
+        },
+        en: {
+          "objective.txt": "End-of-studies cybersecurity internship, from 1 June 2027",
+          "club.txt": "Vice-President of CYBERGLITCHERS UIR"
+        }
       };
 
-      // Dossiers du « home » = sections de la page (commande open)
-      var SECTIONS = ["profil", "experience", "projets", "engagement", "competences", "certifications", "contact"];
+      // Dossiers du « home » = sections de la page (les id ne changent pas de langue)
+      var SECTION_IDS = ["profil", "experience", "projets", "engagement", "competences", "certifications", "contact"];
+      var SECTION_ALIAS = { profile: "profil", projects: "projets", skills: "competences", community: "engagement" };
 
-      var COMMANDS = {
-        help: function () {
-          return "Commandes disponibles :\n"
+      // Textes dépendant de la langue
+      var T = {
+        fr: {
+          help: "Commandes disponibles :\n"
             + "  help              cette aide\n"
             + "  whoami            qui suis-je\n"
             + "  ls [dossier/]     lister (interets/, projets/)\n"
@@ -1980,65 +2116,107 @@
             + "  contact           email et LinkedIn\n"
             + "  cv                mon CV\n"
             + "  clear             nettoyer l'écran\n"
-            + "Astuce : Tab complète la commande, ↑ rappelle la précédente.";
-        },
-        whoami: function () {
-          return "Hamza Mezzene — étudiant ingénieur, Génie Informatique & Cybersécurité (UIR)";
-        },
-        ls: function (arg) {
-          arg = (arg || "").replace(/\/$/, "");
-          if (arg === "interets") {
-            return "ctf/  pentest/  forensics/  crypto/  reseaux-linux/";
-          }
-          if (arg === "projets") {
-            return "ethical-hacking  ctf  crypto  services-reseau  stocky  sdn-cloud  bi-etl\n"
-              + "(tapez « open projets » pour les détails)";
-          }
-          if (arg) return "ls : " + arg + " : dossier introuvable";
-          return "objectif.txt  club.txt  interets/  " + SECTIONS.join("/  ") + "/";
-        },
-        cat: function (arg) {
-          if (!arg) return "cat : fichier manquant (essayez : cat objectif.txt)";
-          if (FILES[arg]) return FILES[arg];
-          return "cat : " + arg + " : fichier introuvable";
-        },
-        open: function (arg) {
-          var id = (arg || "").replace(/^~?\/?/, "").replace(/\/$/, "").toLowerCase();
-          if (!id) return "open : section manquante (" + SECTIONS.join(", ") + ")";
-          if (SECTIONS.indexOf(id) === -1) {
-            return "open : " + id + " : section introuvable (" + SECTIONS.join(", ") + ")";
-          }
-          var target = document.getElementById(id);
-          setTimeout(function () {
-            target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-          }, 250);
-          return "Ouverture de ~/" + id + " …";
-        },
-        // Récapitulatif fidèle du projet « Services réseau sous Linux » :
-        // uniquement des services réellement mis en place en laboratoire.
-        nmap: function () {
-          return "Récapitulatif du lab « services réseau sous Linux » (network namespaces)\n"
+            + "Astuce : Tab complète la commande, ↑ rappelle la précédente.",
+          whoami: "Hamza Mezzene — étudiant ingénieur, Génie Informatique & Cybersécurité (UIR)",
+          lsHome: "objectif.txt  club.txt  interets/  " + SECTION_IDS.join("/  ") + "/",
+          lsInterets: "ctf/  pentest/  forensics/  crypto/  reseaux-linux/",
+          lsProjets: "ethical-hacking  ctf  crypto  services-reseau  stocky  sdn-cloud  bi-etl\n(tapez « open projets » pour les détails)",
+          lsUnknown: function (a) { return "ls : " + a + " : dossier introuvable"; },
+          catMissing: "cat : fichier manquant (essayez : cat objectif.txt)",
+          catUnknown: function (a) { return "cat : " + a + " : fichier introuvable"; },
+          openMissing: "open : section manquante (" + SECTION_IDS.join(", ") + ")",
+          openUnknown: function (a) { return "open : " + a + " : section introuvable (" + SECTION_IDS.join(", ") + ")"; },
+          opening: function (id) { return "Ouverture de ~/" + id + " …"; },
+          nmap: "Récapitulatif du lab « services réseau sous Linux » (network namespaces)\n"
             + "PORT      ÉTAT   SERVICE\n"
             + "22/tcp    open   ssh / sftp   OpenSSH\n"
             + "53/udp    open   domain       BIND9\n"
             + "67/udp    open   dhcp         dnsmasq\n"
             + "443/tcp   open   https        Apache2\n"
-            + "Filtrage et NAT : iptables";
+            + "Filtrage et NAT : iptables",
+          skills: "Cybersécurité · Systèmes & réseaux · Développement · Données\n(tapez « open competences » pour le détail)",
+          contact: "email    : mezzenehamza@gmail.com\nlinkedin : linkedin.com/in/hamza-mezzene",
+          cv: "CV : CV_Hamza_Mezzene_ING4_Cyber_2027.pdf — bouton « Voir mon CV » en haut de page.",
+          sudo: "Hamza n'est pas dans le fichier sudoers. Cet incident sera signalé.",
+          notFound: function (n) { return "commande introuvable : " + n + " — tapez « help »"; },
+          intro: "Terminal interactif — tapez « help » ou cliquez un raccourci ci-dessous.",
+          closed: "Fermer"
         },
-        skills: function () {
-          return "Cybersécurité · Systèmes & réseaux · Développement · Données\n"
-            + "(tapez « open competences » pour le détail)";
-        },
-        projects: function () {
-          return COMMANDS.ls("projets");
-        },
-        contact: function () {
-          return "email    : mezzenehamza@gmail.com\n"
-            + "linkedin : linkedin.com/in/hamza-mezzene";
-        },
-        cv: function () {
-          return "CV : CV_Hamza_Mezzene_ING4_Cyber_2027.pdf — bouton « Voir mon CV » en haut de page.";
+        en: {
+          help: "Available commands:\n"
+            + "  help              this help\n"
+            + "  whoami            who I am\n"
+            + "  ls [folder/]      list (interests/, projects/)\n"
+            + "  cat <file>        show a file (objective.txt, club.txt)\n"
+            + "  open <section>    jump to a section (e.g. open projects)\n"
+            + "  nmap lab          services set up in my Linux lab\n"
+            + "  skills            technical skills\n"
+            + "  contact           email and LinkedIn\n"
+            + "  cv                my resume\n"
+            + "  clear             clear the screen\n"
+            + "Tip: Tab completes the command, ↑ recalls the previous one.",
+          whoami: "Hamza Mezzene — engineering student, Computer & Cybersecurity Engineering (UIR)",
+          lsHome: "objective.txt  club.txt  interests/  " + SECTION_IDS.join("/  ") + "/",
+          lsInterets: "ctf/  pentest/  forensics/  crypto/  linux-networking/",
+          lsProjets: "ethical-hacking  ctf  crypto  network-services  stocky  sdn-cloud  bi-etl\n(type \"open projects\" for details)",
+          lsUnknown: function (a) { return "ls: " + a + ": no such directory"; },
+          catMissing: "cat: missing file (try: cat objective.txt)",
+          catUnknown: function (a) { return "cat: " + a + ": no such file"; },
+          openMissing: "open: missing section (" + SECTION_IDS.join(", ") + ")",
+          openUnknown: function (a) { return "open: " + a + ": no such section (" + SECTION_IDS.join(", ") + ")"; },
+          opening: function (id) { return "Opening ~/" + id + " …"; },
+          nmap: "Summary of the \"network services on Linux\" lab (network namespaces)\n"
+            + "PORT      STATE  SERVICE\n"
+            + "22/tcp    open   ssh / sftp   OpenSSH\n"
+            + "53/udp    open   domain       BIND9\n"
+            + "67/udp    open   dhcp         dnsmasq\n"
+            + "443/tcp   open   https        Apache2\n"
+            + "Filtering and NAT: iptables",
+          skills: "Cybersecurity · Systems & networks · Development · Data\n(type \"open skills\" for the full list)",
+          contact: "email    : mezzenehamza@gmail.com\nlinkedin : linkedin.com/in/hamza-mezzene",
+          cv: "Resume: CV_Hamza_Mezzene_ING4_Cyber_2027.pdf — \"View my CV\" button at the top of the page.",
+          sudo: "Hamza is not in the sudoers file. This incident will be reported.",
+          notFound: function (n) { return "command not found: " + n + " — type \"help\""; },
+          intro: "Interactive terminal — type \"help\" or click a shortcut below.",
+          closed: "Close"
         }
+      };
+
+      function tr() { return T[currentLang()]; }
+      function files() { return FILES[currentLang()]; }
+
+      var COMMANDS = {
+        help: function () { return tr().help; },
+        whoami: function () { return tr().whoami; },
+        ls: function (arg) {
+          arg = (arg || "").replace(/\/$/, "");
+          if (arg === "interets" || arg === "interests") return tr().lsInterets;
+          if (arg === "projets" || arg === "projects") return tr().lsProjets;
+          if (arg) return tr().lsUnknown(arg);
+          return tr().lsHome;
+        },
+        cat: function (arg) {
+          if (!arg) return tr().catMissing;
+          var f = files();
+          if (f[arg]) return f[arg];
+          return tr().catUnknown(arg);
+        },
+        open: function (arg) {
+          var id = (arg || "").replace(/^~?\/?/, "").replace(/\/$/, "").toLowerCase();
+          if (!id) return tr().openMissing;
+          id = SECTION_ALIAS[id] || id;
+          if (SECTION_IDS.indexOf(id) === -1) return tr().openUnknown(id);
+          var target = document.getElementById(id);
+          setTimeout(function () {
+            target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+          }, 250);
+          return tr().opening(id);
+        },
+        nmap: function () { return tr().nmap; },
+        skills: function () { return tr().skills; },
+        projects: function () { return COMMANDS.ls("projets"); },
+        contact: function () { return tr().contact; },
+        cv: function () { return tr().cv; }
       };
 
       // alias
@@ -2071,11 +2249,11 @@
           return;
         }
         if (name === "sudo") {
-          out("Hamza n'est pas dans le fichier sudoers. Cet incident sera signalé.", "t-accent");
+          out(tr().sudo, "t-accent");
           return;
         }
         if (!Object.prototype.hasOwnProperty.call(COMMANDS, name)) {
-          out("commande introuvable : " + name + " — tapez « help »");
+          out(tr().notFound(name));
           return;
         }
         String(COMMANDS[name](arg)).split("\n").forEach(function (ln) { out(ln); });
@@ -2090,9 +2268,9 @@
           prefix = "";
         } else {
           var name = parts[0].toLowerCase();
-          pool = name === "cat" ? Object.keys(FILES)
-            : (name === "open" || name === "cd") ? SECTIONS
-            : name === "ls" ? ["interets/", "projets/"]
+          pool = name === "cat" ? Object.keys(files())
+            : (name === "open" || name === "cd") ? SECTION_IDS
+            : name === "ls" ? [currentLang() === "en" ? "interests/" : "interets/", currentLang() === "en" ? "projects/" : "projets/"]
             : name === "nmap" ? ["lab"] : [];
           prefix = parts[0] + " ";
         }
@@ -2121,7 +2299,7 @@
         var input = document.createElement("input");
         input.type = "text";
         input.className = "t-input";
-        input.setAttribute("aria-label", "Entrée du terminal");
+        input.setAttribute("aria-label", "Terminal");
         input.setAttribute("autocomplete", "off");
         input.setAttribute("autocapitalize", "off");
         input.spellcheck = false;
@@ -2158,7 +2336,7 @@
         termWindow.classList.add("is-interactive");
         term.setAttribute("aria-live", "polite");
         out("");
-        out("Terminal interactif — tapez « help » ou cliquez un raccourci ci-dessous.");
+        out(tr().intro);
         newPromptLine(false);
       }
 
@@ -2176,54 +2354,66 @@
         if (activeInput && sel === "") focusInput(activeInput);
       });
 
-      if (reduce) {
-        script.forEach(function (step) {
-          var el = line(step.cmd ? "" : (step.accent ? "t-accent" : "t-out"));
-          if (step.cmd) { prompt(el); el.appendChild(document.createTextNode(step.cmd)); }
-          else { el.textContent = step.out; }
-        });
-        enableInteractive();
-        return;
-      }
+      function playIntro() {
+        var script = INTRO[currentLang()];
 
-      var i = 0;
-      var caret = cursor();
-
-      function next() {
-        if (i >= script.length) {
-          caret.remove();
+        if (reduce) {
+          script.forEach(function (step) {
+            var el = line(step.cmd ? "" : (step.accent ? "t-accent" : "t-out"));
+            if (step.cmd) { prompt(el); el.appendChild(document.createTextNode(step.cmd)); }
+            else { el.textContent = step.out; }
+          });
           enableInteractive();
           return;
         }
 
-        var step = script[i++];
+        var i = 0;
+        var caret = cursor();
 
-        if (step.out) {
-          var o = line(step.accent ? "t-accent" : "t-out");
-          o.textContent = step.out;
-          setTimeout(next, 120);
-          return;
+        function next() {
+          if (i >= script.length) {
+            caret.remove();
+            enableInteractive();
+            return;
+          }
+
+          var step = script[i++];
+
+          if (step.out) {
+            var o = line(step.accent ? "t-accent" : "t-out");
+            o.textContent = step.out;
+            setTimeout(next, 120);
+            return;
+          }
+
+          var el = line("");
+          prompt(el);
+          var text = document.createTextNode("");
+          el.appendChild(text);
+          el.appendChild(caret);
+
+          var k = 0;
+          (function type() {
+            if (k < step.cmd.length) {
+              text.textContent += step.cmd.charAt(k++);
+              setTimeout(type, 55);
+            } else {
+              el.removeChild(caret);
+              setTimeout(next, 280);
+            }
+          })();
         }
 
-        var el = line("");
-        prompt(el);
-        var text = document.createTextNode("");
-        el.appendChild(text);
-        el.appendChild(caret);
-
-        var k = 0;
-        (function type() {
-          if (k < step.cmd.length) {
-            text.textContent += step.cmd.charAt(k++);
-            setTimeout(type, 55);
-          } else {
-            el.removeChild(caret);
-            setTimeout(next, 280);
-          }
-        })();
+        setTimeout(next, 400);
       }
 
-      setTimeout(next, 400);
+      /* ---------- Langue initiale, puis démarrage du terminal ---------- */
+      var saved = null;
+      try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
+      var initial = saved || ((navigator.language || "fr").toLowerCase().indexOf("en") === 0 ? "en" : "fr");
+      setLang(initial, false);
+
+      playIntro();
     })();
   </script>
 
