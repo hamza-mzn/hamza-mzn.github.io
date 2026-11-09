@@ -75,18 +75,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambiance : halos cyan/indigo très diffus fixés en fond de page */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background:
-        radial-gradient(60% 50% at 85% -5%, rgba(92, 200, 238, 0.10), transparent 60%),
-        radial-gradient(55% 45% at 0% 20%, rgba(107, 140, 255, 0.08), transparent 55%);
-      pointer-events: none;
-    }
-
     a {
       color: var(--signal);
       text-decoration: none;
@@ -124,26 +112,23 @@
       margin-inline: auto;
     }
 
-    /* ---------- Eyebrow / libellés de section ---------- */
+    /* ---------- Chemin de section ----------
+       Chaque section est un dossier du « home » affiché par le terminal
+       (hamza@uir:~). Le chemin remplace les numéros : les sections ne
+       forment pas une séquence, mais une arborescence. */
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+    .path {
+      display: block;
+      margin-bottom: 12px;
       color: var(--signal);
       font-family: var(--mono);
-      font-size: var(--font-eyebrow);
+      font-size: 0.86rem;
       font-weight: 500;
-      letter-spacing: var(--tracking-eyebrow);
-      text-transform: uppercase;
     }
 
-    .eyebrow::before {
-      content: "";
-      width: 26px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--signal), transparent);
+    .path::before {
+      content: "~/";
+      color: var(--muted);
     }
 
     /* ---------- En-tête ---------- */
@@ -152,11 +137,11 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(11, 17, 29, 0.72);
+      background: rgba(11, 17, 29, 0.78);
       border-bottom: 1px solid transparent;
       backdrop-filter: blur(14px) saturate(140%);
       -webkit-backdrop-filter: blur(14px) saturate(140%);
-      transition: border-color .3s ease, background-color .3s ease, box-shadow .3s ease;
+      transition: border-color .3s ease, box-shadow .3s ease;
     }
 
     header.scrolled {
@@ -184,23 +169,26 @@
       text-decoration: none;
     }
 
-    .university-logo {
-      width: 40px;
-      height: 40px;
+    /* Monogramme personnel (même dessin que le favicon) */
+    .monogram {
+      width: 36px;
+      height: 36px;
       display: block;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
       border-radius: var(--radius-sm);
     }
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 2px;
       list-style: none;
     }
 
     .nav-links a {
-      position: relative;
       display: block;
-      padding: 7px 12px;
+      padding: 7px 11px;
       border-radius: var(--radius-sm);
       color: var(--muted);
       font-size: 0.9rem;
@@ -215,6 +203,21 @@
     .nav-links a[aria-current="true"] {
       color: var(--text);
       background: var(--surface-2);
+    }
+
+    .nav-links .nav-cv {
+      margin-left: 8px;
+    }
+
+    .nav-links .nav-cv a {
+      border: 1px solid var(--signal);
+      color: var(--signal);
+      font-weight: 600;
+    }
+
+    .nav-links .nav-cv a:hover {
+      background: var(--signal);
+      color: #06121b;
     }
 
     .menu-toggle {
@@ -246,10 +249,10 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-sm);
       background: var(--surface);
-      background-image: var(--grad-surface);
       color: var(--text);
       font-weight: 600;
       font-size: 0.95rem;
+      transition: border-color .18s ease, background-color .18s ease, color .18s ease;
     }
 
     .button svg {
@@ -261,33 +264,26 @@
     .button:hover {
       text-decoration: none;
       border-color: var(--signal);
-      transform: translateY(-2px);
-    }
-
-    .button:active {
-      transform: translateY(0);
     }
 
     .button-primary {
-      background-color: var(--signal);           /* fond de secours solide, toujours lisible */
-      background-image: var(--grad-button);
-      border-color: transparent;
+      background: var(--signal);
+      border-color: var(--signal);
       color: #06121b;
       font-weight: 700;
     }
 
-    .button-primary svg { opacity: 0.9; }
-
     .button-primary:hover {
-      border-color: transparent;
-      box-shadow: var(--glow-signal);
+      background: var(--text-strong);
+      border-color: var(--text-strong);
     }
 
     /* ---------- Accueil ---------- */
 
     .hero {
       position: relative;
-      padding: 96px 0 84px;
+      padding: 88px 0 84px;
+      border-top: 0;
     }
 
     .hero::before {
@@ -312,34 +308,20 @@
       align-items: center;
     }
 
-    .portrait-wrap {
-      position: relative;
-      width: 132px;
-      margin-bottom: 30px;
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 22px;
     }
 
     .portrait {
       display: block;
-      width: 132px;
-      height: 132px;
+      width: 104px;
+      height: 104px;
+      flex-shrink: 0;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--line);
-      box-shadow: var(--ring-surface);
-    }
-
-    .portrait-wrap::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      padding: 4px;
-      background: var(--grad-accent);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.55;
-      pointer-events: none;
     }
 
     h1 {
@@ -347,27 +329,19 @@
       font-weight: 700;
       line-height: var(--leading-tight);
       letter-spacing: var(--tracking-xl);
-      background: var(--grad-text);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--text-strong);
     }
 
     .hero-role {
-      margin-top: 16px;
-      font-size: var(--font-lead);
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .hero-role b {
+      margin-top: 8px;
       color: var(--signal);
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 0.95rem;
     }
 
     .hero-text {
-      margin-top: 18px;
-      max-width: 60ch;
+      margin-top: 26px;
+      max-width: 58ch;
       color: var(--muted);
       font-size: var(--font-body-lg);
     }
@@ -391,18 +365,10 @@
       margin-top: 8px;
       border-radius: 50%;
       background: var(--amber);
-      box-shadow: 0 0 0 0 rgba(240, 180, 76, 0.5);
       flex-shrink: 0;
-      animation: pulse 2.4s ease-out infinite;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(240, 180, 76, 0.45); }
-      70% { box-shadow: 0 0 0 8px rgba(240, 180, 76, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(240, 180, 76, 0); }
-    }
-
-    /* Terminal */
+    /* ---------- Terminal (élément signature) ---------- */
 
     .terminal {
       border: 1px solid var(--line);
@@ -448,21 +414,10 @@
       word-break: break-word;
     }
 
-    .t-line {
-      display: block;
-    }
-
-    .t-prompt {
-      color: var(--signal);
-    }
-
-    .t-out {
-      color: var(--muted);
-    }
-
-    .t-accent {
-      color: var(--amber);
-    }
+    .t-line { display: block; }
+    .t-prompt { color: var(--signal); }
+    .t-out { color: var(--muted); }
+    .t-accent { color: var(--amber); }
 
     .cursor {
       display: inline-block;
@@ -494,20 +449,39 @@
       outline: none;
     }
 
-    .terminal.is-interactive {
-      cursor: text;
+    .terminal.is-interactive { cursor: text; }
+
+    .terminal:focus-within { border-color: var(--signal); }
+
+    /* Raccourcis cliquables : le terminal reste utilisable sans rien taper */
+    .terminal-hints {
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 0.78rem;
+      color: var(--muted);
     }
 
-    /* Pas de zone de défilement : le terminal grandit avec son contenu,
-       aucune barre ne peut donc apparaître (tous navigateurs / OS). */
-    .terminal.is-interactive .terminal-body {
-      overflow: visible;
-      max-height: none;
+    .terminal.is-interactive .terminal-hints { display: flex; }
+
+    .terminal-hints button {
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-tag);
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+      transition: border-color .18s ease, color .18s ease;
     }
 
-    .terminal:focus-within {
+    .terminal-hints button:hover {
       border-color: var(--signal);
-      box-shadow: var(--shadow-md), var(--glow-signal);
+      color: var(--signal);
     }
 
     /* ---------- Sections ---------- */
@@ -543,9 +517,7 @@
       color: var(--text);
     }
 
-    .muted {
-      color: var(--muted);
-    }
+    .muted { color: var(--muted); }
 
     /* Profil */
 
@@ -555,9 +527,7 @@
       gap: 48px;
     }
 
-    .profile-grid p + p {
-      margin-top: 14px;
-    }
+    .profile-grid p + p { margin-top: 14px; }
 
     .facts {
       list-style: none;
@@ -565,7 +535,6 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
-      background-image: var(--grad-surface);
     }
 
     .facts li {
@@ -582,13 +551,13 @@
 
     .facts .k {
       color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.85rem;
     }
 
     /* Expérience : timeline */
 
-    .timeline {
-      position: relative;
-    }
+    .timeline { position: relative; }
 
     .entry {
       position: relative;
@@ -612,15 +581,11 @@
     }
 
     .entry-meta .when {
-      display: inline-block;
+      display: block;
       margin-bottom: 6px;
-      padding: 3px 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-pill);
-      background: var(--surface);
       color: var(--signal);
       font-family: var(--mono);
-      font-size: 0.76rem;
+      font-size: 0.82rem;
     }
 
     .entry-body {
@@ -629,7 +594,6 @@
       padding-bottom: 4px;
     }
 
-    /* Ligne verticale + point de la timeline (côté contenu) */
     .entry-body::before {
       content: "";
       position: absolute;
@@ -637,7 +601,7 @@
       top: 6px;
       bottom: -36px;
       width: 2px;
-      background: linear-gradient(var(--line), transparent);
+      background: var(--line);
     }
 
     .entry:last-child .entry-body::before { bottom: 0; }
@@ -651,7 +615,7 @@
       height: 10px;
       border-radius: 50%;
       background: var(--signal);
-      box-shadow: 0 0 0 4px rgba(92, 200, 238, 0.14);
+      box-shadow: 0 0 0 4px var(--ink);
     }
 
     .entry-body p {
@@ -667,9 +631,9 @@
       max-width: 68ch;
     }
 
-    .entry-body li + li {
-      margin-top: 6px;
-    }
+    .entry-body li + li { margin-top: 6px; }
+
+    .entry-body li strong { color: var(--text); font-weight: 600; }
 
     .tags {
       display: flex;
@@ -690,17 +654,23 @@
       font-size: var(--font-mono-tag);
     }
 
-    .tags li:hover { border-color: var(--signal); }
-
     .entry-body ul.tags li + li { margin-top: 0; }
 
     /* Projets */
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 20px;
+      margin-bottom: 26px;
+    }
 
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 26px;
     }
 
     .filters button {
@@ -711,6 +681,7 @@
       color: var(--muted);
       font: 500 0.88rem var(--sans);
       cursor: pointer;
+      transition: border-color .18s ease, color .18s ease, background-color .18s ease;
     }
 
     .filters button:hover {
@@ -719,11 +690,16 @@
     }
 
     .filters button[aria-pressed="true"] {
-      background-color: var(--signal);
-      background-image: var(--grad-button);
-      border-color: transparent;
+      background: var(--signal);
+      border-color: var(--signal);
       color: #06121b;
       font-weight: 600;
+    }
+
+    .filter-count {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.82rem;
     }
 
     .project-grid {
@@ -733,55 +709,26 @@
     }
 
     .project {
-      position: relative;
       display: flex;
       flex-direction: column;
       padding: 26px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
-      background-image: var(--grad-surface);
-      overflow: hidden;
+      transition: border-color .18s ease;
     }
 
-    /* Liseré accent qui s'illumine au survol */
-    .project::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 3px;
-      width: 100%;
-      background: var(--grad-accent);
-      opacity: 0;
-      transition: opacity .25s ease;
-    }
+    /* Seules les cartes qui mènent quelque part réagissent au survol */
+    .project:has(.project-link):hover { border-color: var(--signal); }
 
-    .project:hover::before { opacity: 1; }
-
-    .project[hidden] {
-      display: none;
-    }
+    .project[hidden] { display: none; }
 
     .project-cat {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
       margin-bottom: 10px;
       color: var(--signal);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .project-cat::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 2px;
-      background: var(--signal);
     }
 
     .project p {
@@ -798,16 +745,14 @@
     .project-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       margin-top: 16px;
       align-self: flex-start;
-      color: var(--signal);
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
-    .project-link:hover { text-decoration: none; gap: 10px; }
+    .project-link svg { width: 15px; height: 15px; }
 
     /* Engagement */
 
@@ -820,17 +765,13 @@
       border-left: 3px solid var(--amber);
       border-radius: var(--radius);
       background: var(--surface);
-      background-image: var(--grad-surface);
-      box-shadow: var(--shadow-md);
     }
 
     .feature .entry-meta {
       margin-bottom: 6px;
       color: var(--amber);
       font-family: var(--mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      font-size: 0.82rem;
     }
 
     .feature p {
@@ -867,35 +808,37 @@
       line-height: 1;
     }
 
-    .figures span {
-      color: var(--muted);
-    }
+    .figures span { color: var(--muted); }
 
+    /* Rôles : liste sobre, sans cartes */
     .roles {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 28px;
+      margin-top: 32px;
       list-style: none;
+      border-top: 1px solid var(--line-soft);
     }
 
     .roles li {
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      background-image: var(--grad-surface);
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 36px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line-soft);
     }
 
-    .roles li:hover { border-color: var(--line); transform: translateY(-2px); }
+    .roles .when {
+      color: var(--signal);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      padding-top: 3px;
+    }
 
     .roles p {
-      margin-top: 6px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 0.95rem;
     }
 
-    /* Compétences : cartes à icône */
+    /* Compétences */
 
     .skills {
       display: grid;
@@ -908,10 +851,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
-      background-image: var(--grad-surface);
     }
-
-    .skill-card:hover { border-color: var(--signal); }
 
     .skill-head {
       display: flex;
@@ -942,22 +882,16 @@
 
     .certs {
       list-style: none;
-      display: grid;
-      gap: 14px;
+      border-top: 1px solid var(--line-soft);
     }
 
     .certs > li {
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 32px;
-      padding: 22px 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      background-image: var(--grad-surface);
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 36px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line-soft);
     }
-
-    .certs > li:hover { border-color: var(--line); }
 
     .certs .issuer {
       color: var(--muted);
@@ -971,11 +905,11 @@
     }
 
     .certs .issuer .date {
-      display: inline-block;
-      margin-bottom: 8px;
+      display: block;
+      margin-bottom: 6px;
       color: var(--signal);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.82rem;
     }
 
     .certs p {
@@ -984,9 +918,7 @@
       font-size: 0.95rem;
     }
 
-    .certs .tags {
-      margin-top: 12px;
-    }
+    .certs .tags { margin-top: 12px; }
 
     .badge {
       display: inline-flex;
@@ -1014,7 +946,6 @@
     /* Contact */
 
     .contact-panel {
-      position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 32px;
@@ -1022,35 +953,22 @@
       padding: 44px;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
-      background:
-        var(--grad-accent-soft),
-        var(--surface);
-      overflow: hidden;
+      background: var(--surface);
     }
 
-    .contact-panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 30px 30px;
-      opacity: 0.12;
-      -webkit-mask-image: radial-gradient(90% 120% at 100% 0%, #000, transparent 70%);
-      mask-image: radial-gradient(90% 120% at 100% 0%, #000, transparent 70%);
-      pointer-events: none;
-    }
-
-    .contact-panel > * { position: relative; z-index: 1; }
-
-    .contact-panel h2 { margin-bottom: 0; }
+    .contact-panel .section-head { margin-bottom: 0; }
 
     .contact-panel p {
       margin-top: 12px;
       color: var(--muted);
       max-width: 48ch;
+    }
+
+    .contact-mail {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 0.95rem;
     }
 
     .contact-panel .actions {
@@ -1075,44 +993,11 @@
 
     footer a { color: var(--muted); }
 
-    /* ---------- Reveal au scroll ---------- */
-
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .6s ease, transform .6s ease;
-      will-change: opacity, transform;
-    }
-
-    [data-reveal].in {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ---------- Transitions douces ---------- */
-
-    a, .button, .nav-links a, .filters button, .project,
-    .feature, .roles li, .skill-card, .certs > li, .tags li,
-    .portrait, .menu-toggle, .project-link {
-      transition: color .18s ease, background-color .18s ease,
-        border-color .18s ease, transform .2s ease, box-shadow .25s ease, gap .18s ease;
-    }
-
-    .project:hover {
-      transform: translateY(-4px);
-      border-color: var(--signal);
-      box-shadow: var(--shadow-md);
-    }
-
-    .section-head h2 {
-      position: relative;
-    }
-
-    .portrait:hover {
-      box-shadow: var(--ring-surface), var(--glow-signal);
-    }
-
     /* ---------- Responsive ---------- */
+
+    @media (max-width: 1040px) {
+      .nav-links a { padding: 7px 8px; }
+    }
 
     @media (max-width: 920px) {
       .hero-grid,
@@ -1128,10 +1013,8 @@
     }
 
     /* Nav : bascule vers le menu déroulant dès que les liens ne tiennent plus */
-    @media (max-width: 860px) {
-      .menu-toggle {
-        display: inline-block;
-      }
+    @media (max-width: 940px) {
+      .menu-toggle { display: inline-block; }
 
       .nav-links {
         display: none;
@@ -1140,73 +1023,61 @@
         left: 0;
         right: 0;
         flex-direction: column;
+        align-items: stretch;
         gap: 2px;
         padding: 10px 16px 16px;
         background: var(--ink-2);
         border-bottom: 1px solid var(--line);
       }
 
-      .nav-links.open {
-        display: flex;
-      }
+      .nav-links.open { display: flex; }
 
       .nav-links a {
         padding: 11px 12px;
         font-size: 1rem;
       }
+
+      .nav-links .nav-cv { margin: 8px 0 0; }
+      .nav-links .nav-cv a { text-align: center; }
     }
 
     @media (max-width: 760px) {
-      .hero {
-        padding: 56px 0 60px;
-      }
+      .hero { padding: 48px 0 60px; }
 
-      .portrait-wrap,
+      .identity { gap: 16px; }
+
       .portrait {
-        width: 104px;
+        width: 76px;
+        height: 76px;
       }
 
-      .portrait { height: 104px; }
+      section { padding: 64px 0; }
 
-      section {
-        padding: 64px 0;
-      }
-
-      .entry {
+      .entry,
+      .roles li,
+      .certs > li {
         grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 8px;
       }
 
-      .entry-body {
-        padding-left: 24px;
-      }
+      .entry { gap: 14px; }
+
+      .entry-body { padding-left: 24px; }
 
       .entry-body::before { bottom: -24px; }
 
       .project-grid,
-      .roles,
-      .skills,
-      .certs > li {
+      .skills {
         grid-template-columns: 1fr;
       }
 
-      .certs > li { gap: 10px; }
+      .feature { padding: 24px 20px; }
 
-      .feature {
-        padding: 24px 20px;
-      }
+      .facts li { grid-template-columns: 96px 1fr; }
 
-      .facts li {
-        grid-template-columns: 96px 1fr;
-      }
+      .terminal { font-size: 0.8rem; }
 
-      .terminal {
-        font-size: 0.8rem;
-      }
-
-      .terminal-body {
-        min-height: 0;
-      }
+      .terminal-body { min-height: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1218,27 +1089,26 @@
         transition-duration: 0.001ms !important;
       }
 
-      [data-reveal] {
-        opacity: 1;
-        transform: none;
-      }
-
-      .button:hover,
-      .project:hover,
-      .roles li:hover { transform: none; }
-
       .cursor { animation: none; }
     }
 
+    /* Impression : la page devient une fiche claire et lisible */
     @media print {
-      header, .terminal, .filters, .actions, .contact-panel::before { display: none !important; }
-      body { background: #fff; color: #000; }
-      body::before { display: none; }
-      section { padding: 24px 0; }
-      h1 { -webkit-text-fill-color: #000; color: #000; }
-      .project, .feature { background: none; box-shadow: none; break-inside: avoid; }
+      header, .terminal, .filter-row, .actions, .skip-link, .hero::before { display: none !important; }
+      body { background: #fff; color: #000; font-size: 11pt; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero { padding: 0 0 16px; }
+      section { padding: 18px 0; border-color: #ccc; }
+      h1, h2, h3, .entry-meta strong, .certs .issuer strong, .entry-body li strong { color: #000; }
+      .muted, .hero-text, .section-head p, .entry-body p, .entry-body ul:not(.tags),
+      .project p, .feature p, .roles p, .certs p, .entry-meta, .figures span, footer { color: #333; }
+      .path, .hero-role, .when, .date, .project-cat, .figures strong, .feature .entry-meta, a { color: #0a4f6b !important; }
+      .project, .feature, .facts, .skill-card, .contact-panel, .tags li, .availability {
+        background: none; border-color: #bbb; box-shadow: none; color: #000;
+      }
+      .project, .feature, .entry, .skill-card, .certs > li, .roles li { break-inside: avoid; }
       .project[hidden] { display: flex !important; }
-      [data-reveal] { opacity: 1; transform: none; }
+      .project-link::after { content: " (" attr(href) ")"; font-weight: 400; }
     }
   </style>
 </head>
@@ -1250,11 +1120,11 @@
   <header>
     <nav class="container" aria-label="Navigation principale">
       <a class="brand" href="#accueil">
-        <img
-          src="logo-uir.png"
-          alt="Université Internationale de Rabat"
-          class="university-logo"
-        >
+        <svg class="monogram" viewBox="0 0 32 32" role="img" aria-label="Monogramme H">
+          <rect width="32" height="32" fill="#0b111d"/>
+          <text x="5" y="22" font-family="'IBM Plex Mono', monospace" font-size="16" font-weight="700" fill="#5cc8ee">H</text>
+          <rect x="18" y="19" width="9" height="3" fill="#f0b44c"/>
+        </svg>
         <span>Hamza Mezzene</span>
       </a>
 
@@ -1270,6 +1140,9 @@
         <li><a href="#competences">Compétences</a></li>
         <li><a href="#certifications">Certifications</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li class="nav-cv">
+          <a href="CV_Hamza_Mezzene_ING4_Cyber_2027.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -1277,32 +1150,29 @@
   <main id="contenu">
 
     <!-- ACCUEIL -->
-    <section class="hero" id="accueil" style="border-top: 0;">
+    <section class="hero" id="accueil">
       <div class="container hero-grid">
-        <div data-reveal>
-          <div class="portrait-wrap">
+        <div>
+          <div class="identity">
             <img
               src="photo-hamza.jpg"
               alt="Portrait de Hamza Mezzene"
               class="portrait"
-              width="132"
-              height="132"
+              width="104"
+              height="104"
             >
+            <div>
+              <h1>Hamza Mezzene</h1>
+              <p class="hero-role">Étudiant ingénieur en cybersécurité, 4e année à l'ESIN (UIR)</p>
+            </div>
           </div>
 
-          <h1>Hamza Mezzene</h1>
-
-          <p class="hero-role">
-            Étudiant ingénieur en <b>Cybersécurité</b>
-          </p>
-
           <p class="hero-text">
-            Vice-Président du club de cybersécurité CYBERGLITCHERS, 
-            chef de protocole au Pôle des ingénieurs EMJL et
-            ambassadeur du College of Engineering &amp; Architecture de l'UIR.
-            Étudiant ingénieur en 4e année à l'ESIN, je m'initie aux CTF et je
-            pratique la sécurité en laboratoire, notamment l'administration
-            de réseaux sous Linux.
+            Je pratique la sécurité en laboratoire, notamment
+            l'administration de réseaux sous Linux, et je m'initie aux CTF.
+            Vice-Président du club de cybersécurité CYBERGLITCHERS, chef de
+            protocole au Pôle des ingénieurs EMJL et ambassadeur du College
+            of Engineering &amp; Architecture de l'UIR.
           </p>
 
           <p class="availability">
@@ -1318,7 +1188,7 @@
               href="CV_Hamza_Mezzene_ING4_Cyber_2027.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              >
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
               Voir mon CV
             </a>
@@ -1345,12 +1215,20 @@
           </div>
         </div>
 
-        <div class="terminal" role="group" aria-label="Terminal interactif" data-reveal>
+        <div class="terminal" role="group" aria-label="Terminal interactif">
           <div class="terminal-bar">
             <i></i><i></i><i></i>
             <span>hamza@uir:~</span>
           </div>
-          <div class="terminal-body" id="terminal"></div>
+          <!-- Contenu statique : affiché tel quel si JavaScript est désactivé -->
+          <div class="terminal-body" id="terminal"><span class="t-line"><span class="t-prompt">$ </span>whoami</span><span class="t-line t-out">Hamza Mezzene — élève ingénieur, Cybersécurité UIR</span><span class="t-line"><span class="t-prompt">$ </span>cat objectif.txt</span><span class="t-line t-accent">Stage PFA en cybersécurité, du 1er juin au 3 août 2027</span><span class="t-line t-out">Lieu : France ou Maroc</span></div>
+          <div class="terminal-hints" aria-label="Commandes rapides">
+            <span>Essayez :</span>
+            <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="nmap lab">nmap lab</button>
+            <button type="button" data-cmd="ls projets/">ls projets/</button>
+            <button type="button" data-cmd="open contact">open contact</button>
+          </div>
         </div>
       </div>
     </section>
@@ -1358,9 +1236,9 @@
     <!-- PROFIL -->
     <section id="profil">
       <div class="container profile-grid">
-        <div data-reveal>
+        <div>
           <div class="section-head">
-            <span class="eyebrow">01 — À propos</span>
+            <span class="path">profil</span>
             <h2>Profil</h2>
           </div>
 
@@ -1378,159 +1256,159 @@
           </p>
         </div>
 
-        <ul class="facts" data-reveal>
-          <li><span class="k">Formation</span><span>Cycle ingénieur, 4e année — ESIN, UIR</span></li>
-          <li><span class="k">Diplôme</span><span>Prévu en 2028</span></li>
-          <li><span class="k">Ville</span><span>Rabat, Maroc</span></li>
-          <li><span class="k">Intérêts</span><span>CTF, pentest, forensics, stéganographie, cryptographie, réseaux</span></li>
-          <li><span class="k">Langue</span><span>Français, Anglais, Arabe</span></li>
+        <ul class="facts">
+          <li><span class="k">formation</span><span>Cycle ingénieur, 4e année — ESIN, UIR</span></li>
+          <li><span class="k">diplôme</span><span>Prévu en 2028</span></li>
+          <li><span class="k">ville</span><span>Rabat, Maroc</span></li>
+          <li><span class="k">intérêts</span><span>CTF, pentest, forensics, stéganographie, cryptographie, réseaux</span></li>
+          <li><span class="k">langues</span><span>Français, Anglais, Arabe</span></li>
         </ul>
       </div>
     </section>
 
-    
-<!-- EXPÉRIENCES PROFESSIONNELLES -->
-<section id="experience">
-  <div class="container">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">02 — Parcours professionnel</span>
-      <h2>Expériences professionnelles</h2>
-      <p>
-        Expériences en développement d'applications, sécurisation des accès,
-        administration de solutions web et automatisation du traitement des données.
-      </p>
-    </div>
-
-    <div class="timeline">
-
-      <!-- STAGE EN INFORMATIQUE -->
-      <article class="entry" data-reveal>
-        <div class="entry-meta">
-          <span class="when">Juin – Juillet 2026</span>
-          <strong>Polyclinique Wifak</strong>
-          <span>Témara, Maroc</span>
-          <p>Stage en développement informatique</p>
-        </div>
-
-        <div class="entry-body">
-          <h3>Développement et déploiement d'une application de gestion de stock</h3>
-
+    <!-- EXPÉRIENCES PROFESSIONNELLES -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <span class="path">experience</span>
+          <h2>Expériences professionnelles</h2>
           <p>
-            Conception et mise en production d'une application web destinée
-            à la gestion des stocks de la clinique, depuis l'analyse des besoins
-            jusqu'au déploiement sur son infrastructure interne.
+            Expériences en développement d'applications, sécurisation des accès,
+            administration de solutions web et automatisation du traitement des données.
           </p>
-
-          <ul>
-            <li>
-              <strong>Analyse et conception :</strong>
-              formalisation des besoins, rédaction du cahier des charges
-              et documentation de la solution.
-            </li>
-            <li>
-              <strong>Développement :</strong>
-              réalisation d'une application PHP 8 / MySQL selon une
-              architecture MVC, avec gestion des rôles et des permissions (RBAC).
-            </li>
-            <li>
-              <strong>Sécurité applicative :</strong>
-              utilisation de requêtes préparées avec PDO et hachage des
-              mots de passe avec bcrypt.
-            </li>
-            <li>
-              <strong>Déploiement et administration :</strong>
-              mise en production sur Windows Server 2016 avec IIS
-              et configuration de MySQL 8.
-            </li>
-            <li>
-              <strong>Maintenance technique :</strong>
-              résolution de problèmes de permissions IIS, de compatibilité
-              PHP et de gestion des sessions, ainsi que migration du schéma
-              de base de données.
-            </li>
-            <li>
-              <strong>Automatisation :</strong>
-              développement de scripts Python avec openpyxl pour fusionner,
-              dédoublonner et rapprocher des listes d'employés dans le cadre
-              du traitement de données RH.
-            </li>
-          </ul>
-
-          <ul class="tags" aria-label="Technologies utilisées">
-            <li>PHP 8</li>
-            <li>MySQL 8</li>
-            <li>MVC</li>
-            <li>RBAC</li>
-            <li>PDO</li>
-            <li>bcrypt</li>
-            <li>Windows Server</li>
-            <li>IIS</li>
-            <li>Python</li>
-            <li>openpyxl</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- MISSION FREELANCE -->
-      <article class="entry" data-reveal>
-        <div class="entry-meta">
-          <span class="when">Mission freelance</span>
-          <strong>Société de BTP</strong>
-          <span>Client au Maroc — secteur BTP</span>
-          <p>Développement web</p>
         </div>
 
-        <div class="entry-body">
-          <h3>Conception et réalisation d'un site vitrine professionnel</h3>
+        <div class="timeline">
 
-          <p>
-            Prise en charge d'un projet web pour une entreprise du secteur
-            du bâtiment et des travaux publics (BTP), de l'analyse du besoin
-            à la mise en ligne du site.
-          </p>
+          <!-- STAGE EN INFORMATIQUE -->
+          <article class="entry">
+            <div class="entry-meta">
+              <span class="when">Juin – Juillet 2026</span>
+              <strong>Polyclinique Wifak</strong>
+              <span>Témara, Maroc</span>
+              <p>Stage en développement informatique</p>
+            </div>
 
-          <ul>
-            <li>
-              <strong>Recueil des besoins :</strong>
-              analyse de la demande du client et rédaction d'un rapport
-              d'analyse.
-            </li>
-            <li>
-              <strong>Spécifications :</strong>
-              préparation du cahier des charges et définition du périmètre
-              du site vitrine.
-            </li>
-            <li>
-              <strong>Réalisation :</strong>
-              développement d'un site web monopage présentant l'entreprise
-              et ses activités.
-            </li>
-            <li>
-              <strong>Mise en ligne :</strong>
-              prise en charge de l'hébergement et du nom de domaine
-              pour la première année.
-            </li>
-          </ul>
+            <div class="entry-body">
+              <h3>Développement et déploiement d'une application de gestion de stock</h3>
 
-          <ul class="tags" aria-label="Domaines d'intervention">
-            <li>Analyse des besoins</li>
-            <li>Cahier des charges</li>
-            <li>Développement web</li>
-            <li>Site vitrine</li>
-            <li>Hébergement web</li>
-          </ul>
+              <p>
+                Conception et mise en production d'une application web destinée
+                à la gestion des stocks de la clinique, depuis l'analyse des besoins
+                jusqu'au déploiement sur son infrastructure interne.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Analyse et conception :</strong>
+                  formalisation des besoins, rédaction du cahier des charges
+                  et documentation de la solution.
+                </li>
+                <li>
+                  <strong>Développement :</strong>
+                  réalisation d'une application PHP 8 / MySQL selon une
+                  architecture MVC, avec gestion des rôles et des permissions (RBAC).
+                </li>
+                <li>
+                  <strong>Sécurité applicative :</strong>
+                  utilisation de requêtes préparées avec PDO et hachage des
+                  mots de passe avec bcrypt.
+                </li>
+                <li>
+                  <strong>Déploiement et administration :</strong>
+                  mise en production sur Windows Server 2016 avec IIS
+                  et configuration de MySQL 8.
+                </li>
+                <li>
+                  <strong>Maintenance technique :</strong>
+                  résolution de problèmes de permissions IIS, de compatibilité
+                  PHP et de gestion des sessions, ainsi que migration du schéma
+                  de base de données.
+                </li>
+                <li>
+                  <strong>Automatisation :</strong>
+                  développement de scripts Python avec openpyxl pour fusionner,
+                  dédoublonner et rapprocher des listes d'employés dans le cadre
+                  du traitement de données RH.
+                </li>
+              </ul>
+
+              <ul class="tags" aria-label="Technologies utilisées">
+                <li>PHP 8</li>
+                <li>MySQL 8</li>
+                <li>MVC</li>
+                <li>RBAC</li>
+                <li>PDO</li>
+                <li>bcrypt</li>
+                <li>Windows Server</li>
+                <li>IIS</li>
+                <li>Python</li>
+                <li>openpyxl</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- MISSION FREELANCE -->
+          <article class="entry">
+            <div class="entry-meta">
+              <!-- À compléter : remplacez par la période réelle, ex. « Mars 2026 » -->
+              <span class="when">Mission freelance</span>
+              <strong>Société de BTP</strong>
+              <span>Client au Maroc — secteur BTP</span>
+              <p>Développement web</p>
+            </div>
+
+            <div class="entry-body">
+              <h3>Conception et réalisation d'un site vitrine professionnel</h3>
+
+              <p>
+                Prise en charge d'un projet web pour une entreprise du secteur
+                du bâtiment et des travaux publics (BTP), de l'analyse du besoin
+                à la mise en ligne du site.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Recueil des besoins :</strong>
+                  analyse de la demande du client et rédaction d'un rapport
+                  d'analyse.
+                </li>
+                <li>
+                  <strong>Spécifications :</strong>
+                  préparation du cahier des charges et définition du périmètre
+                  du site vitrine.
+                </li>
+                <li>
+                  <strong>Réalisation :</strong>
+                  développement d'un site web monopage présentant l'entreprise
+                  et ses activités.
+                </li>
+                <li>
+                  <strong>Mise en ligne :</strong>
+                  prise en charge de l'hébergement et du nom de domaine
+                  pour la première année.
+                </li>
+              </ul>
+
+              <ul class="tags" aria-label="Domaines d'intervention">
+                <li>Analyse des besoins</li>
+                <li>Cahier des charges</li>
+                <li>Développement web</li>
+                <li>Site vitrine</li>
+                <li>Hébergement web</li>
+              </ul>
+            </div>
+          </article>
+
         </div>
-      </article>
-
-    </div>
-  </div>
-</section>
+      </div>
+    </section>
 
     <!-- PROJETS -->
     <section id="projets">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <span class="eyebrow">03 — Réalisations</span>
+        <div class="section-head">
+          <span class="path">projets</span>
           <h2>Projets et travaux pratiques</h2>
           <p>
             Travaux réalisés dans le cadre de ma formation et de mon
@@ -1539,16 +1417,19 @@
           </p>
         </div>
 
-        <div class="filters" role="group" aria-label="Filtrer les projets" data-reveal>
-          <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
-          <button type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
-          <button type="button" data-filter="reseaux" aria-pressed="false">Réseaux et systèmes</button>
-          <button type="button" data-filter="dev" aria-pressed="false">Développement</button>
-          <button type="button" data-filter="donnees" aria-pressed="false">Données</button>
+        <div class="filter-row">
+          <div class="filters" role="group" aria-label="Filtrer les projets">
+            <button type="button" data-filter="tous" aria-pressed="true">Tous</button>
+            <button type="button" data-filter="securite" aria-pressed="false">Sécurité</button>
+            <button type="button" data-filter="reseaux" aria-pressed="false">Réseaux et systèmes</button>
+            <button type="button" data-filter="dev" aria-pressed="false">Développement</button>
+            <button type="button" data-filter="donnees" aria-pressed="false">Données</button>
+          </div>
+          <p class="filter-count" id="filter-count" aria-live="polite">7 projets</p>
         </div>
 
         <div class="project-grid">
-          <article class="project" data-cat="securite" data-reveal>
+          <article class="project" data-cat="securite">
             <div class="project-cat">Sécurité offensive</div>
             <h3>Ethical hacking</h3>
             <p>
@@ -1558,10 +1439,13 @@
             <ul class="tags">
               <li>Nmap</li><li>NSE</li><li>Metasploit</li>
             </ul>
-            <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
+            <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Voir le code sur GitHub
+            </a>
           </article>
 
-          <article class="project" data-cat="securite" data-reveal>
+          <article class="project" data-cat="securite">
             <div class="project-cat">CTF</div>
             <h3>Challenges et write-ups</h3>
             <p>
@@ -1573,7 +1457,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="securite" data-reveal>
+          <article class="project" data-cat="securite">
             <div class="project-cat">Cryptographie</div>
             <h3>Cryptographie appliquée</h3>
             <p>
@@ -1584,10 +1468,13 @@
             <ul class="tags">
               <li>SEED Labs</li><li>TLS</li><li>Wireshark</li>
             </ul>
-            <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
+            <a class="project-link" href="https://github.com/hamza-mzn/cybersecurity-labs" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Voir le code sur GitHub
+            </a>
           </article>
 
-          <article class="project" data-cat="reseaux securite" data-reveal>
+          <article class="project" data-cat="reseaux securite">
             <div class="project-cat">Administration réseau</div>
             <h3>Services réseau sous Linux</h3>
             <p>
@@ -1598,10 +1485,13 @@
             <ul class="tags">
               <li>BIND9</li><li>iptables</li><li>dnsmasq</li><li>netns</li>
             </ul>
-            <a class="project-link" href="https://github.com/hamza-mzn/linux-namespaces-nat-iptables" target="_blank" rel="noopener noreferrer">Code sur GitHub →</a>
+            <a class="project-link" href="https://github.com/hamza-mzn/linux-namespaces-nat-iptables" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Voir le code sur GitHub
+            </a>
           </article>
 
-          <article class="project" data-cat="dev securite" data-reveal>
+          <article class="project" data-cat="dev securite">
             <div class="project-cat">Développement web sécurisé</div>
             <h3>Stocky — gestion de stock et de ventes</h3>
             <p>
@@ -1615,7 +1505,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="reseaux" data-reveal>
+          <article class="project" data-cat="reseaux">
             <div class="project-cat">Infrastructure</div>
             <h3>SDN, cloud et calcul parallèle</h3>
             <p>
@@ -1628,7 +1518,7 @@
             </ul>
           </article>
 
-          <article class="project" data-cat="donnees" data-reveal>
+          <article class="project" data-cat="donnees">
             <div class="project-cat">Business Intelligence</div>
             <h3>Entrepôts de données et ETL</h3>
             <p>
@@ -1647,15 +1537,15 @@
     <!-- ENGAGEMENT -->
     <section id="engagement">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <span class="eyebrow">04 — Leadership</span>
+        <div class="section-head">
+          <span class="path">engagement</span>
           <h2>Engagement associatif</h2>
           <p>Organisation d'événements et représentation étudiante à l'UIR.</p>
         </div>
 
-        <article class="feature" data-reveal>
+        <article class="feature">
           <div>
-            <div class="entry-meta">Coordinateur général · 1re édition</div>
+            <div class="entry-meta">Coordinateur général, 1re édition</div>
             <h3>CYBrAIn Fest UIR — l'IA au service de la cybersécurité</h3>
             <p>
               Co-organisation d'un événement de deux jours (CTF, conférences,
@@ -1673,17 +1563,26 @@
         </article>
 
         <ul class="roles">
-          <li data-reveal>
-            <h3>Vice-Président, CYBERGLITCHERS UIR (2024 – aujourd'hui)</h3>
-            <p>Pilotage du club de cybersécurité et organisation de ses activités.</p>
+          <li>
+            <span class="when">2024 – aujourd'hui</span>
+            <div>
+              <h3>Vice-Président, CYBERGLITCHERS UIR</h3>
+              <p>Pilotage du club de cybersécurité et organisation de ses activités.</p>
+            </div>
           </li>
-          <li data-reveal>
-            <h3>Chef de protocole, Pôle des ingénieurs EMJL (depuis mai 2026)</h3>
-            <p>Protocole des événements et visites institutionnelles, dont une visite au Parlement.</p>
+          <li>
+            <span class="when">Depuis mai 2026</span>
+            <div>
+              <h3>Chef de protocole, Pôle des ingénieurs EMJL</h3>
+              <p>Protocole des événements et visites institutionnelles, dont une visite au Parlement.</p>
+            </div>
           </li>
-          <li data-reveal>
-            <h3>Ambassadeur, College of Engineering &amp; Architecture (2024 – aujourd'hui)</h3>
-            <p>Représentation du collège auprès des étudiants et des visiteurs.</p>
+          <li>
+            <span class="when">2024 – aujourd'hui</span>
+            <div>
+              <h3>Ambassadeur, College of Engineering &amp; Architecture</h3>
+              <p>Représentation du collège auprès des étudiants et des visiteurs.</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -1692,13 +1591,13 @@
     <!-- COMPETENCES -->
     <section id="competences">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <span class="eyebrow">05 — Stack</span>
+        <div class="section-head">
+          <span class="path">competences</span>
           <h2>Compétences techniques</h2>
         </div>
 
         <div class="skills">
-          <div class="skill-card" data-reveal>
+          <div class="skill-card">
             <div class="skill-head">
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1717,7 +1616,7 @@
             </ul>
           </div>
 
-          <div class="skill-card" data-reveal>
+          <div class="skill-card">
             <div class="skill-head">
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/><path d="M10 6h4M6 10v4M18 10v4M10 18h4"/></svg>
@@ -1740,7 +1639,7 @@
             </ul>
           </div>
 
-          <div class="skill-card" data-reveal>
+          <div class="skill-card">
             <div class="skill-head">
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -1761,7 +1660,7 @@
             </ul>
           </div>
 
-          <div class="skill-card" data-reveal>
+          <div class="skill-card">
             <div class="skill-head">
               <span class="skill-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
@@ -1786,8 +1685,8 @@
     <!-- CERTIFICATIONS -->
     <section id="certifications">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <span class="eyebrow">06 — Formation continue</span>
+        <div class="section-head">
+          <span class="path">certifications</span>
           <h2>Certifications</h2>
         </div>
 
@@ -1797,7 +1696,7 @@
           <a class="verify" href="URL-DE-VERIFICATION" target="_blank" rel="noopener noreferrer">Vérifier le certificat</a>
         -->
         <ul class="certs">
-          <li data-reveal>
+          <li>
             <div class="issuer">
               <span class="date">2024</span>
               <strong>Cisco Networking Academy</strong>
@@ -1816,7 +1715,7 @@
               </p>
             </div>
           </li>
-          <li data-reveal>
+          <li>
             <div class="issuer">
               <span class="date">2024</span>
               <strong>Cisco Networking Academy</strong>
@@ -1834,7 +1733,7 @@
               </p>
             </div>
           </li>
-          <li data-reveal>
+          <li>
             <div class="issuer">
               <span class="date">2024</span>
               <strong>Cisco Networking Academy</strong>
@@ -1850,7 +1749,7 @@
               </ul>
             </div>
           </li>
-          <li data-reveal>
+          <li>
             <div class="issuer">
               <span class="date">2023</span>
               <strong>Coursera</strong>
@@ -1860,7 +1759,7 @@
               <p>Analyse de données à grande échelle avec Apache Spark en Python.</p>
             </div>
           </li>
-          <li data-reveal>
+          <li>
             <div class="issuer">
               <span class="date">2023</span>
               <strong>Coursera</strong>
@@ -1877,14 +1776,15 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
-        <div class="contact-panel" data-reveal>
-          <div class="section-head" style="margin-bottom: 0;">
-            <span class="eyebrow">07 — Échangeons</span>
+        <div class="contact-panel">
+          <div class="section-head">
+            <span class="path">contact</span>
             <h2>Contact</h2>
             <p>
               Pour une proposition de stage ou un échange autour de la
               cybersécurité, écrivez-moi par email ou sur LinkedIn.
             </p>
+            <a class="contact-mail" href="mailto:mezzenehamza@gmail.com">mezzenehamza@gmail.com</a>
           </div>
 
           <div class="actions">
@@ -1941,6 +1841,12 @@
       var toggle = document.querySelector(".menu-toggle");
       var menu = document.getElementById("menu");
 
+      function closeMenu() {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.textContent = "Menu";
+      }
+
       toggle.addEventListener("click", function () {
         var open = menu.classList.toggle("open");
         toggle.setAttribute("aria-expanded", String(open));
@@ -1948,15 +1854,18 @@
       });
 
       menu.addEventListener("click", function (e) {
-        if (e.target.tagName === "A" && menu.classList.contains("open")) {
-          menu.classList.remove("open");
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.textContent = "Menu";
+        if (e.target.tagName === "A" && menu.classList.contains("open")) closeMenu();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && menu.classList.contains("open")) {
+          closeMenu();
+          toggle.focus();
         }
       });
 
       /* ---------- Section active dans la navigation ---------- */
-      var links = Array.prototype.slice.call(menu.querySelectorAll("a"));
+      var links = Array.prototype.slice.call(menu.querySelectorAll('a[href^="#"]'));
       var sections = links
         .map(function (a) { return document.querySelector(a.getAttribute("href")); })
         .filter(Boolean);
@@ -1978,32 +1887,15 @@
         sections.forEach(function (s) { observer.observe(s); });
       }
 
-      /* ---------- Reveal au scroll ---------- */
-      var revealEls = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (reduceMotion || !("IntersectionObserver" in window)) {
-        revealEls.forEach(function (el) { el.classList.add("in"); });
-      } else {
-        var revObserver = new IntersectionObserver(function (entries, obs) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in");
-              obs.unobserve(entry.target);
-            }
-          });
-        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-
-        revealEls.forEach(function (el) { revObserver.observe(el); });
-      }
-
       /* ---------- Filtre des projets ---------- */
       var buttons = document.querySelectorAll(".filters button");
       var projects = document.querySelectorAll(".project");
+      var counter = document.getElementById("filter-count");
 
       buttons.forEach(function (btn) {
         btn.addEventListener("click", function () {
           var filter = btn.getAttribute("data-filter");
+          var shown = 0;
 
           buttons.forEach(function (b) {
             b.setAttribute("aria-pressed", String(b === btn));
@@ -2012,7 +1904,10 @@
           projects.forEach(function (p) {
             var cats = p.getAttribute("data-cat").split(" ");
             p.hidden = filter !== "tous" && cats.indexOf(filter) === -1;
+            if (!p.hidden) shown++;
           });
+
+          counter.textContent = shown + (shown > 1 ? " projets" : " projet");
         });
       });
 
@@ -2020,6 +1915,10 @@
       var term = document.getElementById("terminal");
       var termWindow = term.closest(".terminal");
       var canHover = window.matchMedia("(hover: hover)").matches;
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Le contenu statique (repli sans JavaScript) laisse place à l'animation
+      term.textContent = "";
 
       var script = [
         { cmd: "whoami" },
@@ -2032,8 +1931,6 @@
         { cmd: "cat club.txt" },
         { out: "Vice-Président de CYBERGLITCHERS UIR" }
       ];
-
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       function line(cls) {
         var el = document.createElement("span");
@@ -2061,10 +1958,6 @@
         return o;
       }
 
-      function scrollDown() {
-        term.scrollTop = term.scrollHeight;
-      }
-
       /* ----- Shell interactif (prend le relais après l'intro) ----- */
 
       var FILES = {
@@ -2072,40 +1965,73 @@
         "club.txt": "Vice-Président de CYBERGLITCHERS UIR"
       };
 
+      // Dossiers du « home » = sections de la page (commande open)
+      var SECTIONS = ["profil", "experience", "projets", "engagement", "competences", "certifications", "contact"];
+
       var COMMANDS = {
         help: function () {
           return "Commandes disponibles :\n"
             + "  help              cette aide\n"
             + "  whoami            qui suis-je\n"
-            + "  ls [interets/]    lister les fichiers\n"
+            + "  ls [dossier/]     lister (interets/, projets/)\n"
             + "  cat <fichier>     afficher un fichier (objectif.txt, club.txt)\n"
+            + "  open <section>    aller à une section (ex. open projets)\n"
+            + "  nmap lab          services configurés dans mon lab Linux\n"
             + "  skills            compétences techniques\n"
-            + "  projects          projets publiés\n"
             + "  contact           email et LinkedIn\n"
             + "  cv                mon CV\n"
-            + "  clear             nettoyer l'écran";
+            + "  clear             nettoyer l'écran\n"
+            + "Astuce : Tab complète la commande, ↑ rappelle la précédente.";
         },
         whoami: function () {
           return "Hamza Mezzene — étudiant ingénieur, Génie Informatique & Cybersécurité (UIR)";
         },
         ls: function (arg) {
-          if (arg === "interets" || arg === "interets/") {
+          arg = (arg || "").replace(/\/$/, "");
+          if (arg === "interets") {
             return "ctf/  pentest/  forensics/  crypto/  reseaux-linux/";
           }
-          return "objectif.txt  club.txt  interets/";
+          if (arg === "projets") {
+            return "ethical-hacking  ctf  crypto  services-reseau  stocky  sdn-cloud  bi-etl\n"
+              + "(tapez « open projets » pour les détails)";
+          }
+          if (arg) return "ls : " + arg + " : dossier introuvable";
+          return "objectif.txt  club.txt  interets/  " + SECTIONS.join("/  ") + "/";
         },
         cat: function (arg) {
           if (!arg) return "cat : fichier manquant (essayez : cat objectif.txt)";
           if (FILES[arg]) return FILES[arg];
           return "cat : " + arg + " : fichier introuvable";
         },
+        open: function (arg) {
+          var id = (arg || "").replace(/^~?\/?/, "").replace(/\/$/, "").toLowerCase();
+          if (!id) return "open : section manquante (" + SECTIONS.join(", ") + ")";
+          if (SECTIONS.indexOf(id) === -1) {
+            return "open : " + id + " : section introuvable (" + SECTIONS.join(", ") + ")";
+          }
+          var target = document.getElementById(id);
+          setTimeout(function () {
+            target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+          }, 250);
+          return "Ouverture de ~/" + id + " …";
+        },
+        // Récapitulatif fidèle du projet « Services réseau sous Linux » :
+        // uniquement des services réellement mis en place en laboratoire.
+        nmap: function () {
+          return "Récapitulatif du lab « services réseau sous Linux » (network namespaces)\n"
+            + "PORT      ÉTAT   SERVICE\n"
+            + "22/tcp    open   ssh / sftp   OpenSSH\n"
+            + "53/udp    open   domain       BIND9\n"
+            + "67/udp    open   dhcp         dnsmasq\n"
+            + "443/tcp   open   https        Apache2\n"
+            + "Filtrage et NAT : iptables";
+        },
         skills: function () {
           return "Cybersécurité · Systèmes & réseaux · Développement · Données\n"
-            + "(détails complets dans la section « Compétences »)";
+            + "(tapez « open competences » pour le détail)";
         },
         projects: function () {
-          return "ethical-hacking  ctf  crypto  services-reseau  stocky  sdn-cloud  bi-etl\n"
-            + "(détails dans la section « Projets »)";
+          return COMMANDS.ls("projets");
         },
         contact: function () {
           return "email    : mezzenehamza@gmail.com\n"
@@ -2116,12 +2042,13 @@
         }
       };
 
-      // alias français
+      // alias
       COMMANDS.aide = COMMANDS.help;
       COMMANDS.competences = COMMANDS.skills;
       COMMANDS.projets = COMMANDS.projects;
+      COMMANDS.cd = COMMANDS.open;
 
-      var history = [];
+      var cmdHistory = [];
       var histIdx = 0;
       var activeInput = null;
 
@@ -2133,8 +2060,8 @@
       function runCommand(raw) {
         var cmd = raw.trim();
         if (!cmd) return;
-        history.push(cmd);
-        histIdx = history.length;
+        cmdHistory.push(cmd);
+        histIdx = cmdHistory.length;
 
         var parts = cmd.split(/\s+/);
         var name = parts[0].toLowerCase();
@@ -2148,12 +2075,43 @@
           out("Hamza n'est pas dans le fichier sudoers. Cet incident sera signalé.", "t-accent");
           return;
         }
-        var fn = COMMANDS[name];
-        if (!fn) {
+        if (!Object.prototype.hasOwnProperty.call(COMMANDS, name)) {
           out("commande introuvable : " + name + " — tapez « help »");
           return;
         }
-        String(fn(arg)).split("\n").forEach(function (ln) { out(ln); });
+        String(COMMANDS[name](arg)).split("\n").forEach(function (ln) { out(ln); });
+      }
+
+      // Complétion par Tab : nom de commande, puis argument (section ou fichier)
+      function complete(value) {
+        var parts = value.split(/\s+/);
+        var pool, prefix;
+        if (parts.length <= 1) {
+          pool = Object.keys(COMMANDS).concat(["clear"]);
+          prefix = "";
+        } else {
+          var name = parts[0].toLowerCase();
+          pool = name === "cat" ? Object.keys(FILES)
+            : (name === "open" || name === "cd") ? SECTIONS
+            : name === "ls" ? ["interets/", "projets/"]
+            : name === "nmap" ? ["lab"] : [];
+          prefix = parts[0] + " ";
+        }
+        var last = parts[parts.length - 1].toLowerCase();
+        var hits = pool.filter(function (c) { return c.indexOf(last) === 0; });
+        return hits.length === 1 ? prefix + hits[0] : value;
+      }
+
+      // Valide la ligne en cours (saisie clavier ou raccourci cliqué)
+      function submit(val, focus) {
+        if (!activeInput) return;
+        var input = activeInput;
+        var el = input.parentNode;
+        input.remove();
+        el.appendChild(document.createTextNode(val));
+        activeInput = null;
+        runCommand(val);
+        newPromptLine(focus);
       }
 
       function newPromptLine(autofocus) {
@@ -2174,39 +2132,44 @@
         input.addEventListener("keydown", function (e) {
           if (e.key === "Enter") {
             e.preventDefault();
-            var val = input.value;
-            input.remove();
-            el.appendChild(document.createTextNode(val));
-            activeInput = null;
-            runCommand(val);
-            newPromptLine(true);
+            submit(input.value, true);
+          } else if (e.key === "Tab" && input.value.trim() !== "") {
+            e.preventDefault();
+            input.value = complete(input.value);
           } else if (e.key === "ArrowUp") {
             e.preventDefault();
-            if (history.length) {
+            if (cmdHistory.length) {
               histIdx = Math.max(0, histIdx - 1);
-              input.value = history[histIdx] || "";
+              input.value = cmdHistory[histIdx] || "";
             }
           } else if (e.key === "ArrowDown") {
             e.preventDefault();
-            if (history.length) {
-              histIdx = Math.min(history.length, histIdx + 1);
-              input.value = history[histIdx] || "";
+            if (cmdHistory.length) {
+              histIdx = Math.min(cmdHistory.length, histIdx + 1);
+              input.value = cmdHistory[histIdx] || "";
             }
           }
         });
 
         activeInput = input;
         if (autofocus) focusInput(input);
-        scrollDown();
       }
 
       function enableInteractive() {
         termWindow.classList.add("is-interactive");
         term.setAttribute("aria-live", "polite");
         out("");
-        out("Terminal interactif — tapez « help » puis Entrée.");
-        newPromptLine(canHover);
+        out("Terminal interactif — tapez « help » ou cliquez un raccourci ci-dessous.");
+        newPromptLine(false);
       }
+
+      // Raccourcis cliquables sous le terminal
+      termWindow.querySelectorAll(".terminal-hints button").forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          submit(btn.getAttribute("data-cmd"), canHover);
+        });
+      });
 
       // Clic dans la fenêtre : redonner le focus à l'invite (sauf si on sélectionne du texte)
       termWindow.addEventListener("click", function () {
